@@ -1,0 +1,25 @@
+{
+    "name": "cleandeck/cleandeck",
+    "description": "Clean Deck",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nicolae Iotu",
+            "email": "nicolae.g.iotu@gmail.com"
+        }
+    ],
+    "version": "0.3.3",
+    "require": {
+        "php": "^8.1"
+    },
+    "archive": {
+        "exclude": [
+            "/*",
+            "/.*",
+            "!/src",
+            "!/composer.json",
+            "!/LICENSE"
+        ]
+    }
+}
