@@ -170,12 +170,10 @@ final class ApproveAccountsController
         foreach ($_POST as $base64_email => $option) {
             $email = \base64_decode($base64_email);
 
-            if (\filter_var($email, FILTER_VALIDATE_EMAIL) !== false) {
-                if ($option === '1') {
-                    $emails_to_approve[] = $email;
-                } elseif ($option === '-1') {
-                    $this->emails_to_delete[] = $email;
-                }
+            if ($option === '1') {
+                $emails_to_approve[] = $email;
+            } elseif ($option === '-1') {
+                $this->emails_to_delete[] = $email;
             }
         }
 
