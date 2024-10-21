@@ -1,0 +1,351 @@
+@charset "UTF-8";
+
+/*
+ * CleanDeck for CMD-Auth (https://link133.com) and other similar applications
+ *
+ * Copyright (c) 2023-2024 Iotu Nicolae, nicolae.g.iotu@link133.com
+ * Licensed under the terms of the MIT License (MIT)
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
+body {
+    padding-top: 3.5rem;
+    font-optical-sizing: auto;
+    font-size: 0.9rem;
+    min-width: 260px;
+}
+
+main {
+    padding: 3rem 0.5rem 0.5rem;
+    max-width: 1380px;
+    margin: auto;
+}
+
+code, pre {
+    padding: 4px;
+    color: #ffffff;
+    background-color: #2e3436;
+}
+
+input[type="checkbox"] {
+    border-color: darkgrey;
+}
+
+tbody th {
+    word-wrap: normal !important;
+    word-break: keep-all !important;
+}
+
+article h2 {
+    margin-top: 4rem;
+}
+
+article p {
+    text-align: justify;
+}
+
+h1 {
+    margin-bottom: 0.7em;
+}
+
+datalist {
+    display: none;
+}
+
+a {
+    text-decoration: none;
+    /* Improved contrast */
+    color: #0048e3;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+@media print {
+    nav, footer {
+        display: block;
+    }
+}
+
+@media (min-width: 576px) {
+    main {
+        padding: 0.5rem 1.5rem 1.5rem;
+    }
+
+    .w-sm-100 {
+        width: 100% !important;
+    }
+
+    .w-sm-75 {
+        width: 75% !important;
+    }
+
+    .w-sm-50 {
+        width: 50% !important;
+    }
+
+    .w-sm-25 {
+        width: 25% !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .w-md-100 {
+        width: 100% !important;
+    }
+
+    .w-md-75 {
+        width: 75% !important;
+    }
+
+    .w-md-50 {
+        width: 50% !important;
+    }
+
+    .w-md-25 {
+        width: 25% !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .w-lg-100 {
+        width: 100% !important;
+    }
+
+    .w-lg-75 {
+        width: 75% !important;
+    }
+
+    .w-lg-50 {
+        width: 50% !important;
+    }
+
+    .w-lg-25 {
+        width: 25% !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .w-xl-100 {
+        width: 100% !important;
+    }
+
+    .w-xl-75 {
+        width: 75% !important;
+    }
+
+    .w-xl-50 {
+        width: 50% !important;
+    }
+
+    .w-xl-25 {
+        width: 25% !important;
+    }
+}
+
+.mt-6 {
+    margin-top: 4rem;
+}
+
+.min-w-25 {
+    min-width: 25%;
+}
+
+.min-w-50 {
+    min-width: 50%;
+}
+
+.max-w-25 {
+    max-width: 25%;
+}
+
+.max-w-50 {
+    max-width: 50%;
+}
+
+.w-10 {
+    width: 10%;
+}
+
+.max-height-40vh {
+    max-height: 40vh;
+}
+
+.line-through {
+    text-decoration: line-through;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.indent-1 {
+    text-indent: 6%;
+}
+
+.indent-2 {
+    text-indent: 12%;
+}
+
+.text-spacing-1 {
+    word-spacing: 0.5em;
+    letter-spacing: 0.2em;
+}
+
+.text-larger {
+    font-size: larger;
+}
+
+.text-smaller {
+    font-size: smaller;
+}
+
+.d-block {
+    padding-top: 0;
+}
+
+.navbar {
+    z-index: 1030;
+}
+
+.dropdown-menu li a:hover {
+    background-color: transparent;
+}
+
+.navbar-nav {
+    font-size: 1.2rem;
+}
+
+.dropdown-item {
+    font-size: 0.85rem;
+}
+
+.safe-min-width {
+    min-width: 260px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-default {
+    cursor: default;
+}
+
+.form-group {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+/* Improved contrast */
+.btn-info-contrast {
+    background-color: #147f90;
+    border-color: #147f90;
+}
+
+.btn-info-contrast:hover {
+    background-color: #16a5bb;
+    border-color: #1494a8;
+}
+
+.btn-success-contrast {
+    background-color: #127e2c;
+}
+
+.btn-success-contrast:hover {
+    background-color: #28a745 !important;
+}
+
+.btn-primary-contrast {
+    background-color: #015ed3;
+    border-color: #015ed3;
+}
+
+.btn-primary-contrast:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-primary-contrast {
+    color: #015ed3;
+    border-color: #015ed3;
+}
+
+.bg-info-contrast {
+    background-color: #147f90;
+}
+
+.bg-info-contrast:hover {
+    background-color: #16a5bb !important;
+}
+
+.bg-success-contrast {
+    background-color: #127e2c;
+}
+
+.bg-success-contrast:hover {
+    background-color: #28a745 !important;
+}
+
+.bg-primary-contrast {
+    background-color: #015ed3;
+}
+
+.bg-primary-contrast:hover {
+    background-color: #007bff !important;
+}
+
+.text-primary-contrast {
+    color: #0051ff !important
+}
+
+.text-danger-contrast {
+    color: #b91a2a !important
+}
+
+.text-danger-contrast:hover {
+    color: #f52136 !important
+}
+
+.text-success-contrast {
+    color: #078825 !important
+}
+
+.text-success-contrast:hover {
+    color: #09a62d !important
+}
+
+.nav-link.active-contrast {
+    background-color: #015ed3 !important;
+}
+
+/* End improved contrast */
+
+.main-color-scheme {
+    background-color: #e1e1e1 !important;
+}
+
+#main-nav {
+    max-width: 1380px;
+    margin: auto;
+    font-size: 150%;
+    letter-spacing: 0.15rem
+}
+
+#main-footer {
+    margin-top: 20px;
+    font-size: 80%;
+}
+
+#captcha_holder {
+    width: 290px;
+    max-width: 290px;
+}
+
+#captcha_code {
+    width: 240px;
+    max-width: 240px;
+}

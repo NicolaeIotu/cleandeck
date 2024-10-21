@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+/*
+ * CleanDeck for CMD-Auth (https://link133.com) and other similar applications
+ *
+ * Copyright (c) 2023-2024 Iotu Nicolae, nicolae.g.iotu@link133.com
+ * Licensed under the terms of the MIT License (MIT)
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
+#profile_picture_img_holder {
+    width: 132px;
+    height: 132px;
+}
+
+#profile_picture_img {
+    max-width: 128px;
+    max-height: 128px;
+}

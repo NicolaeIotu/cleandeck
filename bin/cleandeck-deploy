@@ -1,0 +1,59 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * CleanDeck for CMD-Auth (https://link133.com) and other similar applications
+ *
+ * Copyright (c) 2023-2024 Iotu Nicolae, nicolae.g.iotu@link133.com
+ * Licensed under the terms of the MIT License (MIT)
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
+use Framework\Support\Utils\CleanDeckDeploy;
+use Framework\Support\Utils\CDMessageFormatter;
+
+require_once __DIR__ . '/../Framework/Support/Utils/CleanDeckDeploy.php';
+require_once __DIR__ . '/../Framework/Support/Utils/CDMessageFormatter.php';
+
+function usageError(CDMessageFormatter $cdmf)
+{
+    $cdmf->important('Usage:');
+    $cdmf->code('sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy php');
+    $cdmf->code('sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy apache2');
+    $cdmf->code('sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy nginx');
+    $cdmf->code('sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy nginx-ex');
+    $cdmf->code('sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy php apache2');
+    $cdmf->content('etc.');
+    $cdmf->nl();
+    $cdmf->error('Insufficient parameters.');
+    $cdmf->fail();
+    exit(1);
+}
+
+$cdmf = new CDMessageFormatter(
+    'CleanDeck-Deploy',
+    'CleanDeck successfully deployed.',
+    'CleanDeck-Deploy Failed!'
+);
+
+if ($argc < 2) {
+    usageError($cdmf);
+}
+
+try {
+    new CleanDeckDeploy($cdmf, \array_filter($argv,
+        static function ($v, $k): bool {
+            return $k > 0;
+        }, ARRAY_FILTER_USE_BOTH));
+} catch (\Exception $exception) {
+    $cdmf->error($exception->getMessage());
+    $cdmf->fail();
+    exit(1);
+}
+
+$cdmf->warn('If applicable, restart webserver and/or other units in order to apply fresh settings.');
+
+$cdmf->success();
+exit(0);

@@ -1,6 +1,146 @@
+################################################################################
+# CleanDeck for CMD-Auth (https://link133.com) and other similar applications
+#
+# Copyright (c) 2023-2024 Iotu Nicolae, nicolae.g.iotu@link133.com
+# Licensed under the terms of the MIT License (MIT)
+#
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
+################################################################################
+
+# Exclude all
 /**
 
-!/src
-!/src/**
+# Handle each file and directory in detail.
+# Logic:
+#   - allow only paths which may by committed,
+#   - ommit paths which are designated for individual projects,
+#   - ommit paths which may be used by developers for individual projects.
+# In this way the developer may continue working on his CleanDeck project and make commits from the same place.
+# Unlike other applications, CleanDeck is build arround this workflow and .gitignore is an essential tool used to
+#  enforce the workflow. This means that it should be safe for developers to make commits as long as no .gitignore
+#  overriding commands are used (i.e. don't use *git add --force ...*).
+# Paths which are common to own project and contribution must be handled as required by CleanDeck (branch).
+
+
+# Application
+!/Application
+!/Application/readme.md
+# Application/Instance
+!/Application/Instance
+!/Application/Instance/*
+!/Application/Instance/Config/**
+!/Application/Instance/Controllers/.gitkeep
+!/Application/Instance/Libraries/.gitkeep
+!/Application/Instance/Middleware/.gitkeep
+!/Application/Instance/Routes/.gitkeep
+!/Application/Instance/Routes/GETRoutes.php
+!/Application/Instance/Routes/POSTRoutes.php
+!/Application/Instance/Views
+!/Application/Instance/Views/core
+!/Application/Instance/Views/core/components
+!/Application/Instance/Views/core/components/.gitkeep
+!/Application/Instance/Views/core/page-content
+!/Application/Instance/Views/core/page-content/.gitkeep
+!/Application/Instance/Views/core/.gitkeep
+!/Application/Instance/Views/.gitkeep
+# Application/public
+!/Application/public
+!/Application/public/*
+!/Application/public/misc/.gitkeep
+!/Application/public/template/core
+!/Application/public/template/core/addon
+!/Application/public/template/core/addon/**
+!/Application/public/template/core/custom
+!/Application/public/template/core/custom/.gitkeep
+!/Application/public/template/core/main
+!/Application/public/template/core/main/**
+# Application/writable
+!/Application/writable
+!/Application/writable/.gitkeep
+!/Application/writable/.htaccess
+
+
+# bin
+!/bin
+!/bin/**
+
+
+# build
+!/build
+!/build/.gitkeep
+
+
+# deploy
+!/deploy
+!/deploy/settings
+!/deploy/settings/**
+!/deploy/ssl
+!/deploy/ssl/generated
+!/deploy/ssl/generated/.gitkeep
+!/deploy/ssl/scripts
+!/deploy/ssl/scripts/**
+!/deploy/ssl/template
+!/deploy/ssl/template/**
+!/deploy/ssl/ssl-readme.md
+!/deploy/readme.md
+
+
+# documentation
+!/documentation
+!/documentation/**
+
+
+# Framework
+!/Framework
+!/Framework/**
+
+
+# tests
+!/tests
+!/tests/**
+/tests/_support-Application/**
+!/tests/_support-Application/.gitkeep
+/tests/Application/**
+!/tests/Application/Instance
+!/tests/Application/Instance/Controllers
+!/tests/Application/Instance/Controllers/.gitkeep
+!/tests/Application/Instance/Libraries
+!/tests/Application/Instance/Libraries/.gitkeep
+!/tests/Application/Instance/Middleware
+!/tests/Application/Instance/Middleware/.gitkeep
+
+
+# tools
+!/tools
+!/tools/**
+# tools/Application
+/tools/Application/eslint/**
+!/tools/Application/eslint/.eslintignore
+!/tools/Application/eslint/.eslintrc.json
+/tools/Application/php-cs-fixer/**
+!/tools/Application/php-cs-fixer/.php-cs-fixer-basic-setup.php
+!/tools/Application/php-cs-fixer/.php-cs-fixer-no-parallel.dist.php
+!/tools/Application/php-cs-fixer/.php-cs-fixer-parallel.dist.php
+/tools/Application/phpstan/**
+!/tools/Application/phpstan/phpstan.neon.dist
+!/tools/Application/phpstan/phpstan-baseline.php
+!/tools/Application/phpstan/phpstan-bootstrap.php
+/tools/Application/phpunit/**
+!/tools/Application/phpunit/phpunit.xml.dist
+!/tools/Application/phpunit/phpunit-bootstrap.php
+/tools/Application/rector/**
+!/tools/Application/rector/rector.php
+
+
+# Top level files
+!/.editorconfig
 !/.gitignore
 !/composer.json
+# Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
+# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
+!/composer.lock
+!/env.ini
+!/LICENSE
+!/readme.md
+

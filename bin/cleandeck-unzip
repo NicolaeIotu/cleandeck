@@ -1,0 +1,75 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * CleanDeck for CMD-Auth (https://link133.com) and other similar applications
+ *
+ * Copyright (c) 2023-2024 Iotu Nicolae, nicolae.g.iotu@link133.com
+ * Licensed under the terms of the MIT License (MIT)
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
+use Framework\Support\Utils\CleanDeckUnzip;
+use Framework\Support\Utils\CDMessageFormatter;
+
+require_once __DIR__ . '/../Framework/Support/Utils/CleanDeckUnzip.php';
+require_once __DIR__ . '/../Framework/Support/Utils/CDMessageFormatter.php';
+
+$cdmf = new CDMessageFormatter(
+    'CleanDeck-Unzip',
+    'CleanDeck-Unzip successful',
+    'CleanDeck-Unzip Failed!'
+);
+
+if ($argc !== 3) {
+    $cdmf->error('Expecting 2 arguments: the path to a valid archive and the destination directory');
+    $cdmf->fail();
+    exit(1);
+}
+
+if (!is_string($argv[1]) || !is_string($argv[2])) {
+    $cdmf->error('Expecting a string');
+    $cdmf->fail();
+    exit(1);
+}
+
+$archive_path = realpath($argv[1]);
+$destination_path = realpath($argv[2]);
+
+if (!is_file($archive_path)) {
+    $cdmf->error('Expecting the path to a valid archive');
+    $cdmf->fail();
+    exit(1);
+}
+
+if (!is_dir($destination_path)) {
+    $cdmf->error('Expecting a valid path to the destination directory');
+    $cdmf->fail();
+    exit(1);
+}
+
+$cdmf->content('Unzipping archive ' . $archive_path);
+$cdmf->content('Destination ' . $destination_path . PHP_EOL);
+try {
+    CleanDeckUnzip::run($archive_path, $destination_path);
+} catch (Exception $e) {
+    $cdmf->error($e->getMessage());
+    $cdmf->fail();
+    exit(1);
+}
+
+$cdmf->bold('Done!' . PHP_EOL);
+$cdmf->important('This utility extracts directory Application and file .env.ini only.');
+$cdmf->remark('Use OS tools such as *unzip* in order to extract the full contents of the archive. Make sure not to overwrite important content.');
+
+echo PHP_EOL;
+
+$cdmf->content('To do:');
+$cdmf->code('composer update');
+$cdmf->code('composer dump-autoload');
+
+$cdmf->success();
+
+exit(0);

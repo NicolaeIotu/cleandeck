@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         bootstrap="phpunit-bootstrap.php"
+         backupGlobals="false"
+         beStrictAboutOutputDuringTests="false"
+         colors="true"
+         columns="max"
+         failOnRisky="true"
+         failOnWarning="true"
+         cacheDirectory="../../../build/Application/phpunit/.phpunit.cache">
+    <coverage ignoreDeprecatedCodeUnits="true">
+        <report>
+            <html outputDirectory="../../../build/Application/coverage" lowUpperBound="50" highLowerBound="80"/>
+        </report>
+    </coverage>
+    <testsuites>
+        <testsuite name="Application">
+            <directory suffix=".php">../../../tests/Application</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory suffix=".php">../../../Application</directory>
+        </include>
+        <exclude>
+            <directory>../../../Application/Instance/Config</directory>
+            <directory>../../../Application/Instance/Routes</directory>
+            <directory>../../../Application/Instance/Views</directory>
+            <directory>../../../Application/public</directory>
+            <directory>../../../Application/writable</directory>
+        </exclude>
+    </source>
+</phpunit>

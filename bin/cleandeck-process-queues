@@ -1,0 +1,55 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * CleanDeck for CMD-Auth (https://link133.com) and other similar applications
+ *
+ * Copyright (c) 2023-2024 Iotu Nicolae, nicolae.g.iotu@link133.com
+ * Licensed under the terms of the MIT License (MIT)
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
+use Framework\Libraries\LocalQueues\ProcessPendingEmails;
+use Framework\Libraries\LocalQueues\ProcessPendingFileOps;
+use Framework\Support\Utils\CDMessageFormatter;
+
+require_once __DIR__ . '/../Framework/Libraries/LocalQueues/ProcessPendingEmails.php';
+require_once __DIR__ . '/../Framework/Libraries/LocalQueues/ProcessPendingFileOps.php';
+require_once __DIR__ . '/../Framework/Support/Utils/CDMessageFormatter.php';
+
+$cdmf = new CDMessageFormatter(
+    'CleanDeck-Process-Queues',
+    'CleanDeck-Process-Queues completed.',
+    'CleanDeck-Process-Queues Failed!'
+);
+
+$queue_error = false;
+
+try {
+    $cdmf->subsection('Processing pending emails queue ...');
+    $cdmf->content('(errors will be listed below)');
+    $cdmf->nl();
+    new ProcessPendingEmails();
+} catch (\Exception $exception) {
+    $cdmf->error('Error while processing pending emails queue: ' . $exception->getMessage());
+    $queue_error = true;
+}
+try {
+    $cdmf->subsection('Processing pending file operations queue ...');
+    $cdmf->content('(errors will be listed below)');
+    $cdmf->nl();
+    new ProcessPendingFileOps();
+} catch (\Exception $exception) {
+    $cdmf->error('Error while processing pending file operations queue: ' . $exception->getMessage());
+    $queue_error = true;
+}
+
+if($queue_error) {
+    $cdmf->fail();
+    exit(1);
+}
+
+$cdmf->success();
+exit(0);

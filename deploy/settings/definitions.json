@@ -1,0 +1,18 @@
+{
+    "apache2": {
+        "deploy/settings/apache2/apache2-cleandeck-ssl.conf": "/etc/httpd/conf.d/cleandeck-ssl.conf",
+        "deploy/settings/apache2/apache2-php-fpm-cleandeck.conf": "/etc/php-fpm.d/www2.conf",
+        "deploy/settings/apache2/replacement-ssl.conf": "/etc/httpd/conf.d/ssl.conf"
+    },
+    "nginx": {
+        "deploy/settings/nginx/nginx-cleandeck-ssl-http2-new.conf": "/etc/nginx/nginx.conf",
+        "deploy/settings/nginx/nginx-php-fpm-cleandeck.conf": "/etc/php-fpm.d/www2.conf"
+    },
+    "nginx-ex": {
+        "deploy/settings/nginx/nginx-cleandeck-ssl-http2-old.conf": "/etc/nginx/nginx.conf",
+        "deploy/settings/nginx/nginx-php-fpm-cleandeck.conf": "/etc/php-fpm.d/www2.conf"
+    },
+    "php": {
+        "deploy/settings/php/90-cleandeck.ini": "/etc/php.d/90-cleandeck.ini"
+    }
+}

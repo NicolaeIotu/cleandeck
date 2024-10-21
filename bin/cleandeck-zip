@@ -1,0 +1,76 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * CleanDeck for CMD-Auth (https://link133.com) and other similar applications
+ *
+ * Copyright (c) 2023-2024 Iotu Nicolae, nicolae.g.iotu@link133.com
+ * Licensed under the terms of the MIT License (MIT)
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
+use Framework\Support\Utils\CleanDeckZip;
+use Framework\Support\Utils\CDMessageFormatter;
+
+require_once __DIR__ . '/../Framework/Support/Utils/CleanDeckZip.php';
+require_once __DIR__ . '/../Framework/Support/Utils/CDMessageFormatter.php';
+
+$cdmf = new CDMessageFormatter(
+    'CleanDeck-Zip',
+    'CleanDeck-Zip successful',
+    'CleanDeck-Zip Failed!'
+);
+
+// A tag (letters, numbers and '-') can be provided via command line.
+// This tag will be part of the resulting zip archive file name.
+$cdmf->content('Creating zip archive ...');
+try {
+    CleanDeckZip::run($argv[1] ?? null);
+} catch (Exception $e) {
+    $cdmf->error($e->getMessage());
+    $cdmf->fail();
+    exit(1);
+}
+
+$cdmf->bold('Done!');
+$cdmf->nl();
+
+$archive_path = CleanDeckZip::getLastZipArchivePath();
+
+$cdmf->bold('Archive path:');
+$cdmf->content($archive_path);
+$cdmf->nl();
+
+$cdmf->important('On production server use tools such as *unzip* in order to restore the full contents of the archive.');
+$cdmf->content('Afterwards run the usual composer commands:');
+$cdmf->code('composer update');
+$cdmf->code('composer dump-autoload');
+
+$cdmf->nl();
+
+$cdmf->important('In order to continue the development in a different location:');
+$cdmf->code('cd ${development_directory}');
+$cdmf->code('composer create-project "cleandeck/cleandeck" ./');
+$cdmf->code('composer exec cleandeck-unzip ' . basename($archive_path) . ' ./');
+$cdmf->code('composer update');
+$cdmf->code('composer dump-autoload');
+$cdmf->remark('Utility cleandeck-unzip will only extract directory Application and file .env.ini.');
+
+$cdmf->nl();
+
+$cdmf->important('In order to deploy in production use unzip tools such as *unzip*:');
+$cdmf->code('cd ${production_directory}');
+$cdmf->code('unzip -q ' . basename($archive_path));
+$cdmf->code('composer update');
+$cdmf->code('composer dump-autoload');
+$cdmf->code('sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy php nginx');
+$cdmf->content(', ');
+$cdmf->code('sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy php nginx-ex');
+$cdmf->content(', or');
+$cdmf->code('sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy php apache2');
+
+$cdmf->success();
+
+exit(0);

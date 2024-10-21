@@ -1,0 +1,59 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * CleanDeck for CMD-Auth (https://link133.com) and other similar applications
+ *
+ * Copyright (c) 2023-2024 Iotu Nicolae, nicolae.g.iotu@link133.com
+ * Licensed under the terms of the MIT License (MIT)
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
+// CRITICAL! Do not delete/alter this script or risk SSL malfunction.
+
+function showError(string $err_msg) {
+    error_log($err_msg);
+    syslog(LOG_ERR, $err_msg);
+}
+if($argc < 2) {
+    showError(\basename($argv[0]) . ' called with invalid arguments.');
+    exit(1);
+}
+
+// Test expected $argv[1] format i.e. 'domain:443'
+//  (some versions format described as 'domain:443:RSA')
+$clue1 = \explode(':', $argv[1]);
+if(count($clue1) < 2) {
+    showError('Invalid argument: ' . $argv[1]);
+    exit(1);
+}
+
+// If available, $argv[2] format i.e. 'RSA'
+
+// You can add other checks if required.
+
+// Read the password from file 'ssl-settings.ini'
+$ssl_settings_ini_basename = 'ssl-settings.ini';
+$ssl_settings_ini_path = \realpath('../' . $ssl_settings_ini_basename);
+if ($ssl_settings_ini_path === false ||
+    !\file_exists($ssl_settings_ini_path)) {
+    showError('Missing file ' . $ssl_settings_ini_basename);
+    exit(1);
+}
+$ssl_settings_ini = \parse_ini_file($ssl_settings_ini_path, true, INI_SCANNER_TYPED);
+if (!\is_array($ssl_settings_ini)) {
+    showError('Cannot parse file ' . $ssl_settings_ini_path);
+    exit(1);
+}
+if (!isset($ssl_settings_ini['certificate-settings']) ||
+!\is_array($ssl_settings_ini['certificate-settings']) ||
+    !isset($ssl_settings_ini['certificate-settings']['password'])) {
+    showError('Invalid or missing "password" value in file  ' . $ssl_settings_ini_path);
+    exit(1);
+}
+
+// Output the value of the password.
+// CRITICAL! Strictly no output after the next line.
+echo $ssl_settings_ini['certificate-settings']['password'];

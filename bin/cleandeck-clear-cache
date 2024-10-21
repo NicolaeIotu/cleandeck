@@ -1,0 +1,53 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * CleanDeck for CMD-Auth (https://link133.com) and other similar applications
+ *
+ * Copyright (c) 2023-2024 Iotu Nicolae, nicolae.g.iotu@link133.com
+ * Licensed under the terms of the MIT License (MIT)
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
+use Framework\Libraries\Http\HttpRequest;
+use Framework\Support\Utils\AppCURL;
+use Framework\Support\Utils\CDMessageFormatter;
+
+require_once __DIR__ . '/../Framework/Libraries/Http/HttpRequest.php';
+require_once __DIR__ . '/../Framework/Support/Utils/AppCURL.php';
+require_once __DIR__ . '/../Framework/Support/Utils/CDMessageFormatter.php';
+
+$cdmf = new CDMessageFormatter(
+    'CleanDeck-Clear-Cache',
+    'Cache cleared successfully.',
+    'CleanDeck-Clear-Cache Failed!'
+);
+
+if (!HttpRequest::isCLI()) {
+    $cdmf->error('Command available for CLI only.');
+    $cdmf->fail();
+    exit(1);
+}
+
+$dot_env = parse_ini_file(__DIR__ . '/../.env.ini', true, INI_SCANNER_TYPED);
+try {
+    new AppCURL($dot_env['cleandeck']['baseURL'] . '/cli/clear-cache', 'Admin Clear Cache');
+    $cdmf->success();
+    exit(0);
+} catch (Exception $exception) {
+    $cdmf->error($exception->getMessage());
+    $cdmf->nl();
+    $cdmf->important('Make sure the application is deployed for example:');
+    $cdmf->code('sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy php apache2');
+    $cdmf->code('sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy php nginx');
+    $cdmf->code('sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy php nginx-ex');
+    $cdmf->important('If applicable, restart the webserver.');
+    $cdmf->important('Change permissions/users/groups as required. For example:');
+    $cdmf->code('sudo chown -R apache:apache ./Application/writable');
+    $cdmf->content(', or:');
+    $cdmf->code('sudo chown -R nginx:nginx ./Application/writable');
+    $cdmf->fail();
+    exit(1);
+}

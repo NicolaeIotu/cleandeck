@@ -1,0 +1,37 @@
+; CleanDeck for CMD-Auth (https://link133.com) and other similar applications
+;
+; Copyright (c) 2023-2024 Iotu Nicolae, nicolae.g.iotu@link133.com
+; Licensed under the terms of the MIT License (MIT)
+;
+; For the full copyright and license information, please view
+; the LICENSE file that was distributed with this source code.
+
+; This file is used by utility 'cleandeck-generate-ssl'.
+
+[certificate-details]
+; the domain name
+commonName = localhost
+; domain owner details
+emailAddress = admin@localhost
+countryName = WW
+stateOrProvinceName = WorldWideWeb
+localityName = HomeCity
+organizationName = CleanDeck
+organizationalUnitName = CleanDeck Framework
+; end domain owner details
+
+[openssl-key-settings]
+private_key_bits = 2048
+private_key_type = OPENSSL_KEYTYPE_RSA
+
+[openssl-other-settings]
+digest_alg = sha256
+
+[certificate-settings]
+days = 365
+; Password is automatically changed when a new project is created.
+; Options:
+;  - change SSL password manually and generate new SSL certificates when running "composer exec cleandeck-generate-ssl own-password"
+;  - eliminate SSL password and generate new SSL certificates when running "composer exec cleandeck-generate-ssl no-password"
+;  - automatically regenerate SSL password and SSL certificates when running "composer exec cleandeck-generate-ssl"
+password = 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         bootstrap="phpunit-bootstrap.php"
+         backupGlobals="false"
+         beStrictAboutOutputDuringTests="false"
+         colors="true"
+         columns="max"
+         failOnRisky="true"
+         failOnWarning="true"
+         cacheDirectory="../../../build/Framework/phpunit/.phpunit.cache">
+    <coverage ignoreDeprecatedCodeUnits="true">
+        <report>
+            <html outputDirectory="../../../build/Framework/coverage" lowUpperBound="50" highLowerBound="80"/>
+        </report>
+    </coverage>
+    <testsuites>
+        <testsuite name="Framework">
+            <directory suffix=".php">../../../tests/Framework</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory suffix=".php">../../../Framework</directory>
+        </include>
+        <exclude>
+            <directory>../../../Framework/Config</directory>
+            <directory>../../../Framework/Libraries/AWS</directory>
+            <directory>../../../Framework/Routes</directory>
+            <directory>../../../Framework/Views</directory>
+            <directory>../../../Framework/Support/Scripts</directory>
+            <directory>../../../Framework/Support/Views</directory>
+        </exclude>
+    </source>
+</phpunit>

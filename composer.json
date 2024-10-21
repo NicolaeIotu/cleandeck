@@ -1,25 +1,210 @@
 {
     "name": "cleandeck/cleandeck",
-    "description": "Clean Deck",
-    "type": "project",
+    "description": "CleanDeck for CMD-Auth [ https://link133.com ]",
     "license": "MIT",
+    "type": "project",
+    "homepage": "https://link133.com",
+    "support": {
+        "email": "contact@link133.com",
+        "issues": "https://link133.com/contact"
+    },
     "authors": [
         {
-            "name": "Nicolae Iotu",
-            "email": "nicolae.g.iotu@gmail.com"
+            "name": "Iotu Nicolae",
+            "email": "nicolae.g.iotu@gmail.com",
+            "homepage": "https://link133.com"
         }
     ],
-    "version": "0.3.3",
-    "require": {
-        "php": "^8.1"
-    },
+    "version": "0.8.0",
+    "keywords": [
+        "cleandeck",
+        "cmd-auth",
+        "aws-sdk",
+        "google-oauth",
+        "framework",
+        "MVC",
+        "mega-scale"
+    ],
     "archive": {
         "exclude": [
             "/*",
             "/.*",
-            "!/src",
+            "!/Application",
+            "!/bin",
+            "!/deploy",
+            "!/documentation",
+            "!/Framework",
+            "!/tests",
+            "!/tools",
             "!/composer.json",
-            "!/LICENSE"
+            "!/env.ini",
+            "!/LICENSE",
+            "!/readme.md",
+            "/Application/Instance/Controllers/*",
+            "/Application/Instance/Libraries/*",
+            "/Application/Instance/Middleware/*",
+            "/Application/Instance/Routes/*",
+            "/Application/Instance/Views/core/*",
+            "/Application/public/misc/*",
+            "/Application/public/template/core/custom/*",
+            "/Application/writable/*",
+            "!/Application/Instance/Routes/GETRoutes.php",
+            "!/Application/Instance/Routes/POSTRoutes.php",
+            "!/Application/writable/.htaccess",
+            "!/Application/readme.md",
+            "/deploy/ssl/ssl-settings.ini",
+            "/deploy/ssl/generated/*",
+            "/tests/_support-Application/*",
+            "/tests/Application/*",
+            "!/tests/Application/Instance/Controllers",
+            "!/tests/Application/Instance/Libraries",
+            "!/tests/Application/Instance/Middleware",
+            "/tests/Application/Instance/Controllers/*",
+            "/tests/Application/Instance/Libraries/*",
+            "/tests/Application/Instance/Middleware/*",
+            "/tools/Application/php-cs-fixer/*",
+            "!/tools/Application/php-cs-fixer/.php-cs-fixer-basic-setup.php",
+            "!/tools/Application/php-cs-fixer/.php-cs-fixer-no-parallel.dist.php",
+            "!/tools/Application/php-cs-fixer/.php-cs-fixer-parallel.dist.php",
+            "/tools/Application/phpstan/*",
+            "!/tools/Application/phpstan/phpstan.neon.dist",
+            "!/tools/Application/phpstan/phpstan-baseline.php",
+            "!/tools/Application/phpstan/phpstan-bootstrap.php",
+            "/tools/Application/phpunit/*",
+            "!/tools/Application/phpunit/phpunit.xml.dist",
+            "!/tools/Application/phpunit/phpunit-bootstrap.php",
+            "/tools/Application/rector/*",
+            "!/tools/Application/rector/rector.php"
         ]
+    },
+    "readme": "readme.md",
+    "require": {
+        "php": "^8.1",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-fileinfo": "*",
+        "ext-gd": "*",
+        "ext-intl": "*",
+        "ext-libxml": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-sqlite3": "*",
+        "ext-zip": "*",
+        "aws/aws-sdk-php": "^3.322",
+        "firebase/php-jwt": "^6.10",
+        "phpfastcache/phpfastcache": "^9.2",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "suggest": {
+        "ext-redis": "*",
+        "ext-apcu": "*",
+        "ext-memcached": "*",
+        "ext-cassandra": "*",
+        "ext-memcache": "*",
+        "ext-wincache": "*",
+        "ext-leveldb": "*",
+        "ext-couchbase": "^3.0",
+        "predis/predis": "^2.0",
+        "phpfastcache/phpssdb": "~1.1.0",
+        "phpfastcache/arangodb-extension": "^9.2",
+        "phpfastcache/couchbasev4-extension": "^9.2",
+        "phpfastcache/couchdb-extension": "^9.2",
+        "phpfastcache/dynamodb-extension": "^9.2",
+        "phpfastcache/firestore-extension": "^9.2",
+        "phpfastcache/mongodb-extension": "^9.2",
+        "phpfastcache/ravendb-extension": "^9.2",
+        "phpfastcache/solr-extension": "^9.2"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpstan/phpstan": "^1.12",
+        "phpstan/phpstan-phpunit": "^1.4",
+        "phpunit/php-code-coverage": "^11",
+        "phpunit/phpcov": "^10",
+        "phpunit/phpunit": "^11.3",
+        "rector/rector": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Application\\": "Application",
+            "Framework\\": "Framework"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "bin": [
+        "bin/cleandeck-clear-cache",
+        "bin/cleandeck-deploy",
+        "bin/cleandeck-generate-app-key",
+        "bin/cleandeck-generate-ssl",
+        "bin/cleandeck-process-queues",
+        "bin/cleandeck-routes",
+        "bin/cleandeck-unzip",
+        "bin/cleandeck-zip"
+    ],
+    "scripts": {
+        "post-create-project-cmd": [
+            "Framework\\Support\\Scripts\\ComposerScripts::postCreateProjectFileSystem",
+            "Framework\\Support\\Scripts\\ComposerScripts::populateSslSettingsFiles",
+            "Framework\\Support\\Scripts\\ComposerScripts::generateSslPassword",
+            "Framework\\Support\\Utils\\OpenSSLUtils::generateSelfSignedCertificate",
+            "composer exec cleandeck-generate-app-key",
+            "Framework\\Support\\Scripts\\ComposerScripts::postCreateProjectText"
+        ],
+        "analyze": [
+            "Composer\\Config::disableProcessTimeout",
+            "Framework\\Support\\Scripts\\ComposerScripts::applicationAnalyze",
+            "phpstan analyse --configuration=tools/Application/phpstan/phpstan.neon.dist",
+            "rector process --dry-run --config tools/Application/rector/rector.php"
+        ],
+        "rector-fix": "rector process --config tools/Application/rector/rector.php",
+        "cs": [
+            "Composer\\Config::disableProcessTimeout",
+            "php-cs-fixer fix --ansi --verbose --dry-run --diff --config=tools/Application/php-cs-fixer/.php-cs-fixer-parallel.dist.php"
+        ],
+        "cs-fix": [
+            "Composer\\Config::disableProcessTimeout",
+            "php-cs-fixer fix --ansi --verbose --diff --config=tools/Application/php-cs-fixer/.php-cs-fixer-no-parallel.dist.php"
+        ],
+        "test": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpunit --config=tools/Application/phpunit/phpunit.xml.dist --display-warnings"
+        ],
+        "js-eslint": [
+            "Framework\\Support\\Scripts\\ComposerScripts::runEslint"
+        ],
+        "analyze-dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpstan analyse --configuration=tools/Framework/phpstan/phpstan.neon.dist",
+            "rector process --dry-run --config tools/Framework/rector/rector.php"
+        ],
+        "rector-dev-fix": "rector process --config tools/Framework/rector/rector.php",
+        "cs-dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "php-cs-fixer fix --ansi --verbose --dry-run --diff --config=tools/Framework/php-cs-fixer/.php-cs-fixer-parallel.dist.php"
+        ],
+        "cs-dev-fix": [
+            "Composer\\Config::disableProcessTimeout",
+            "php-cs-fixer fix --ansi --verbose --diff --config=tools/Framework/php-cs-fixer/.php-cs-fixer-no-parallel.dist.php"
+        ],
+        "test-dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpunit --config=tools/Framework/phpunit/phpunit.xml.dist --display-warnings"
+        ]
+    },
+    "scripts-descriptions": {
+        "analyze": "Run static analysis for your application (Application directory)",
+        "rector-fix": "Fix static analysis errors for your application (Application directory)",
+        "cs": "Check the coding style of your application (Application directory)",
+        "cs-fix": "Fix the coding style of your application (Application directory)",
+        "test": "Run unit tests for your application (Application directory)",
+        "js-eslint": "Run Javascript ESLint for your application and Framework (Application/public/template directory)",
+        "analyze-dev": "Framework static analysis (Framework directory)",
+        "rector-dev-fix": "Fix Framework static analysis errors (Framework directory)",
+        "cs-dev": "Check Framework coding style (Framework directory)",
+        "cs-dev-fix": "Fix Framework coding style (Framework directory)",
+        "test-dev": "Run Framework unit tests (Framework directory)"
     }
 }

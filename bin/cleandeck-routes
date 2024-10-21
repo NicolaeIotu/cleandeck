@@ -1,0 +1,81 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * CleanDeck for CMD-Auth (https://link133.com) and other similar applications
+ *
+ * Copyright (c) 2023-2024 Iotu Nicolae, nicolae.g.iotu@link133.com
+ * Licensed under the terms of the MIT License (MIT)
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
+use Framework\Support\Scripts\ActiveRoutes;
+use Framework\Support\Utils\CDMessageFormatter;
+
+require_once __DIR__ . '/../Framework/Config/Constants.php';
+// mandatory autoload
+require __DIR__ . '/../vendor/autoload.php';
+
+// Important
+defined('CLEANDECK_LIST_ROUTES') || define('CLEANDECK_LIST_ROUTES', 1);
+
+$cdmf = new CDMessageFormatter(
+    'CleanDeck-Routes',
+    'Routes listing completed',
+    'CleanDeck-Routes Failed!'
+);
+$utility = basename(__FILE__);
+$cdmf->remark('Usage:');
+$cdmf->code(' composer exec ' . $utility . ' ');
+$cdmf->code(' composer exec ' . $utility . ' GET ');
+$cdmf->code(' composer exec ' . $utility . ' support ');
+echo PHP_EOL;
+
+$filter = null;
+if ($argc > 1) {
+    $filter = $argv[1];
+    $cdmf->important('Filtered routes: "' . $filter . '"');
+    echo PHP_EOL;
+}
+
+$active_routes = ActiveRoutes::list($filter);
+
+$count_get = isset($active_routes['GET']) ? count($active_routes['GET']) : 0;
+$count_get_cli = isset($active_routes['GET_CLI']) ? count($active_routes['GET_CLI']) : 0;
+$count_post = isset($active_routes['POST']) ? count($active_routes['POST']) : 0;
+$count_post_cli = isset($active_routes['POST_CLI']) ? count($active_routes['POST_CLI']) : 0;
+
+
+if ($count_get > 0) {
+    $cdmf->subsection('"GET" Routes (' . $count_get . ')');
+    foreach ($active_routes['GET'] as $route => $route_details) {
+        $cdmf->route_details('[GET]', $route, $route_details);
+    }
+    echo PHP_EOL;
+}
+if ($count_get_cli > 0) {
+    $cdmf->subsection('"GET+CLI" Routes (' . $count_get_cli . ')');
+    foreach ($active_routes['GET_CLI'] as $route => $route_details) {
+        $cdmf->route_details('[GET+CLI]', $route, $route_details);
+    }
+    echo PHP_EOL;
+}
+
+if ($count_post > 0) {
+    $cdmf->subsection('"POST" Routes (' . $count_post . ')');
+    foreach ($active_routes['POST'] as $route => $route_details) {
+        $cdmf->route_details('[POST]', $route, $route_details);
+    }
+    echo PHP_EOL;
+}
+if ($count_post_cli > 0) {
+    $cdmf->subsection('"POST+CLI" Routes (' . $count_post_cli . ')');
+    foreach ($active_routes['POST_CLI'] as $route => $route_details) {
+        $cdmf->route_details('[POST+CLI]', $route, $route_details);
+    }
+    echo PHP_EOL;
+}
+
+$cdmf->success();

@@ -1,0 +1,14 @@
+includes:
+	- phpstan-baseline.php
+
+parameters:
+	phpVersion: 80100
+	tmpDir: ../../../build/Application/phpstan
+	level: 6
+	bootstrapFiles:
+		- phpstan-bootstrap.php
+	treatPhpDocTypesAsCertain: false
+	paths:
+		- ../../../Application
+	scanFiles:
+	scanDirectories:

@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /misc/*
+Disallow: /template/*
+
+Sitemap: https://w.e.b.s.i.t.e/sitemap.xml

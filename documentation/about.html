@@ -1,0 +1,59 @@
+<p>
+    This implementation of CMD-Auth's specifications is offered under
+    the MIT License (MIT) by the creator of CleanDeck / CMD-Auth stack, Iotu Nicolae (nicolae.g.iotu@link133.com).
+</p>
+
+<p>
+    The application is designed to connect with a live CMD-Auth REST Server (or a load balancing scheme when more
+    CMD-Auth Servers are required) and deploy a powerful web application which can be accessed
+    in any browser/device.<br>
+    The core application includes all the features required in order to enable developers to continue
+    the development of complex mega-scale, fully distributed REST applications:
+</p>
+<ul>
+    <li>call CMD-Auth endpoints and capture response while making sure the session id is updated when required</li>
+    <li>perform AJAX calls</li>
+    <li>handle MFA</li>
+    <li>use administration endpoints exposed by CMD-Auth</li>
+    <li>use Google Auth for signup and login</li>
+    <li>use specialized cloud tools such as AWS SDK for PHP</li>
+    <li>call specialized cloud services such as AWS SES in order to send i.e. sign-up and other important
+        notifications
+    </li>
+    <li>upload, download and delete files from AWS S3 buckets</li>
+    <li>respond to errors and success messages</li>
+    <li>use cookies in order to save and recover form data, and repopulate forms</li>
+    <li>secure forms using captcha and CSRF</li>
+    <li>paginate a response</li>
+    <li>a.m.o.</li>
+</ul>
+
+<p>
+    Keep your stack RESTful.<br>
+    CMD-Auth operates using cookies and databases.
+    For the remaining parts of the stack including this application, where a decision must be made,
+    if possible, choose cookies in order to keep the stack RESTful and efficient.
+</p>
+
+<p>
+    The validation is performed at a minimal level. This is intentional and enables developers to adjust CMD-Auth's
+    setting 'restrict_characters' in order to match target alphabets such as cyrillic a.o.
+</p>
+
+<p>
+    Please study CleanDeck libraries if you are planning on implementing other ways of interacting with
+    CMD-Auth endpoints.
+</p>
+
+<p>
+    Please contact directly using the details posted in <strong>composer.json</strong> instead of posting publicly
+    critical errors or bugs you may discover.
+</p>
+
+<p>
+    WARNING! Never leave ENVIRONMENT variable set to 'development' in production!<br>
+    When ENVIRONMENT variable is set to 'development', error messages include restricted information and some
+    operations such as signup or MFA login will show confidential information which is useful only during development
+    (such as the activation_hash and authentication code).
+</p>
+
