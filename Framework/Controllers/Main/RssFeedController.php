@@ -24,19 +24,36 @@ final class RssFeedController
     {
         $site_brand = UrlUtils::getSiteBrand();
 
-        // The entries in the $query_array will be used by CMD-Auth and included in the
-        //  <channel></channel> tag of the resulting xml.
+        $contact_email = \env('cleandeck.CONTACT_EMAIL', 'Missing CONTACT_EMAIL');
+        $base_url = (string)\env('cleandeck.baseURL');
+        $rss_contact = $contact_email . ' (Contact ' . $base_url . ')';
+
+        // The entries in the $query_array will be used by CMD-Auth when building the RSS.
+
+        // Entries described below will be included in the <channel></channel> tag of the resulting xml:
+        //    - c_.. -> standard XML element
+        //    - cx_.. -> self-closing XML element
         $query_array = [
             'c_title' => $site_brand,
-            'c_link' => (string) \env('cleandeck.baseURL'),
+            'c_link' => $base_url,
             'c_description' => 'Awesome software',
+            'c_generator' => 'CMD-Auth',
             'c_language' => 'en',
             'c_copyright' => 'Copyright ' . TimeUtils::getYearNow() . ', ' . $site_brand,
             'c_category' => 'Software',
             'c_ttl' => '180',
-            'c_managingEditor' => \env('cleandeck.CONTACT_EMAIL', 'Missing CONTACT_EMAIL'),
-            'c_webMaster' => \env('cleandeck.CONTACT_EMAIL', 'Missing CONTACT_EMAIL'),
+            'c_managingEditor' => $rss_contact,
+            'c_webMaster' => $rss_contact,
+            'cx_atom:link;href' => $base_url . '/rss.xml',
+            'cx_atom:link;rel' => 'self',
+            'cx_atom:link;type' => 'application/rss+xml',
         ];
+
+        // A single namespace can be declared
+        $query_array['namespace'] = 'atom=http://www.w3.org/2005/Atom';
+
+        // Optionally add channel image URL. CMD-Auth will build channel image tag using this URL.
+        $query_array['image_url'] = $base_url . '/template/core/main/images/cmd-auth-rss.png';
 
         // VERY IMPORTANT! Add the base_url!
         $query_array['base_url'] = UrlUtils::baseUrl();
