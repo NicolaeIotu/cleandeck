@@ -96,9 +96,7 @@ final class VerifyAccountsController
         foreach ($_POST as $base64_email => $option) {
             $email = \base64_decode($base64_email);
             if ($option === '1') {
-                if (\filter_var($email, FILTER_VALIDATE_EMAIL) !== false) {
-                    $emails_to_mark_verified[] = $email;
-                }
+                $emails_to_mark_verified[] = $email;
             }
         }
 
