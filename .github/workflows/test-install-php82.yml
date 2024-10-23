@@ -11,6 +11,6 @@ jobs:
     steps:
     - name: Setup PHP 8.2
       run: |
-        php -v | grep -q 8.2 && exit 0
+        php -v | grep -q 8.1 && exit 0
         echo EEEEEEEEEEEEEEEE
         
