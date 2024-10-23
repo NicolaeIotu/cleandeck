@@ -53,7 +53,7 @@ jobs:
       run: env XDEBUG_MODE=coverage composer run-script test-dev
       
     - name: Install ESLint
-      run: npm install eslint@9.13.0
+      run: npm install -g eslint@9.13.0
 
     - name: Javascript ESLint
       run: composer run-script js-eslint
