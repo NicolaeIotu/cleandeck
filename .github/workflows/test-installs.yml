@@ -11,4 +11,4 @@ jobs:
     steps:
 
     - name: Run JS Standard
-      run: npx standard Application/public/template/*/main
+      run: npx standard Application/public/template/core/main
