@@ -1,4 +1,4 @@
-name: PHP Composer Validation
+name: Test Install php8.2
 
 on:
   workflow_dispatch:
