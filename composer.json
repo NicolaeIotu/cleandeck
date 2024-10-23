@@ -78,7 +78,7 @@
     },
     "readme": "readme.md",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-curl": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
