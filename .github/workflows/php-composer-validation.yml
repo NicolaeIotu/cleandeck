@@ -41,7 +41,7 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      run: composer install --prefer-dist --no-progress >/dev/null
 
     - name: Code Style (PHP Framework)
       run: composer run-script cs-dev
@@ -50,7 +50,7 @@ jobs:
       run: composer run-script analyze-dev
       
     - name: Tests (PHP Framework)
-      run: composer run-script test-dev
+      run: env XDEBUG_MODE=coverage composer run-script test-dev
       
     - name: Install ESLint
       run: npm install eslint@9.13.0
