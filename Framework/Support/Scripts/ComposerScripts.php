@@ -86,11 +86,11 @@ class ComposerScripts
 
         if (!\is_string($env_ini) || $count_replacements !== 1) {
             // look for a commented entry i.e. "; app_key ..."
-            $env_ini = \preg_replace('/^([ ]*;[ ]*app_key[ ]*=.*)$/m', '$1' . PHP_EOL . $replacement, $env_ini,
+            $env_ini = \preg_replace('/^([ ]*;[ ]*app_key[ ]*=.*)$/m', '$1' . PHP_EOL . $replacement, (string) $env_ini,
                 1, $count_replacements);
             if (!\is_string($env_ini) || $count_replacements !== 1) {
                 // finally, try to place it immediately after main ini section [cleandeck]
-                $env_ini = \preg_replace('/^\[cleandeck]$/m', '[cleandeck]' . PHP_EOL . $replacement, $env_ini,
+                $env_ini = \preg_replace('/^\[cleandeck]$/m', '[cleandeck]' . PHP_EOL . $replacement, (string) $env_ini,
                     1, $count_replacements);
                 if (!\is_string($env_ini) || $count_replacements !== 1) {
                     throw new \Exception('Cannot find a suitable position for app_key because .env.ini structure is malformed');
@@ -180,11 +180,11 @@ class ComposerScripts
 
         if (!\is_string($ssl_settings) || $count_replacements !== 1) {
             // look for a commented entry i.e. "; password ..."
-            $ssl_settings = \preg_replace('/^([ ]*;[ ]*password[ ]*=.*)$/m', '$1' . PHP_EOL . $replacement, $ssl_settings,
+            $ssl_settings = \preg_replace('/^([ ]*;[ ]*password[ ]*=.*)$/m', '$1' . PHP_EOL . $replacement, (string) $ssl_settings,
                 1, $count_replacements);
             if (!\is_string($ssl_settings) || $count_replacements !== 1) {
                 // finally, try to place it immediately after main ini section [ssl-settings]
-                $ssl_settings = \preg_replace('/^\[ssl-settings]$/m', '[ssl-settings]' . PHP_EOL . $replacement, $ssl_settings,
+                $ssl_settings = \preg_replace('/^\[ssl-settings]$/m', '[ssl-settings]' . PHP_EOL . $replacement, (string) $ssl_settings,
                     1, $count_replacements);
                 if (!\is_string($ssl_settings) || $count_replacements !== 1) {
                     throw new \Exception('Cannot find a suitable position to insert new password in file ' .
