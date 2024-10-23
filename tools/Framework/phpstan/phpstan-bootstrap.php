@@ -20,8 +20,8 @@ use Framework\Libraries\Utils\DotEnv;
 include_once __DIR__ . '/../../../Framework/Config/Constants.php';
 // Composer autoload
 require_once CLEANDECK_VENDOR_PATH . '/autoload.php';
-// Handle .env.ini
-DotEnv::setEnvironment(CLEANDECK_ROOT_PATH . '/.env.ini');
+// Set environment
+DotEnv::setEnvironment(CLEANDECK_ROOT_PATH . '/env.ini');
 // Add common global functions
 require_once CLEANDECK_FRAMEWORK_PATH . '/Libraries/Common.php';
 // Constants which depend on user settings
