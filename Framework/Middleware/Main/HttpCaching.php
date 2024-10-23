@@ -281,7 +281,7 @@ final class HttpCaching implements MiddlewareInterface
                     return $_POST[$match[1]] ?? '?';
                 },
                 $tag);
-            return \preg_replace('/[^a-zA-Z0-9_-]/', '__', $url);
+            return \preg_replace('/[^a-zA-Z0-9_-]/', '__', (string) $url);
         }
 
         if (self::$request_method === 'GET' &&
@@ -292,7 +292,7 @@ final class HttpCaching implements MiddlewareInterface
                     return $_GET[$match[1]] ?? '?';
                 },
                 $tag);
-            return \preg_replace('/[^a-zA-Z0-9_-]/', '__', $url);
+            return \preg_replace('/[^a-zA-Z0-9_-]/', '__', (string) $url);
         }
 
         return $tag;
