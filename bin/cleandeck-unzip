@@ -51,7 +51,8 @@ if (!is_dir($destination_path)) {
 }
 
 $cdmf->content('Unzipping archive ' . $archive_path);
-$cdmf->content('Destination ' . $destination_path . PHP_EOL);
+$cdmf->content('Destination ' . $destination_path);
+$cdmf->nl();
 try {
     CleanDeckUnzip::run($archive_path, $destination_path);
 } catch (Exception $e) {
@@ -60,7 +61,8 @@ try {
     exit(1);
 }
 
-$cdmf->bold('Done!' . PHP_EOL);
+$cdmf->bold('Done!');
+$cdmf->nl();
 $cdmf->important('This utility extracts directory Application and file .env.ini only.');
 $cdmf->remark('Use OS tools such as *unzip* in order to extract the full contents of the archive. Make sure not to overwrite important content.');
 
