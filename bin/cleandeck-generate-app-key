@@ -19,8 +19,8 @@ require_once __DIR__ . '/../Framework/Support/Utils/CDMessageFormatter.php';
 
 $cdmf = new CDMessageFormatter(
     'CleanDeck-Generate-App-Key',
-    'SUCCESS!' . PHP_EOL .
-    'A new "app_key" was generated in file .env.ini' . PHP_EOL .
+    'SUCCESS! ' .
+    'A new "app_key" was generated in file ".env.ini". ' .
     'Make sure "app_key" is used by all CleanDeck machines in the same stack.',
     'CleanDeck-Generate-App-Key Failed!'
 );
