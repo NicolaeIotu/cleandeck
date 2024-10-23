@@ -171,8 +171,11 @@
             "Composer\\Config::disableProcessTimeout",
             "phpunit --config=tools/Application/phpunit/phpunit.xml.dist --display-warnings"
         ],
-        "js-eslint": [
-            "Framework\\Support\\Scripts\\ComposerScripts::runEslint"
+        "js-standard": [
+            "npx standard Application/public/template/*/custom"
+        ],
+        "js-standard-fix": [
+            "npx standard Application/public/template/*/custom --fix"
         ],
         "analyze-dev": [
             "Composer\\Config::disableProcessTimeout",
@@ -191,6 +194,14 @@
         "test-dev": [
             "Composer\\Config::disableProcessTimeout",
             "phpunit --config=tools/Framework/phpunit/phpunit.xml.dist --display-warnings"
+        ],
+        "js-standard-dev": [
+            "npx standard Application/public/template/*/main",
+            "npx standard Application/public/template/*/custom"
+        ],
+        "js-standard-dev-fix": [
+            "npx standard Application/public/template/*/main --fix",
+            "npx standard Application/public/template/*/custom --fix"
         ]
     },
     "scripts-descriptions": {
@@ -199,11 +210,14 @@
         "cs": "Check the coding style of your application (Application directory)",
         "cs-fix": "Fix the coding style of your application (Application directory)",
         "test": "Run unit tests for your application (Application directory)",
-        "js-eslint": "Run Javascript ESLint for your application and Framework (Application/public/template directory)",
+        "js-standard": "Run Javascript Standard style for your application (Application/public/template/*/custom)",
+        "js-standard-fix": "Fix Javascript Standard style for your application (Application/public/template/*/custom)",
         "analyze-dev": "Framework static analysis (Framework directory)",
         "rector-dev-fix": "Fix Framework static analysis errors (Framework directory)",
         "cs-dev": "Check Framework coding style (Framework directory)",
         "cs-dev-fix": "Fix Framework coding style (Framework directory)",
-        "test-dev": "Run Framework unit tests (Framework directory)"
+        "test-dev": "Run Framework unit tests (Framework directory)",
+        "js-standard-dev": "Run Javascript Standard style for Framework (Application/public/template/*/main and Application/public/template/*/addon)",
+        "js-standard-dev-fix": "Fix Javascript Standard style for Framework (Application/public/template/*/main and Application/public/template/*/addon)"
     }
 }
