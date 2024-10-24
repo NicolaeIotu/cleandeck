@@ -10,22 +10,20 @@
  * the LICENSE file that was distributed with this source code.
  */
 
+const topicInstructions = document.getElementById('topic_instructions')
+const caseTopic = document.getElementById('case_topic')
+const hasAttachedProduct = document.getElementById('product_id') !== null
+const hasAttachedOrder = document.getElementById('order_id') !== null
 
-const topic_instructions = document.getElementById('topic_instructions')
-const case_topic = document.getElementById('case_topic')
-const has_attached_product = document.getElementById('product_id') !== null
-const has_attached_order = document.getElementById('order_id') !== null
-
-
-case_topic.onchange = function topicInstructionsHandler(event) {
-    const value = event.target.value
-    const value_lc = value.toLowerCase()
-    if ((value_lc.startsWith('product') && !has_attached_product) ||
-        (value_lc.startsWith('order') && !has_attached_order)) {
-        topic_instructions.innerText = value + ' related support cases should be opened from the ' + value_lc + ' page.'
-        topic_instructions.setAttribute('class', 'd-block bg-warning m-0 px-3 py-1 text-smaller')
-    } else {
-        topic_instructions.setAttribute('class', 'd-none')
-        topic_instructions.innerText = ''
-    }
+caseTopic.onchange = function topicInstructionsHandler (event) {
+  const value = event.target.value
+  const valueLc = value.toLowerCase()
+  if ((valueLc.startsWith('product') && !hasAttachedProduct) ||
+    (valueLc.startsWith('order') && !hasAttachedOrder)) {
+    topicInstructions.innerText = value + ' related support cases should be opened from the ' + valueLc + ' page.'
+    topicInstructions.setAttribute('class', 'd-block bg-warning m-0 px-3 py-1 text-smaller')
+  } else {
+    topicInstructions.setAttribute('class', 'd-none')
+    topicInstructions.innerText = ''
+  }
 }

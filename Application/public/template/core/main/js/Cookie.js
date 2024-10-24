@@ -12,58 +12,55 @@
 
 // eslint-disable-next-line no-unused-vars
 export default class Cookie {
-    /**
-     * @param {string} cookie_name
-     * @param {string} cookie_value
-     * @param {string|null} cookie_path
-     * @param {string|null} cookie_samesite
-     * @param {string|null} cookie_domain
-     * @param {boolean} secure
-     * @param {number|null} expires_timestamp Javascript timestamp in milliseconds i.e. Date.now() + 30 * 24 * 60 * 60 * 1000
-     */
-    static setCookie(cookie_name, cookie_value,
-                     cookie_path = '/', cookie_samesite = 'Lax',
-                     cookie_domain = null, secure = true,
-                     expires_timestamp = null) {
-        let cookie_contents = cookie_name + '=' + cookie_value + ';'
-        // cookie_path
-        if (cookie_path) {
-            cookie_contents += ` Path=${cookie_path};`
-        }
-        // cookie_samesite
-        if (['Strict', 'Lax', 'None'].indexOf(cookie_samesite.toLowerCase()) >= 0) {
-            cookie_contents += ` SameSite=${cookie_samesite.toLowerCase()};`
-        } else {
-            cookie_contents += ' SameSite=lax;'
-        }
-        // cookie_domain
-        if (typeof cookie_domain === 'string' && cookie_domain.length > 0 &&
-            !cookie_name.startsWith('__Host-')) {
-            cookie_contents += ` Domain=${cookie_domain};`
-        }
-        //secure
-        if (secure) {
-            cookie_contents += ' Secure;'
-        }
-        // expires
-        if (expires_timestamp) {
-            cookie_contents += ` Expires=${(new Date(expires_timestamp)).toUTCString()};`
-        }
-
-        document.cookie = cookie_contents
+  /**
+   * @param {string} cookieName
+   * @param {string} cookieValue
+   * @param {string|null} cookiePath
+   * @param {string|null} cookieSamesite
+   * @param {string|null} cookieDomain
+   * @param {boolean} secure
+   * @param {number|null} expiresTimestamp Javascript timestamp in milliseconds i.e. Date.now() + 30 * 24 * 60 * 60 * 1000
+   */
+  static setCookie (cookieName, cookieValue, cookiePath = '/',
+    cookieSamesite = 'Lax', cookieDomain = null, secure = true,
+    expiresTimestamp = null) {
+    let cookieContents = cookieName + '=' + cookieValue + ';'
+    // cookie_path
+    if (cookiePath) {
+      cookieContents += ` Path=${cookiePath};`
+    }
+    // cookieSamesite
+    if (['Strict', 'Lax', 'None'].indexOf(cookieSamesite.toLowerCase()) >= 0) {
+      cookieContents += ` SameSite=${cookieSamesite.toLowerCase()};`
+    } else {
+      cookieContents += ' SameSite=lax;'
+    }
+    // cookieDomain
+    if (typeof cookieDomain === 'string' && cookieDomain.length > 0 && !cookieName.startsWith('__Host-')) {
+      cookieContents += ` Domain=${cookieDomain};`
+    }
+    // secure
+    if (secure) {
+      cookieContents += ' Secure;'
+    }
+    // expires
+    if (expiresTimestamp) {
+      cookieContents += ` Expires=${(new Date(expiresTimestamp)).toUTCString()};`
     }
 
-    static getCookie(cookie_name) {
-        return document.cookie
-            .split("; ")
-            .find((row) => row.startsWith(cookie_name + '='))
-            ?.split('=')[1]
-    }
+    document.cookie = cookieContents
+  }
 
-    static hasCookie(cookie_name) {
-        return document.cookie
-            .split("; ")
-            .find((row) => row.startsWith(cookie_name + '=')) !== undefined
-    }
+  static getCookie (cookieName) {
+    return document.cookie
+      .split('; ')
+      .find((row) => row.startsWith(cookieName + '='))
+      ?.split('=')[1]
+  }
+
+  static hasCookie (cookieName) {
+    return document.cookie
+      .split('; ')
+      .find((row) => row.startsWith(cookieName + '=')) !== undefined
+  }
 }
-

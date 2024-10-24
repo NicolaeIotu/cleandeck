@@ -12,39 +12,39 @@
 
 import Cookie from '../Cookie.js'
 
-const exp_year_ms = Date.now() + 365 * 24 * 60 * 60 * 1000
+const expYearMs = Date.now() + 365 * 24 * 60 * 60 * 1000
 
-function xtypeof(o) {
-    return Object.prototype.toString.call(o).slice(8, -1).toLowerCase()
+function xtypeof (o) {
+  return Object.prototype.toString.call(o).slice(8, -1).toLowerCase()
 }
 
 document.getElementById('privacy_cookies_btn').onclick = function () {
-    const b64_cd = this.getAttribute('data-cd')
-    const je_cd = atob(b64_cd)
-    const cookie_details = JSON.parse(je_cd)
+  const b64Cd = this.getAttribute('data-cd')
+  const jeCd = atob(b64Cd)
+  const cookieDetails = JSON.parse(jeCd)
 
-    const valid_cookie_details = xtypeof(cookie_details) &&
-        Object.prototype.hasOwnProperty.call(cookie_details, 'full_name') &&
-        typeof cookie_details['full_name'] === 'string'
+  const validCookieDetails = xtypeof(cookieDetails) &&
+    Object.prototype.hasOwnProperty.call(cookieDetails, 'full_name') &&
+    typeof cookieDetails.full_name === 'string'
 
-    if (valid_cookie_details) {
-        Cookie.setCookie(cookie_details['full_name'], 'true',
-            cookie_details['path'], cookie_details['samesite'],
-            cookie_details['domain'], cookie_details['secure'],
-            exp_year_ms)
-    } else {
-        console.error('Invalid cp_tc cookie details')
-    }
+  if (validCookieDetails) {
+    Cookie.setCookie(cookieDetails.full_name, 'true',
+      cookieDetails.path, cookieDetails.samesite,
+      cookieDetails.domain, cookieDetails.secure,
+      expYearMs)
+  } else {
+    console.error('Invalid cp_tc cookie details')
+  }
 }
 
-const cookies_agreed_element = document.getElementById('cookies_agreed')
-if (cookies_agreed_element) {
-    // Bootstrap js is always loaded in header.php
-    // eslint-disable-next-line no-undef
-    const cookies_agreed_modal = new bootstrap.Modal('#cookies_agreed', {
-        backdrop: 'static',
-        keyboard: true,
-        focus: true
-    })
-    cookies_agreed_modal.show(cookies_agreed_element)
+const cookiesAgreedElement = document.getElementById('cookies_agreed')
+if (cookiesAgreedElement) {
+  // Bootstrap js is always loaded in header.php
+  // eslint-disable-next-line no-undef
+  const cookiesAgreedModal = new bootstrap.Modal('#cookies_agreed', {
+    backdrop: 'static',
+    keyboard: true,
+    focus: true
+  })
+  cookiesAgreedModal.show(cookiesAgreedElement)
 }

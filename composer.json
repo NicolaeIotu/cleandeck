@@ -197,11 +197,11 @@
         ],
         "js-standard-dev": [
             "npx standard Application/public/template/*/main",
-            "npx standard Application/public/template/*/custom"
+            "npx standard Application/public/template/*/addon"
         ],
         "js-standard-dev-fix": [
             "npx standard Application/public/template/*/main --fix",
-            "npx standard Application/public/template/*/custom --fix"
+            "npx standard Application/public/template/*/addon --fix"
         ]
     },
     "scripts-descriptions": {
