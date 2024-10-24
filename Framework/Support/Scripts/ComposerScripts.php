@@ -32,30 +32,6 @@ class ComposerScripts
         );
     }
 
-    public static function runEslint(): void
-    {
-        // requires eslint installed globally
-        $cmd = "eslint -c tools/Application/eslint/.eslintrc.json " .
-            "--ignore-path tools/Application/eslint/.eslintignore Application/public/template";
-        // in order to run eslint without installing it change $cmd to start with "npx eslint ..."
-        \exec($cmd, $output, $result_code);
-
-        $err_msg = 'JavaScript linter (eslint) errors';
-        if ($result_code === 127) {
-            echo "The following applications must be installed: npm, NodeJS and eslint";
-            $tool = \explode(' ', $cmd)[0];
-            $err_msg .= ': missing tool ' . $tool;
-        } elseif ($result_code === 2) {
-            $err_msg .= ': invalid eslint options';
-        }
-
-        if ($result_code > 0) {
-            \printf("\n\033[1;31m%s\033[0m\n", $err_msg);
-        }
-
-        echo \implode(PHP_EOL, $output);
-    }
-
     /**
      * @return void
      * @throws \Exception
