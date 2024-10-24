@@ -10,25 +10,24 @@
  * the LICENSE file that was distributed with this source code.
  */
 
-const employees_list = document.getElementById('employees-list')
-const employees_list_children = employees_list.children
+const employeesList = document.getElementById('employees-list')
+const employeesListChildren = employeesList.children
 
-function hideAllDetails() {
-    for (let i = 0; i < employees_list_children.length; i++) {
-        employees_list_children.item(i).getElementsByTagName('div')[0].classList.add('d-none')
-    }
+function hideAllDetails () {
+  for (let i = 0; i < employeesListChildren.length; i++) {
+    employeesListChildren.item(i).getElementsByTagName('div')[0].classList.add('d-none')
+  }
 }
 
-for (let i = 0; i < employees_list_children.length; i++) {
-    employees_list_children.item(i).onclick = function (event) {
-        if(!event.target.hasAttribute('href')) {
-            const currentTargetClassList = event.currentTarget.getElementsByTagName('div')[0].classList
-            const target_is_visible = !currentTargetClassList.contains('d-none')
-            hideAllDetails()
-            if(!target_is_visible) {
-                currentTargetClassList.remove('d-none')
-            }
-        }
+for (let i = 0; i < employeesListChildren.length; i++) {
+  employeesListChildren.item(i).onclick = function (event) {
+    if (!event.target.hasAttribute('href')) {
+      const currentTargetClassList = event.currentTarget.getElementsByTagName('div')[0].classList
+      const targetIsVisible = !currentTargetClassList.contains('d-none')
+      hideAllDetails()
+      if (!targetIsVisible) {
+        currentTargetClassList.remove('d-none')
+      }
     }
+  }
 }
-

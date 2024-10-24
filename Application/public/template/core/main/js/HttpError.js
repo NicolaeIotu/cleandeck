@@ -10,13 +10,12 @@
  * the LICENSE file that was distributed with this source code.
  */
 
-/* global HTMLElement */
+export default class HttpError extends Error {
+  constructor (message = 'Http Error', code = 400, ...params) {
+    // Pass remaining arguments (including vendor specific ones) to parent constructor
+    super(...params)
 
-// requires a html element having the id 'scrollToTop'
-const scrollToTop = document.getElementById('scrollToTop')
-if (scrollToTop instanceof HTMLElement) {
-  scrollToTop.onclick = function () {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-    scrollToTop.blur()
+    this.name = 'HttpError'
+    this.code = code
   }
 }

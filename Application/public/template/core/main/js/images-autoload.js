@@ -10,6 +10,7 @@
  * the LICENSE file that was distributed with this source code.
  */
 
+/* global DOMStringMap */
 
 // Position this script after the images.
 // The tag <img> should have the following syntax:
@@ -20,19 +21,20 @@
 import ImageAutoload from './ImageAutoLoad.js'
 
 // We need a static list of images!
-const document_images = Array.from(document.images)
+const documentImages = Array.from(document.images)
 
 // Start processing target images (img elements having attribute 'data-src').
-for (const img of document_images) {
-    if (img.dataset instanceof DOMStringMap) {
-        const dataset = img.dataset
+for (const img of documentImages) {
+  if (img.dataset instanceof DOMStringMap) {
+    const dataset = img.dataset
 
-        if ('src' in dataset &&
-            typeof dataset.src === 'string' && dataset.src.length > 0) {
-            // just in case
-            img.removeAttribute('src')
-            // start autoload
-            new ImageAutoload(img, dataset.src)
-        }
+    if ('src' in dataset &&
+      typeof dataset.src === 'string' && dataset.src.length > 0) {
+      // just in case
+      img.removeAttribute('src')
+      // start autoload
+      // eslint-disable-next-line no-new
+      new ImageAutoload(img, dataset.src)
     }
+  }
 }
