@@ -296,7 +296,7 @@ if (isset($account_email, $account_history) && is_array($account_history)) {
     ['type' => 'text/css', 'rel' => 'stylesheet', 'referrerpolicy' => 'no-referrer', 'crossorigin' => 'anonymous']); ?>
 <div class="container w-100 w-sm-100 p-2">
     <?php if (!isset($is_admin) || $is_admin !== true) : ?>
-        <div class="alert alert-warning" role="alert">
+        <div class="alert alert-warning">
             <p>Insufficient permissions</p>
         </div>
     <?php else: ?>

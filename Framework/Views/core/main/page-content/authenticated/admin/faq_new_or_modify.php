@@ -450,7 +450,7 @@ if (isset($faq_details['faq_attachments']) && is_string($faq_details['faq_attach
     <?= UrlUtils::script(UrlUtils::baseUrl(CLEANDECK_TEMPLATE_URI . '/main/js/pages/faq-edit.js'),
         ['referrerpolicy' => 'no-referrer', 'crossorigin' => 'anonymous', 'type' => 'module']);?>
 <?php else: ?>
-    <div class="alert alert-warning" role="alert">
+    <div class="alert alert-warning">
         <p>Insufficient permissions</p>
     </div>
 <?php endif; ?>

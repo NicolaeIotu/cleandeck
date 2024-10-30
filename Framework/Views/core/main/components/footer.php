@@ -19,8 +19,8 @@ use Framework\Libraries\Utils\UrlUtils;
 ?>
 </main>
 <noscript>
-    <div class="alert alert-danger" role="alert">
-        <span class="alert-heading display-4">JavaScript is Disabled!</span>
+    <div class="alert alert-danger" role="alert" aria-labelledby="javascript-disabled">
+        <span id="javascript-disabled" class="alert-heading display-4">JavaScript is Disabled!</span>
         <p><span class="text-larger">Enable</span> now JavaScript to get the most out of our Website.</p>
         <hr>
         <p class="mb-0">
@@ -91,11 +91,11 @@ use Framework\Libraries\Utils\UrlUtils;
 $cp_tc_cookie_name = (\env('cleandeck.cookie.prefix') ?? '') . 'cp_tc_agreed';
 $cookies_agreed = $_COOKIE[$cp_tc_cookie_name] ?? '';
 if ($cookies_agreed !== 'true' && !array_key_exists('isLegalPage', $GLOBALS)):?>
-    <div class="modal fade" id="cookies_agreed" tabindex="-1" aria-labelledby="cookies_agreedLabel">
+    <div class="modal fade" id="cookies_agreed" tabindex="-1" aria-labelledby="modal-privacy-cookies">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <span class="modal-title text-larger">Privacy and Cookies</span>
+                    <span id="modal-privacy-cookies" class="modal-title text-larger">Privacy and Cookies</span>
                 </div>
                 <div class="modal-body">
                     This site uses cookies. By continuing to use this website, you agree to our
