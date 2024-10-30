@@ -50,7 +50,7 @@ function getUserDetailTitle(string $raw_title): string
 
 <div class="container w-100 w-sm-50 p-2">
     <?php if (!isset($is_admin) || $is_admin !== true) : ?>
-        <div class="alert alert-warning" role="alert">
+        <div class="alert alert-warning">
             <p>Insufficient permissions</p>
         </div>
     <?php else: ?>

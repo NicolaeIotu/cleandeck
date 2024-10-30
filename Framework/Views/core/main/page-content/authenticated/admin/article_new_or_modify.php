@@ -505,7 +505,7 @@ if (isset($article_details['article_attachments']) && is_string($article_details
     <?= UrlUtils::script(UrlUtils::baseUrl(CLEANDECK_TEMPLATE_URI . '/main/js/pages/article-edit.js'),
         ['referrerpolicy' => 'no-referrer', 'crossorigin' => 'anonymous', 'type' => 'module']);?>
 <?php else: ?>
-    <div class="alert alert-warning" role="alert">
+    <div class="alert alert-warning">
         <p>Insufficient permissions</p>
     </div>
 <?php endif; ?>

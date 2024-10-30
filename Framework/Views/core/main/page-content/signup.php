@@ -145,7 +145,7 @@ $cmsg_form_data = $cmsg['cmsg_form_data'] ?? [];
         <?php if (\env('cleandeck.ENVIRONMENT', 'production') !== 'production' &&
             \env('cleandeck.oauth2_google.local_development') === true): ?>
             <!--START-SEO-IGNORE-->
-            <div class="alert alert-warning text-wrap text-break" role="alert">
+            <div class="alert alert-warning text-wrap text-break">
                 <p class="h4 alert-heading">Warning</p>
                 <p>
                     Variable <em>cleandeck.oauth2_google.local_development</em> is set to <em>true</em> (file .env.ini).

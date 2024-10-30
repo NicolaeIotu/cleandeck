@@ -220,7 +220,8 @@ if ($agreement_content === '') {
     <?= UrlUtils::script(UrlUtils::baseUrl(CLEANDECK_TEMPLATE_URI . '/main/js/pages/agreement-edit.js'),
         ['referrerpolicy' => 'no-referrer', 'crossorigin' => 'anonymous', 'type' => 'module']);?>
 <?php else: ?>
-    <div class="alert alert-warning" role="alert">
+    <div class="alert alert-warning">
         <p>Insufficient permissions</p>
     </div>
 <?php endif; ?>
+t

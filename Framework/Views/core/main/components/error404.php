@@ -17,7 +17,7 @@ if (!defined('CLEANDECK_APP_PATH')) {
 use Framework\Libraries\Utils\UrlUtils;
 
 ?>
-<div class="alert alert-warning text-center" role="alert">
+<div class="alert alert-warning text-center">
     <p class="h4 alert-heading">Page not found</p>
     <hr>
     <p class="mb-0"><?php echo UrlUtils::current_path(); ?></p>

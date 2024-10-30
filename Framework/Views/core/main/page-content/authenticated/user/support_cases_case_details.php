@@ -315,7 +315,7 @@ $cmsg_form_data = $cmsg['cmsg_form_data'] ?? [];
         <?= UrlUtils::script(UrlUtils::baseUrl(CLEANDECK_TEMPLATE_URI . '/main/js/pages/support-case-details.js'),
             ['referrerpolicy' => 'no-referrer', 'crossorigin' => 'anonymous']);?>
     <?php else : ?>
-        <div class="alert alert-warning" role="alert">
+        <div class="alert alert-warning">
             Invalid support case.
         </div>
     <?php endif; ?>

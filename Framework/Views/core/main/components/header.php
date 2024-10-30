@@ -231,7 +231,7 @@ $cmsg_form_data = $cmsg['cmsg_form_data'] ?? null;
     <?php if (isset($cmsg_title) || isset($cmsg_body)): ?>
         <!--START-SEO-IGNORE-->
         <?php $alert_type = isset($cmsg_is_error) && $cmsg_is_error === true ? 'alert-warning' : 'alert-info'; ?>
-        <div class="alert <?= $alert_type; ?> alert-dismissible text-center fade show" role="alert">
+        <div class="alert <?= $alert_type; ?> alert-dismissible text-center fade show">
             <?php if (isset($cmsg_title)): ?>
                 <p class="h4 alert-heading">
                     <?php echo $cmsg_title; ?>
@@ -254,7 +254,7 @@ $cmsg_form_data = $cmsg['cmsg_form_data'] ?? null;
     <?php endif; ?>
     <?php if ($is_seo_page && \env('cleandeck.ENVIRONMENT') === 'development'): ?>
         <!--START-SEO-IGNORE-->
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success">
             <p class="h4 alert-heading">SEO Keywords</p>
             <hr>
             <p class="mb-0 text-spacing-1 fw-bold">##DEVELOPMENT_PRINT_SEO_KEYWORDS##</p>
