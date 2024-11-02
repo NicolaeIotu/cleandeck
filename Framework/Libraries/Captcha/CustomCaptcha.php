@@ -93,7 +93,7 @@ final class CustomCaptcha extends CaptchaBuilder
             try {
                 $captcha_cookie_suffix = \bin2hex(\random_bytes(4));
             } catch (\Exception $e) {
-                \syslog(LOG_ERR, 'Error with PHP random_bytes: ' . $e->getMessage());
+                \syslog(LOG_ERR, 'Randomness error: ' . $e->getMessage());
                 $captcha_cookie_suffix = '';
             }
             $captcha_cookie_name = \env('cleandeck.cookie.prefix', '') . CustomCaptchaConstants::CAPTCHA_COOKIE_BASE_NAME .
