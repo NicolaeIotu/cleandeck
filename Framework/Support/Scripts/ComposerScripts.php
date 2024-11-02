@@ -48,13 +48,11 @@ class ComposerScripts
         }
 
         try {
-            $app_key = \password_hash(\random_bytes(60), PASSWORD_DEFAULT);
-        } catch (\ValueError $valueError) {
-            throw new \Exception('Invalid hashing algorithm: ' . $valueError->getMessage(),
-                $valueError->getCode(), $valueError);
-        } catch (\Error $error) {
-            throw new \Exception('Failed to generate a new app_key: ' . $error->getMessage(),
-                $error->getCode(), $error);
+            $app_key_source = \bin2hex(\random_bytes(60));
+            $app_key = \password_hash($app_key_source, PASSWORD_DEFAULT);
+        } catch (\Exception $exception) {
+            throw new \Exception('Failed to generate a new app_key: ' . $exception->getMessage(),
+                $exception->getCode(), $exception);
         }
 
         $replacement = 'app_key = ' . $app_key;
@@ -134,20 +132,13 @@ class ComposerScripts
             }
             $ssl_password = $ssl_settings_ini['certificate-settings']['password'];
         } else {
-            try {
-                $ssl_password = \password_hash(\random_bytes(18), PASSWORD_DEFAULT);
-                $ssl_password = \preg_replace('/[^a-zA-Z0-9]/', '', $ssl_password);
-                if (!is_string($ssl_password)) {
-                    throw new \Exception('Error when replacing invalid password characters. Try again.');
-                }
-                $ssl_password = \substr($ssl_password, 4);
-            } catch (\ValueError $valueError) {
-                throw new \Exception('Invalid hashing algorithm: ' . $valueError->getMessage(),
-                    $valueError->getCode(), $valueError);
-            } catch (\Error $error) {
-                throw new \Exception('Failed to generate a new ssl password: ' . $error->getMessage(),
-                    $error->getCode(), $error);
+            $ssl_password_source = \bin2hex(\random_bytes(18));
+            $ssl_password = \password_hash($ssl_password_source, PASSWORD_DEFAULT);
+            $ssl_password = \preg_replace('/[^a-zA-Z0-9]/', '', $ssl_password);
+            if (!is_string($ssl_password)) {
+                throw new \Exception('Error when replacing invalid password characters. Try again.');
             }
+            $ssl_password = \substr($ssl_password, 4);
         }
 
         $replacement = 'password = ' . $ssl_password;

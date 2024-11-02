@@ -72,7 +72,7 @@ final class CSRF
             try {
                 $csrf_cookie_suffix = \bin2hex(\random_bytes(4));
             } catch (\Exception $exception) {
-                \syslog(LOG_ERR, 'Error with PHP random_bytes: ' . $exception->getMessage());
+                \syslog(LOG_ERR, 'Randomness error: ' . $exception->getMessage());
                 $csrf_cookie_suffix = '';
             }
             $csrf_cookie_name = \env('cleandeck.cookie.prefix', '') . CSRFConstants::CSRF_COOKIE_BASE_NAME .
@@ -93,7 +93,7 @@ final class CSRF
         try {
             $random_sequence = \bin2hex(random_bytes(12));
         } catch (\Exception $exception) {
-            \syslog(LOG_ERR, 'Error with PHP random_bytes: ' . $exception->getMessage());
+            \syslog(LOG_ERR, 'Randomness error: ' . $exception->getMessage());
             $random_sequence = \time() . (\env('cleandeck.app_key', ''));
         }
 
