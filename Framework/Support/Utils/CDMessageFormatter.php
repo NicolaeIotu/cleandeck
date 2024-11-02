@@ -62,7 +62,8 @@ final class CDMessageFormatter
     {
         \printf("\033[47;1;33m%s\033[0m\n", \str_repeat(' ', self::LINE_LENGTH));
         \printf("\033[47;1;32m%s\033[0m\n", $this->contentAsLines(\strtoupper($message), true));
-        \printf("\033[47;1;33m%s\033[0m\n\n", \str_repeat(' ', self::LINE_LENGTH));
+        \printf("\033[47;1;33m%s\033[0m\n", \str_repeat(' ', self::LINE_LENGTH));
+        $this->nl();
     }
 
     /**
@@ -81,83 +82,88 @@ final class CDMessageFormatter
         );
     }
 
+    /**
+     * No new lines.
+     * @param string $message
+     * @return void
+     */
     public function subsection(string $message): void
     {
-        \printf("\033[47;1;30m%s  \033[0m", $this->contentAsLines(\strtoupper($message)));
-        echo PHP_EOL;
+        \printf("\033[47;1;30m%s  \033[0m", \strtoupper($message));
+        $this->nl();
     }
 
     public function bold(string $message): void
     {
         \printf("\033[1m%s\033[0m", $this->contentAsLines($message));
-        echo PHP_EOL;
+        $this->nl();
     }
 
     public function code(string $message): void
     {
         \printf("%s\033[3;7m%s\033[0m",
             self::SIDE_PADDING . self::SIDE_PADDING, $message);
-        echo PHP_EOL;
+        $this->nl();
     }
 
     public function content(string $message): void
     {
-        echo $this->contentAsLines($message) . PHP_EOL;
+        echo $this->contentAsLines($message);
+        $this->nl();
     }
 
     public function critical(string $message): void
     {
         \printf("\033[1;31m%s\033[0m", $this->contentAsLines($message));
-        echo PHP_EOL;
+        $this->nl();
     }
 
     public function error(string $message): void
     {
         \printf("\033[1;31m%s\033[0m", $this->contentAsLines($message));
-        echo PHP_EOL;
+        $this->nl();
     }
 
     public function fail(string $message = null): void
     {
-        \printf("\n\033[47;5;31m%s\033[0m",
+        \printf("\n\033[1;4;31m%s\033[0m",
             $this->contentAsLines($message ?? $this->on_fail, true));
-        echo PHP_EOL;
+        $this->nl();
     }
 
     public function important(string $message): void
     {
         \printf("\033[1;36m%s\033[0m", $this->contentAsLines($message));
-        echo PHP_EOL;
+        $this->nl();
     }
 
     public function prompt(string $message): void
     {
         \printf("\033[1m%s\033[0m", $this->contentAsLines($message));
-        echo PHP_EOL;
+        $this->nl();
     }
 
     public function remark(string $message): void
     {
         \printf("\033[3;37m%s\033[0m", $this->contentAsLines($message));
-        echo PHP_EOL;
+        $this->nl();
     }
 
     public function success(string $message = null): void
     {
-        \printf("\n\033[1;47;7;32m%s\033[0m",
+        \printf("\n\033[1;3;4;32m%s\033[0m",
             $this->contentAsLines($message ?? $this->on_success, true));
-        echo PHP_EOL;
+        $this->nl();
     }
 
     public function warn(string $message): void
     {
         \printf("\033[0;33m%s\033[0m", $this->contentAsLines($message));
-        echo PHP_EOL;
+        $this->nl();
     }
 
     public function nl(): void
     {
-
-        echo PHP_EOL;
+        \printf("\033[0m%s\033[0m", PHP_EOL);
     }
 }
