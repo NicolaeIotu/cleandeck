@@ -77,17 +77,6 @@ if ($question === '') {
     $question_convert = 'true';
 }
 
-// handle answer
-$answer = CookieMessengerReader::getPreviousFormData($cmsg_form_data, 'answer');
-if ($answer === '') {
-    $answer_convert = 'false';
-    if (isset($faq_details, $faq_details['answer'])) {
-        $answer = $faq_details['answer'];
-    }
-} else {
-    $answer_convert = 'true';
-}
-
 // handle author_name
 $author_name = CookieMessengerReader::getPreviousFormData($cmsg_form_data, 'author_name');
 if ($author_name === '') {
@@ -97,6 +86,28 @@ if ($author_name === '') {
     }
 } else {
     $author_name_convert = 'true';
+}
+
+// handle answer_summary
+$answer_summary = CookieMessengerReader::getPreviousFormData($cmsg_form_data, 'answer_summary');
+if ($answer_summary === '') {
+    $answer_summary_convert = 'false';
+    if (isset($faq_details, $faq_details['answer_summary'])) {
+        $answer_summary = $faq_details['answer_summary'];
+    }
+} else {
+    $answer_summary_convert = 'true';
+}
+
+// handle answer
+$answer = CookieMessengerReader::getPreviousFormData($cmsg_form_data, 'answer');
+if ($answer === '') {
+    $answer_convert = 'false';
+    if (isset($faq_details, $faq_details['answer'])) {
+        $answer = $faq_details['answer'];
+    }
+} else {
+    $answer_convert = 'true';
 }
 
 // handle format
@@ -262,6 +273,21 @@ if (isset($faq_details['faq_attachments']) && is_string($faq_details['faq_attach
                        minlength="2" maxlength="200">
             </div>
             <div class="form-group">
+                <label for="answer_summary_front" class="fw-bolder">Summary</label>
+                <input type="hidden" form="main_form" id="answer_summary" name="answer_summary">
+                <textarea id="answer_summary_original" class="d-none"><?= $answer_summary; ?></textarea>
+                <textarea class="form-control" form="front_form mb-1"
+                          id="answer_summary_front" name="answer_summary_front"
+                          minlength="10" maxlength="250000" rows="6" required aria-required="true"
+                          data-convert="<?= $answer_summary_convert ?>"
+                          autocomplete="off"></textarea>
+                <p class="small">
+                    The summary of the answer has the same format as the main answer of the FAQ (below).<br>
+                    In order to improve appearance in RSS readers it is recommended to have a consistent and
+                    stylish summary.
+                </p>
+            </div>
+            <div class="form-group border border-success rounded p-2">
                 <label for="answer_front" class="fw-bolder">Answer</label>
                 <input type="hidden" form="main_form" id="answer" name="answer">
                 <textarea id="answer_original" class="d-none"><?= $answer; ?></textarea>

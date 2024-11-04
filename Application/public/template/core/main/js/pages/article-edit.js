@@ -22,8 +22,10 @@ const elementsIds = [
   'captcha_code', 'cc_suffix', 'show-files',
   'article_attachments', 'existing_attachments_list', 'button_remove_attachments',
   'toggle_remove_attachments', 'existing-attachments', 'delete_article_btn',
-  'cancel_delete_article_btn', 'controlled_submit', 'article_content_front',
-  'article_content_original', 'lang_code_front', 'article_title_front',
+  'cancel_delete_article_btn', 'controlled_submit',
+  'article_summary_front', 'article_summary_original',
+  'article_content_front', 'article_content_original',
+  'lang_code_front', 'article_title_front',
   'article_summary_front', 'author_name_front', 'format_front',
   'tags_front', 'publish_front', 'show_in_sitemap_front',
   'sitemap_changefreq_front', 'sitemap_priority_front', 'show_in_rss_front',
@@ -155,11 +157,6 @@ const backbone = {
       content: elements.article_title_front.getAttribute('data-content'),
       convert: elements.article_title_front.getAttribute('data-convert') === 'true'
     },
-  article_summary:
-    {
-      content: elements.article_summary_front.getAttribute('data-content'),
-      convert: elements.article_summary_front.getAttribute('data-convert') === 'true'
-    },
   author_name:
     {
       content: elements.author_name_front.getAttribute('data-content'),
@@ -214,23 +211,32 @@ if (isModifyAction) {
   }
 }
 
-idbRead('article', ['article_id', 'article_content'])
+idbRead('article', ['article_id', 'article_summary', 'article_content'])
   .then((articleData) => {
     // don't wait for deletion
-    idbDelete('article', ['article_id', 'article_content'])
+    idbDelete('article', ['article_id', 'article_summary', 'article_content'])
       .catch((reason) => {
-        console.error('Failed to remove previous article_content: ' + reason.message)
+        console.error('Failed to remove previous article details: ' + reason.message)
       })
 
     try {
       // ID verification is critical!
-      if (articleData.article_id === articleId &&
-        typeof articleData.article_content === 'string') {
-        backbone.article_content = {
-          // decode content first
-          content: atobPlus(articleData.article_content),
-          convert: false,
-          is_main_content: true
+      if (articleData.article_id === articleId) {
+        if(typeof articleData.article_content === 'string') {
+          backbone.article_content = {
+            // decode content first
+            content: atobPlus(articleData.article_content),
+            convert: false,
+            is_main_content: true
+          }
+        }
+        if(typeof articleData.article_summary === 'string') {
+          backbone.article_summary = {
+            // decode content first
+            content: atobPlus(articleData.article_summary),
+            convert: false,
+            is_main_content: true
+          }
         }
       }
       // eslint-disable-next-line no-empty
@@ -245,6 +251,15 @@ idbRead('article', ['article_id', 'article_content'])
       const articleContentOriginalContent = elements.article_content_original.textContent.trim()
       backbone.article_content = {
         content: articleContentOriginalContent
+          .replace(/<\/script>/i, '[[end_script]]'),
+        convert: false,
+        is_main_content: true
+      }
+    }
+    if (!Object.prototype.hasOwnProperty.call(backbone, 'article_summary')) {
+      const articleSummaryOriginalContent = elements.article_summary_original.textContent.trim()
+      backbone.article_summary = {
+        content: articleSummaryOriginalContent
           .replace(/<\/script>/i, '[[end_script]]'),
         convert: false,
         is_main_content: true
@@ -277,9 +292,11 @@ idbRead('article', ['article_id', 'article_content'])
         } else {
           let vertContent = vert.content
           // one additional step for the main content
-          if (vert.is_main_content &&
-            Object.prototype.hasOwnProperty.call(backbone, 'article_content')) {
-            vertContent = vertContent.replace(endScriptRegexp, closeScriptTag)
+          if (vert.is_main_content) {
+            if(Object.prototype.hasOwnProperty.call(backbone, 'article_content') ||
+              Object.prototype.hasOwnProperty.call(backbone, 'article_summary')) {
+              vertContent = vertContent.replace(endScriptRegexp, closeScriptTag)
+            }
           }
 
           if (vert.convert) {
@@ -323,11 +340,12 @@ function controlledSubmit () {
   }
 
   if (elements.front_form.reportValidity()) {
-    // Save article_content in IndexedDB because the content is too large.
-    // In case of failures the previous article_content will be retrieved
+    // Save article_content and article_summary in IndexedDB because the content is too large.
+    // In case of failures the previous article_content and article_summary will be retrieved
     // safely from the local IndexedDB.
     idbWrite('article', {
       article_id: articleId,
+      article_summary: btoaPlus(elements.article_summary_front.value),
       article_content: btoaPlus(elements.article_content_front.value)
     })
       .catch((reason) => console.error(reason.toString()))

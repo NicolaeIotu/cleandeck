@@ -77,17 +77,6 @@ if ($article_title === '') {
     $article_title_convert = 'true';
 }
 
-// handle article_summary
-$article_summary = CookieMessengerReader::getPreviousFormData($cmsg_form_data, 'article_summary');
-if ($article_summary === '') {
-    $article_summary_convert = 'false';
-    if (isset($article_details, $article_details['article_summary'])) {
-        $article_summary = $article_details['article_summary'];
-    }
-} else {
-    $article_summary_convert = 'true';
-}
-
 // handle author_name
 $author_name = CookieMessengerReader::getPreviousFormData($cmsg_form_data, 'author_name');
 if ($author_name === '') {
@@ -97,6 +86,17 @@ if ($author_name === '') {
     }
 } else {
     $author_name_convert = 'true';
+}
+
+// handle article_summary
+$article_summary = CookieMessengerReader::getPreviousFormData($cmsg_form_data, 'article_summary');
+if ($article_summary === '') {
+    $article_summary_convert = 'false';
+    if (isset($article_details, $article_details['article_summary'])) {
+        $article_summary = $article_details['article_summary'];
+    }
+} else {
+    $article_summary_convert = 'true';
 }
 
 // handle article_content
@@ -279,14 +279,6 @@ if (isset($article_details['article_attachments']) && is_string($article_details
                        required minlength="8" maxlength="3000">
             </div>
             <div class="form-group">
-                <label for="article_summary_front" class="fw-bolder">Summary</label>
-                <input type="hidden" form="main_form" id="article_summary" name="article_summary">
-                <input type="text" class="form-control" form="front_form" id="article_summary_front"
-                       name="article_summary_front" autocomplete="off"
-                       data-convert="<?= $article_summary_convert ?>" data-content="<?= $article_summary; ?>"
-                       required minlength="10" maxlength="3000">
-            </div>
-            <div class="form-group">
                 <label for="author_name_front" class="fw-bolder">Author Name</label>
                 <input type="hidden" form="main_form" id="author_name" name="author_name">
                 <input type="text" class="form-control" form="front_form" id="author_name_front"
@@ -295,12 +287,27 @@ if (isset($article_details['article_attachments']) && is_string($article_details
                        minlength="2" maxlength="200">
             </div>
             <div class="form-group">
-                <label for="article_content_front" class="fw-bolder">Main content</label>
+                <label for="article_summary_front" class="fw-bolder">Summary</label>
+                <input type="hidden" form="main_form" id="article_summary" name="article_summary">
+                <textarea id="article_summary_original" class="d-none"><?= $article_summary; ?></textarea>
+                <textarea class="form-control" form="front_form mb-1"
+                          id="article_summary_front" name="article_summary_front"
+                          minlength="10" maxlength="250000" rows="6" required aria-required="true"
+                          data-convert="<?= $article_summary_convert ?>"
+                          autocomplete="off"></textarea>
+                <p class="small">
+                    The summary has the same format as the main content of the article (below).<br>
+                    In order to improve appearance in RSS readers it is recommended to have a consistent and
+                    stylish summary.
+                </p>
+            </div>
+            <div class="form-group border border-success rounded p-2">
+                <label for="article_content_front" class="fw-bolder">ARTICLE MAIN CONTENT</label>
                 <input type="hidden" form="main_form" id="article_content" name="article_content">
                 <textarea id="article_content_original" class="d-none"><?= $article_content; ?></textarea>
                 <textarea class="form-control" form="front_form mb-1"
                           id="article_content_front" name="article_content_front"
-                          minlength="10" maxlength="250000" rows="8" required aria-required="true"
+                          minlength="10" maxlength="250000" rows="16" required aria-required="true"
                           data-convert="<?= $article_content_convert ?>"
                           autocomplete="off"></textarea>
                 <p class="small">

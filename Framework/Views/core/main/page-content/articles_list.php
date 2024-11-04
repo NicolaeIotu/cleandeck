@@ -195,13 +195,14 @@ if (isset($articles) && is_array($articles) &&
                             </a>
                         </div>
                         <?php if (isset($result['article_summary'])) : ?>
+                            <?php $article_summary_text = strip_tags((string)$result['article_summary']); ?>
                             <div class="d-flex w-100 justify-content-between small text-wrap text-break">
                                 <a href="<?= $result_url; ?>" class="text-secondary text-decoration-none"
                                    title="<?= $marking_title . $short_title; ?>">
-                                    <?php if (strlen((string)$result['article_summary']) > 250): ?>
-                                        <?php echo substr(strip_tags((string)$result['article_summary']), 0, 250) . '...'; ?>
+                                    <?php if (strlen($article_summary_text) > 250): ?>
+                                        <?php echo substr($article_summary_text, 0, 250) . '...'; ?>
                                     <?php else: ?>
-                                        <?php echo $result['article_summary']; ?>
+                                        <?php echo $article_summary_text; ?>
                                     <?php endif; ?>
                                 </a>
                             </div>
