@@ -22,8 +22,10 @@ const elementsIds = [
   'captcha_code', 'cc_suffix', 'show-files',
   'faq_attachments', 'existing_attachments_list', 'button_remove_attachments',
   'toggle_remove_attachments', 'existing-attachments', 'delete_faq_btn',
-  'cancel_delete_faq_btn', 'controlled_submit', 'answer_front',
-  'answer_original', 'lang_code_front', 'question_front',
+  'cancel_delete_faq_btn', 'controlled_submit',
+  'answer_summary_front', 'answer_summary_original',
+  'answer_front', 'answer_original',
+  'lang_code_front', 'question_front',
   'author_name_front', 'format_front', 'tags_front',
   'show_in_sitemap_front', 'sitemap_changefreq_front', 'sitemap_priority_front',
   'show_in_rss_front', 'disable_front'
@@ -203,23 +205,32 @@ if (isModifyAction) {
   }
 }
 
-idbRead('faq', ['faq_id', 'answer'])
+idbRead('faq', ['faq_id', 'answer', 'answer_summary'])
   .then((faqData) => {
     // don't wait for deletion
-    idbDelete('faq', ['faq_id', 'answer'])
+    idbDelete('faq', ['faq_id', 'answer', 'answer_summary'])
       .catch((reason) => {
-        console.error('Failed to remove previous answer: ' + reason.message)
+        console.error('Failed to remove previous FAQ details: ' + reason.message)
       })
 
     try {
       // ID verification is critical!
-      if (faqData.faq_id === faqId &&
-        typeof faqData.answer === 'string') {
-        backbone.answer = {
-          // decode content first
-          content: atobPlus(faqData.answer),
-          convert: false,
-          is_main_content: true
+      if (faqData.faq_id === faqId) {
+        if(typeof faqData.answer === 'string') {
+          backbone.answer = {
+            // decode content first
+            content: atobPlus(faqData.answer),
+            convert: false,
+            is_main_content: true
+          }
+        }
+        if(typeof faqData.answer_summary === 'string') {
+          backbone.answer_summary = {
+            // decode content first
+            content: atobPlus(faqData.answer_summary),
+            convert: false,
+            is_main_content: true
+          }
         }
       }
       // eslint-disable-next-line no-empty
@@ -234,6 +245,15 @@ idbRead('faq', ['faq_id', 'answer'])
       const answerOriginalContent = elements.answer_original.textContent.trim()
       backbone.answer = {
         content: answerOriginalContent
+          .replace(/<\/script>/i, '[[end_script]]'),
+        convert: false,
+        is_main_content: true
+      }
+    }
+    if (!Object.prototype.hasOwnProperty.call(backbone, 'answer_summary')) {
+      const answerSummaryOriginalContent = elements.answer_summary_original.textContent.trim()
+      backbone.answer_summary = {
+        content: answerSummaryOriginalContent
           .replace(/<\/script>/i, '[[end_script]]'),
         convert: false,
         is_main_content: true
@@ -266,9 +286,11 @@ idbRead('faq', ['faq_id', 'answer'])
         } else {
           let vertContent = vert.content
           // one additional step for the main content
-          if (vert.is_main_content &&
-            Object.prototype.hasOwnProperty.call(backbone, 'answer')) {
-            vertContent = vertContent.replace(endScriptRegexp, closeScriptTag)
+          if (vert.is_main_content) {
+            if(Object.prototype.hasOwnProperty.call(backbone, 'answer') ||
+              Object.prototype.hasOwnProperty.call(backbone, 'answer_summary')) {
+              vertContent = vertContent.replace(endScriptRegexp, closeScriptTag)
+            }
           }
 
           if (vert.convert) {
@@ -312,12 +334,13 @@ function controlledSubmit () {
   }
 
   if (elements.front_form.reportValidity()) {
-    // Save answer in IndexedDB because the content is too large.
-    // In case of failures the previous answer will be retrieved
+    // Save answer and answer_summary in IndexedDB because the content is too large.
+    // In case of failures the previous answer and answer_summary will be retrieved
     // safely from the local IndexedDB.
     idbWrite('faq', {
       faq_id: faqId,
-      answer: btoaPlus(elements.answer_front.value)
+      answer: btoaPlus(elements.answer_front.value),
+      answer_summary: btoaPlus(elements.answer_summary_front.value)
     })
       .catch((reason) => console.error(reason.toString()))
       .finally(() => {

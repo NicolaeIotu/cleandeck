@@ -232,9 +232,7 @@ final class FaqShowController
             'is_admin' => $is_admin,
             'custom_page_name' => 'FAQ - ' . \ucwords((string)$faq_details_array['question']),
         ];
-        if (isset($faq_details_array['question'])) {
-            $data['seo_description'] = $faq_details_array['question'];
-        }
+        $data['seo_description'] = $faq_details_array['answer_summary'] ?? $faq_details_array['question'] ?? null;
 
         echo new HtmlView('main/page-content/faq_details', true, $data);
     }
