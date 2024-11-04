@@ -37,7 +37,7 @@ try {
 $cdmf->success('Fresh self-signed SSL certificate files were generated.');
 $cdmf->nl();
 $cdmf->content('You should normally run tool "cleandeck-deploy" now:');
-$cdmf->code('sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy');
+$cdmf->code('sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy ...');
 $cdmf->nl();
 $cdmf->content('On completion restart the webserver.');
 
