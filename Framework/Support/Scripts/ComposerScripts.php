@@ -111,7 +111,7 @@ class ComposerScripts
         $ssl_settings_ini_relative_path = 'deploy/ssl/' . $ssl_settings_ini_basename;
         $ssl_settings_ini_path = __DIR__ . '/../../../' . $ssl_settings_ini_relative_path;
         if (!\file_exists($ssl_settings_ini_path)) {
-            throw new \Exception('Missing file ' . $ssl_settings_ini_relative_path);
+            self::populateSslSettingsFiles();
         }
         $ssl_settings = \file_get_contents($ssl_settings_ini_path);
         if (!\is_string($ssl_settings)) {
@@ -167,16 +167,17 @@ class ComposerScripts
         }
 
         // update file **deploy/ssl/generated/cleandeck-ssl-password.txt**
-        $ssl_password_raw_file_path = 'deploy/ssl/generated/cleandeck-ssl-password.txt';
-        if (!\chmod($ssl_password_raw_file_path, 0o600)) {
-            throw new \Exception('Cannot set permissions 0600 for file ' . $ssl_password_raw_file_path);
+        $ssl_password_relative_file_path = 'deploy/ssl/generated/cleandeck-ssl-password.txt';
+        $ssl_password_file_path = __DIR__ . '/../../../' . $ssl_password_relative_file_path;
+        if (!\chmod($ssl_password_file_path, 0o600)) {
+            throw new \Exception('Cannot set permissions 0600 for file ' . $ssl_password_relative_file_path);
         }
-        $put_result = \file_put_contents($ssl_password_raw_file_path, $ssl_password);
+        $put_result = \file_put_contents($ssl_password_file_path, $ssl_password);
         if ($put_result === false) {
-            throw new \Exception('Cannot overwrite file ' . $ssl_password_raw_file_path);
+            throw new \Exception('Cannot overwrite file ' . $ssl_password_relative_file_path);
         }
-        if (!\chmod($ssl_password_raw_file_path, 0o400)) {
-            throw new \Exception('Cannot set permissions 0400 for file ' . $ssl_password_raw_file_path);
+        if (!\chmod($ssl_password_file_path, 0o400)) {
+            throw new \Exception('Cannot set permissions 0400 for file ' . $ssl_password_relative_file_path);
         }
     }
 
