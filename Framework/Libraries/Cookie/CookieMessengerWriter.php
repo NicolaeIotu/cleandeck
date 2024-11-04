@@ -26,6 +26,39 @@ namespace Framework\Libraries\Cookie;
  */
 final class CookieMessengerWriter extends CookieMessenger
 {
+    // Sensitive limits. Adjust to match the settings of your server if required.
+    // The strings are base64 encoded so the real size of the messaging cookie will be higher.
+    private const MAXIMUM_FORM_BYTE_SIZE = 2048;
+    private const MAXIMUM_FORM_ENTRY_BYTE_SIZE = 512;
+
+    private static int $actual_form_byte_size = 0;
+
+    /**
+     * @param array<string, mixed> $target
+     * @return array<string, string>
+     */
+    private static function byteSizeArrayFilter(array $target): array
+    {
+        return \array_filter($target,
+            static function ($value): bool {
+                if (\is_array($value)) {
+                    $item = \http_build_query($value);
+                } else {
+                    $item = (string)$value;
+                }
+                $item_byte_size = \strlen($item);
+                if ($item_byte_size > self::MAXIMUM_FORM_ENTRY_BYTE_SIZE) {
+                    return false;
+                }
+                if ($item_byte_size + self::$actual_form_byte_size > self::MAXIMUM_FORM_BYTE_SIZE) {
+                    return false;
+                }
+                self::$actual_form_byte_size += $item_byte_size;
+                return true;
+            },
+            ARRAY_FILTER_USE_BOTH);
+    }
+
     /**
      * @param int|string|null $status_code
      * @param string|null $content
@@ -44,15 +77,8 @@ final class CookieMessengerWriter extends CookieMessenger
             ($content ?? '');
 
         if (isset($form_data)) {
-            $form_data = \array_filter($form_data,
-                static function ($value): bool {
-                    $byte_limit = 1024 * 4;
-                    if (\is_array($value)) {
-                        return \strlen(\http_build_query($value)) < $byte_limit;
-                    }
-                    return \strlen((string)$value) < $byte_limit;
-                },
-                ARRAY_FILTER_USE_BOTH);
+            // Header size is important: filter entries by size in order to prevent header size errors.
+            $form_data = self::byteSizeArrayFilter($form_data);
             $cmsg_cookie_contents .= self::INTERNAL_SEPARATOR . \http_build_query($form_data);
         }
 
