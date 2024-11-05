@@ -43,6 +43,9 @@ $cmsg_body = $cmsg['cmsg_body'] ?? null;
 $cmsg_is_error = $cmsg['cmsg_is_error'] ?? null;
 $cmsg_form_data = $cmsg['cmsg_form_data'] ?? null;
 
+if(isset($seo_description)) {
+    $seo_description = str_replace(PHP_EOL, ' ', strip_tags((string)$seo_description));
+}
 
 // Do not delete these entries:
 //  - tag <meta name="keywords" content="##SEO_KEYWORDS##">
@@ -118,13 +121,8 @@ $cmsg_form_data = $cmsg['cmsg_form_data'] ?? null;
                         title="Admin" role="button" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">Admin</span>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li class="dropdown-header"
-                                    title="Support Control Center"><strong>Support</strong></li>
                                 <li class="nav-item px-1">
-                                    <?= UrlUtils::dropdown_anchor('/support-cases/overview', 'Support Cases Overview'); ?>
-                                </li>
-                                <li class="nav-item px-1">
-                                    <?= UrlUtils::dropdown_anchor('/support-cases/search', 'Search Support Cases'); ?>
+                                    <?= UrlUtils::dropdown_anchor('/administration', 'Administration Panel'); ?>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider bg-light">
@@ -147,12 +145,6 @@ $cmsg_form_data = $cmsg['cmsg_form_data'] ?? null;
                                 </li>
                                 <li class="nav-item px-1">
                                     <?= UrlUtils::dropdown_anchor('/admin/article/new', 'New Article'); ?>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider bg-light">
-                                </li>
-                                <li class="nav-item px-1">
-                                    <?= UrlUtils::dropdown_anchor('/administration', 'Administration'); ?>
                                 </li>
                             </ul>
                         </li>
