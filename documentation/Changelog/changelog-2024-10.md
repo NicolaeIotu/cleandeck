@@ -1,5 +1,11 @@
 # Changelog 2024-10
 
+## 2024-10-30 Changelog v0.9.2
+* Webservers compression by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/11
+* Adjustments for html attribute role=alert by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/12
+
+**Full Changelog**: https://github.com/NicolaeIotu/cleandeck/compare/v0.9.0...v0.9.2
+
 ## 2024-10-24 Changelog v0.9.0
 * Fix error when approve/delete accounts having non-standard emails by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/1
 * Fix error when verifying accounts having non-standard emails by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/2
