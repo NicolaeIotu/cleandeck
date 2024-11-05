@@ -19,38 +19,73 @@ use Framework\Libraries\Utils\UrlUtils;
 
 $cleandeck_account_rank = CleanDeckStatics::getAccountRank();
 
-?>
-<div class="container w-100 w-sm-75 w-md-50 p-2">
-    <h1 class="text-end">Administration</h1>
+$structure = [
+    'Support' => [
+        'rank' => 50,
+        'links' => [
+            '/support-cases/overview' => 'Support Cases Overview',
+            '/support-cases/search' => 'Search Support Cases',
+        ],
+    ],
+    'Accounts' => [
+        'rank' => 50000,
+        'links' => [
+            '/admin/accounts/approve' => 'Approve Accounts',
+            '/admin/accounts/mark-verified' => 'Verify Accounts',
+            '/admin/account/history/search' => 'Account History',
+        ],
+    ],
+    'FAQs' => [
+        'rank' => 50,
+        'links' => [
+            '/faqs' => 'Search FAQs',
+            '/admin/faq/new' => 'New FAQ',
+        ],
+    ],
+    'Articles' => [
+        'rank' => 50,
+        'links' => [
+            '/articles' => 'Search Articles',
+            '/admin/article/new' => 'New Article',
+        ],
+    ],
+    'Employees' => [
+        'rank' => 50000,
+        'links' => [
+            '/admin/employees' => 'Employees Administration',
+        ],
+    ],
+    'Employee Agreements' => [
+        'rank' => 50000,
+        'links' => [
+            '/admin/agreements' => 'List Agreements',
+            '/admin/agreement/new' => 'New Agreement',
+        ],
+    ],
+];
 
-    <ul class="list-group">
-        <?php if ($cleandeck_account_rank >= 50000): ?>
-            <li class="list-group-item list-group-item-success mb-2">
-                <h2 class="m-0">Employees</h2>
-                <ul>
-                    <li><a href="<?= UrlUtils::baseUrl('/admin/employees'); ?>" class="fs-4">Employees</a></li>
-                </ul>
-            </li>
-            <li class="list-group-item list-group-item-light mb-2">
-                <h2 class="m-0">Agreements</h2>
-                <ul>
-                    <li><a href="<?= UrlUtils::baseUrl('/admin/agreements'); ?>"
-                           class="fs-4">List Agreements</a></li>
-                    <li><a href="<?= UrlUtils::baseUrl('/admin/agreement/new'); ?>"
-                           class="fs-4">New Agreement</a></li>
-                </ul>
-            </li>
-        <?php endif; ?>
-        <li class="list-group-item list-group-item-success">
-            <h2 class="m-0">Accounts</h2>
-            <ul>
-                <li><a href="<?= UrlUtils::baseUrl('/admin/accounts/approve'); ?>"
-                       class="fs-4">Approve Accounts</a></li>
-                <li><a href="<?= UrlUtils::baseUrl('/admin/accounts/mark-verified'); ?>"
-                       class="fs-4">Verify Accounts</a></li>
-                <li><a href="<?= UrlUtils::baseUrl('/admin/account/history/search'); ?>"
-                       class="fs-4">Account History</a></li>
-            </ul>
-        </li>
-    </ul>
+?>
+<div class="container w-100 w-md-75 p-2">
+    <h1 class="text-end">Administration</h1>
+    <div class="row clearfix mb-3">
+        <?php foreach ($structure as $section => $section_details): ?>
+            <?php if ($cleandeck_account_rank >= $section_details['rank']): ?>
+                <div class="col-sm-4 mb-2">
+                    <div class="card h-100">
+                        <div class="card-header h5 fw-bold text-bg-secondary">
+                            <p class="m-0 p-0 text-bg-secondary"><?= $section; ?></p>
+                        </div>
+                        <div class="card-body w-100 p-0 list-group">
+                            <?php if (is_array($section_details['links'])): ?>
+                                <?php foreach ($section_details['links'] as $href => $title): ?>
+                                    <a href="<?= UrlUtils::baseUrl($href); ?>" title="<?= $title; ?>"
+                                       class="list-group-item list-group-item-action text-primary"><?= $title; ?></a>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
 </div>
