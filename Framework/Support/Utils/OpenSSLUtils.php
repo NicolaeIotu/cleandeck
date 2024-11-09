@@ -19,16 +19,21 @@ use Framework\Libraries\Utils\WarningHandler;
 
 class OpenSSLUtils
 {
-    public static function showSSLErrors(): void
+    public static function showSSLErrors(string $title = 'SSL Errors: ', bool $log = false): void
     {
         $errors = '';
 
-        while (($e = openssl_error_string()) !== false) {
+        while (($e = \openssl_error_string()) !== false) {
             $errors .= $e . PHP_EOL;
         }
 
         if ($errors !== '') {
-            echo 'SSL Errors: ' . PHP_EOL . $errors;
+            $errors = $title . PHP_EOL . $errors;
+            if ($log) {
+                \error_log($errors);
+            } else {
+                echo $errors;
+            }
         }
     }
 
@@ -126,6 +131,6 @@ class OpenSSLUtils
             throw new \Exception('Cannot save the self-signed certificate');
         }
 
-        self::showSSLErrors();
+        self::showSSLErrors('SSL Errors found after running generateSelfSignedCertificate: ', true);
     }
 }
