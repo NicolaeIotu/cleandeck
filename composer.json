@@ -149,7 +149,7 @@
             "Framework\\Support\\Scripts\\ComposerScripts::populateSslSettingsFiles",
             "Framework\\Support\\Scripts\\ComposerScripts::generateSslPassword",
             "Framework\\Support\\Utils\\OpenSSLUtils::generateSelfSignedCertificate",
-            "composer exec cleandeck-generate-app-key",
+            "Framework\\Support\\Scripts\\ComposerScripts::keygen",
             "Framework\\Support\\Scripts\\ComposerScripts::postCreateProjectText"
         ],
         "analyze": [
