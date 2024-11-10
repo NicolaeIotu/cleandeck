@@ -19,12 +19,19 @@
 ### Create a new CleanDeck project
 
 > composer create-project "cleandeck/cleandeck" ./
->
-> composer update
 
-### Update autoload data
+### Adjust the main settings of the application
 
-> composer dump-autoload
+Adjust the main settings of the application in file **.env.ini**.
+
+Some settings are used by tool **cleandeck-deploy**, so it's important to adjust at least the following:
+* `baseURL`
+* `cookie[domain]`
+
+
+### Adjust robots.txt file
+
+Adjust file **Application/public/robots.txt**.
 
 ### Set up the HTTP server and PHP
 

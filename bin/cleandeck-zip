@@ -44,7 +44,7 @@ $cdmf->content($archive_path);
 $cdmf->nl();
 
 $cdmf->important('On production server use tools such as *unzip* in order to restore the full contents of the archive.');
-$cdmf->content('Afterwards run the usual composer commands:');
+$cdmf->content('Afterwards run:');
 $cdmf->code('composer update');
 $cdmf->code('composer dump-autoload');
 

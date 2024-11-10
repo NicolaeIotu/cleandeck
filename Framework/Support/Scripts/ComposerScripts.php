@@ -24,9 +24,9 @@ class ComposerScripts
         \printf("\033[1;36m%s\033[0m\n\033[3;37m%s\033[0m\n\033[3;37m%s\033[0m\n\033[3;37m%s\033[0m\n" .
             "\033[3;37m%s\033[0m\n\033[1;29m%s\033[0m\n",
             'Reminders:',
-            ' > adjust file .env.ini',
+            ' > adjust file .env.ini (baseURL, cookie[domain] a.o.)',
             ' > adjust file Application/public/robots.txt',
-            ' > read short and concise content in directory /documentation',
+            ' > read content in directory /documentation',
             ' > adjust contents in directory deploy/settings and run "sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy ..."',
             'Project created successfully!'
         );
