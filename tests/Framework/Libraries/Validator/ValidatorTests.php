@@ -10,7 +10,7 @@
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Framework\Libraries\Utils;
+namespace Framework\Libraries\Validator;
 
 use PHPUnit\Framework\TestCase;
 

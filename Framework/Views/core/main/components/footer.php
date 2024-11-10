@@ -88,7 +88,7 @@ use Framework\Libraries\Utils\UrlUtils;
     </div>
 </footer>
 <?php
-$cp_tc_cookie_name = (\env('cleandeck.cookie.prefix') ?? '') . 'cp_tc_agreed';
+$cp_tc_cookie_name = (env('cleandeck.cookie.prefix') ?? '') . 'cp_tc_agreed';
 $cookies_agreed = $_COOKIE[$cp_tc_cookie_name] ?? '';
 if ($cookies_agreed !== 'true' && !array_key_exists('isLegalPage', $GLOBALS)):?>
     <div class="modal fade" id="cookies_agreed" tabindex="-1" aria-labelledby="modal-privacy-cookies">
@@ -104,8 +104,8 @@ if ($cookies_agreed !== 'true' && !array_key_exists('isLegalPage', $GLOBALS)):?>
                 </div>
                 <div class="modal-footer">
                     <?php $cookie_details = [
-                        'full_name' => (\env('cleandeck.cookie.prefix', '')) . 'cp_tc_agreed',
-                        'path' => \env('cleandeck.cookie.path', '/'),
+                        'full_name' => (env('cleandeck.cookie.prefix', '')) . 'cp_tc_agreed',
+                        'path' => env('cleandeck.cookie.path', '/'),
                         // Important! Lax
                         'samesite' => 'Lax',
                         'domain' => $_ENV['cleandeck']['cookie']['domain'],

@@ -14,7 +14,7 @@ namespace Framework\Libraries\Tasks;
 
 use Framework\Libraries\Utils\WarningHandler;
 
-require_once __DIR__ . '/../../Config/Constants.php';
+require_once __DIR__ . '/../../Config/constants.php';
 require_once __DIR__ . '/../Tasks/UniqueCommand.php';
 
 

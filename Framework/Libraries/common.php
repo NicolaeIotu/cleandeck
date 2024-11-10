@@ -21,8 +21,8 @@ if (!function_exists('env')) {
      */
     function env(string|array $key, mixed $default = null): mixed
     {
-        if (\is_string($key)) {
-            $path_components = \explode('.', $key);
+        if (is_string($key)) {
+            $path_components = explode('.', $key);
         } else {
             $path_components = $key;
         }
@@ -59,12 +59,12 @@ if (!function_exists('view')) {
         // add data to views
         foreach ($data as $key => $value) {
             // validate the name of the variable
-            if (\preg_match('/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$/', $key) === 1) {
+            if (preg_match('/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$/', $key) === 1) {
                 $$key = $value;
             }
         }
 
-        \ob_start();
+        ob_start();
         try {
             // Important!
             // Some files such as php components (i.e. csrf.php) can be required multiple times on the same page
@@ -73,11 +73,11 @@ if (!function_exists('view')) {
                 require $view_file;
             }
         } catch (Error|Exception $e) {
-            \ob_end_clean();
+            ob_end_clean();
             echo ErrorUtils::prettify($e);
         }
-        $view = \ob_get_contents();
-        \ob_end_clean();
+        $view = ob_get_contents();
+        ob_end_clean();
 
         return $view;
     }
@@ -94,9 +94,9 @@ if (!function_exists('view_user')) {
     {
         return view(
             [CLEANDECK_USER_VIEWS_PATH . '/' .
-                \env('cleandeck.template', 'core') .
+                env('cleandeck.template', 'core') .
                 '/' .
-                \ltrim($view_file, '/') . '.php'],
+                ltrim($view_file, '/') . '.php'],
             $data);
     }
 }
@@ -112,9 +112,9 @@ if (!function_exists('view_main')) {
     {
         return view(
             [CLEANDECK_FRAMEWORK_VIEWS_PATH . '/' .
-                \env('cleandeck.template', 'core') .
+                env('cleandeck.template', 'core') .
                 '/main/' .
-                \ltrim($view_file, '/') . '.php'],
+                ltrim($view_file, '/') . '.php'],
             $data);
     }
 }
@@ -131,9 +131,9 @@ if (!function_exists('view_addon')) {
     {
         return view(
             [CLEANDECK_FRAMEWORK_VIEWS_PATH . '/' .
-                \env('cleandeck.template', 'core') .
+                env('cleandeck.template', 'core') .
                 '/addon/' . $addon . '/' .
-                \ltrim($view_file, '/') . '.php'],
+                ltrim($view_file, '/') . '.php'],
             $data);
     }
 }

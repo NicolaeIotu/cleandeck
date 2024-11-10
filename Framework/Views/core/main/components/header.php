@@ -20,7 +20,7 @@ use Framework\Libraries\Utils\UrlUtils;
 
 $cleandeck_authenticated = CleanDeckStatics::isAuthenticated();
 $cleandeck_account_rank = CleanDeckStatics::getAccountRank();
-$is_seo_page = CleanDeckStatics::isSeoPage() && \env('cleandeck.ENVIRONMENT') !== 'staging';
+$is_seo_page = CleanDeckStatics::isSeoPage() && env('cleandeck.ENVIRONMENT') !== 'staging';
 $current_url = UrlUtils::current_url();
 
 if (isset($custom_page_name) && strlen((string)$custom_page_name) > 2) {
@@ -244,7 +244,7 @@ if(isset($seo_description)) {
         </div>
         <!--END-SEO-IGNORE-->
     <?php endif; ?>
-    <?php if ($is_seo_page && \env('cleandeck.ENVIRONMENT') === 'development'): ?>
+    <?php if ($is_seo_page && env('cleandeck.ENVIRONMENT') === 'development'): ?>
         <!--START-SEO-IGNORE-->
         <div class="alert alert-success">
             <p class="h4 alert-heading">SEO Keywords</p>

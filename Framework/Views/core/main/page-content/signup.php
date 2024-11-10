@@ -142,8 +142,8 @@ $cmsg_form_data = $cmsg['cmsg_form_data'] ?? [];
                      src="<?php echo UrlUtils::baseUrl(CLEANDECK_TEMPLATE_URI . '/main/images/google_92_36.png'); ?>">
             </a>
         </div>
-        <?php if (\env('cleandeck.ENVIRONMENT', 'production') !== 'production' &&
-            \env('cleandeck.oauth2_google.local_development') === true): ?>
+        <?php if (env('cleandeck.ENVIRONMENT', 'production') !== 'production' &&
+            env('cleandeck.oauth2_google.local_development') === true): ?>
             <!--START-SEO-IGNORE-->
             <div class="alert alert-warning text-wrap text-break">
                 <p class="h4 alert-heading">Warning</p>
@@ -155,7 +155,7 @@ $cmsg_form_data = $cmsg['cmsg_form_data'] ?? [];
                     For this reason the options <span class="underline">Sign up with Google</span> and
                     <span class="underline">Log in with Google</span> simulate successful responses
                     using the local test account<br>
-                    <strong><?= \env('cleandeck.oauth2_google.local_development_account',
+                    <strong><?= env('cleandeck.oauth2_google.local_development_account',
                             'Undefined cleandeck.oauth2_google.local_development_account'); ?></strong><br>
                     set in file .env.ini by variable <em>cleandeck.oauth2_google.local_development_account</em>
                     (this account must be created if nonexistent).

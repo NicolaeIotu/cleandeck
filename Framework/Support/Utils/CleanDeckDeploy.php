@@ -12,7 +12,7 @@
 
 namespace Framework\Support\Utils;
 
-require_once __DIR__ . '/../../Config/Constants.php';
+require_once __DIR__ . '/../../Config/constants.php';
 require_once __DIR__ . '/../../Libraries/Utils/DotEnv.php';
 require_once __DIR__ . '/../../Libraries/Utils/WarningHandler.php';
 

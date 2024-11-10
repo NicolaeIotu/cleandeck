@@ -43,11 +43,11 @@ if ($argc < 2) {
 }
 
 try {
-    new CleanDeckDeploy($cdmf, \array_filter($argv,
+    new CleanDeckDeploy($cdmf, array_filter($argv,
         static function ($v, $k): bool {
             return $k > 0;
         }, ARRAY_FILTER_USE_BOTH));
-} catch (\Exception $exception) {
+} catch (Exception $exception) {
     $cdmf->error($exception->getMessage());
     $cdmf->fail();
     exit(1);

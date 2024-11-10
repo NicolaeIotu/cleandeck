@@ -12,7 +12,7 @@
 
 namespace Framework\Support\Utils;
 
-require_once __DIR__ . '/../../Config/Constants.php';
+require_once __DIR__ . '/../../Config/constants.php';
 
 use DirectoryIterator;
 use ZipArchive;

@@ -55,10 +55,10 @@ $refresh_interval = (CustomCaptchaConstants::CAPTCHA_COOKIE_LIFETIME - 5);
         <span id="captcha_reload_sizing_shadow" class="m-0 p-0"></span>
     </div>
     <?php try {
-        $cc_suffix = \md5(\random_bytes(8));
-    } catch (\Exception $exception) {
+        $cc_suffix = md5(random_bytes(8));
+    } catch (Exception $exception) {
         $cc_suffix = TimeUtils::dateToTimestamp('now');
-    }; ?>
+    } ?>
     <input type="hidden" id="cc_suffix" name="cc_suffix" value="<?= $cc_suffix; ?>">
     <label class="form-check-label m-0 p-0 small" for="captcha_code">
         Enter the characters shown above<br>

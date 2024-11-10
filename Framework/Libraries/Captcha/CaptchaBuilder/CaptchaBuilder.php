@@ -684,21 +684,11 @@ class CaptchaBuilder implements CaptchaBuilderInterface
      */
     protected function createBackgroundImageFromType(string $backgroundImage, string $imageType): \GdImage|bool
     {
-        switch ($imageType) {
-            case 'image/jpeg':
-                $image = \imagecreatefromjpeg($backgroundImage);
-                break;
-            case 'image/png':
-                $image = \imagecreatefrompng($backgroundImage);
-                break;
-            case 'image/gif':
-                $image = \imagecreatefromgif($backgroundImage);
-                break;
-
-            default:
-                throw new \Exception('Not supported file type for background image!');
-        }
-
-        return $image;
+        return match ($imageType) {
+            'image/jpeg' => \imagecreatefromjpeg($backgroundImage),
+            'image/png' => \imagecreatefrompng($backgroundImage),
+            'image/gif' => \imagecreatefromgif($backgroundImage),
+            default => throw new \Exception('Not supported file type for background image!'),
+        };
     }
 }

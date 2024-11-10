@@ -27,7 +27,7 @@ final class AgreementsController
         $redirect_on_error_url = UrlUtils::baseUrl('/user');
 
         if (!$is_admin && !CleanDeckStatics::isEmployee()) {
-            CookieMessengerWriter::setMessage(403, true);
+            CookieMessengerWriter::setMessage(403);
             HttpResponse::redirectTo($redirect_on_error_url);
             return;
         }
@@ -72,7 +72,7 @@ final class AgreementsController
         $redirect_on_error_url = UrlUtils::baseUrl('/user');
 
         if (!$is_admin && !CleanDeckStatics::isEmployee()) {
-            CookieMessengerWriter::setMessage(403, true);
+            CookieMessengerWriter::setMessage(403);
             HttpResponse::redirectTo($redirect_on_error_url);
             return;
         }
@@ -157,7 +157,7 @@ final class AgreementsController
         $redirect_on_error_url = UrlUtils::baseUrl('/user');
 
         if (!CleanDeckStatics::isEmployee()) {
-            CookieMessengerWriter::setMessage(403, true);
+            CookieMessengerWriter::setMessage(403);
             HttpResponse::redirectTo($redirect_on_error_url);
             return;
         }

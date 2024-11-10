@@ -12,7 +12,7 @@
 
 namespace Framework\Libraries;
 
-require_once CLEANDECK_FRAMEWORK_PATH . '/Libraries/Common.php';
+require_once CLEANDECK_FRAMEWORK_PATH . '/Libraries/common.php';
 
 use PHPUnit\Framework\TestCase;
 

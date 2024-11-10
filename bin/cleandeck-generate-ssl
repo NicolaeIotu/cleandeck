@@ -28,7 +28,7 @@ $cdmf = new CDMessageFormatter(
 try {
     ComposerScripts::generateSslPassword($argv[1] ?? null);
     OpenSSLUtils::generateSelfSignedCertificate();
-} catch (\Exception $exception) {
+} catch (Exception $exception) {
     $cdmf->error($exception->getMessage());
     $cdmf->fail();
     exit(1);
