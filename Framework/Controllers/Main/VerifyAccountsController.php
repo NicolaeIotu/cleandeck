@@ -130,12 +130,13 @@ final class VerifyAccountsController
         }
 
         $verify_accounts_response_body = \json_decode($caResponse->getBody(), true, 3);
+        $verify_accounts_has_error = false;
         if (!\is_null($verify_accounts_response_body)) {
             if (isset($verify_accounts_response_body['issue']) &&
                 \is_string($verify_accounts_response_body['issue'])) {
+                $verify_accounts_has_error = true;
                 $compound_success_msg .= $verify_accounts_response_body['issue'];
             }
-
 
             $verified_emails = '';
             if (isset($verify_accounts_response_body['result']) &&
@@ -159,8 +160,8 @@ final class VerifyAccountsController
 
         CookieMessengerWriter::setMessage(
             null,
-            $err_msg !== '',
-            $err_msg !== '' ? $err_msg : $compound_success_msg
+            $verify_accounts_has_error,
+            $compound_success_msg
         );
         HttpResponse::redirectTo($redirect_url);
     }
