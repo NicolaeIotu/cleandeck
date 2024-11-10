@@ -94,7 +94,7 @@ class ThrottleCacheConfig
      * Override this function to include additional drivers when required.
      * @throws PhpfastcacheInvalidTypeException
      * @throws PhpfastcacheInvalidConfigurationException
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException|\Exception
      */
     protected function setupConfigurationOption(): void
     {
