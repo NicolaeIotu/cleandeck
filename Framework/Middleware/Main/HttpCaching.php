@@ -214,6 +214,7 @@ final class HttpCaching implements MiddlewareInterface
      * @throws PhpfastcacheLogicException
      * @throws PhpfastcacheDriverException
      * @throws PhpfastcacheDriverNotFoundException
+     * @throws \Exception
      */
     private static function getCache(bool $is_private_cache): ExtendedCacheItemPoolInterface
     {

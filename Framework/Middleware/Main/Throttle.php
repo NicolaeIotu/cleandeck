@@ -28,6 +28,7 @@ final class Throttle implements MiddlewareInterface
      * In the following example the route can be used 2 times maximum in the interval set for throttle:<br>
      * <strong>Throttle::class => [0.6], </strong> ...
      * @param array<mixed>|null $arguments
+     * @throws \Exception
      */
     public static function before(array $arguments = null): void
     {
