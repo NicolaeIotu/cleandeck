@@ -43,11 +43,6 @@ $ignoreErrors[] = [
     'path' => CLEANDECK_FRAMEWORK_PATH . '/Controllers/Main/ChangeUserDetailsController.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Strict comparison using !== between \\\'\\\' and \\\'\\\' will always evaluate to false\\.$#',
-    'count' => 2,
-    'path' => CLEANDECK_FRAMEWORK_PATH . '/Controllers/Main/VerifyAccountsController.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Variable \\$articles might not be defined\\.$#',
     'count' => 1,
     'path' => CLEANDECK_FRAMEWORK_PATH . '/Views/core/main/page-content/articles_list.php',
