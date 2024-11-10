@@ -15,7 +15,7 @@
 /////////////////
 
 
-\defined('CLEANDECK_TEMPLATE_PATH') || \define('CLEANDECK_TEMPLATE_PATH',
-    CLEANDECK_PUBLIC_PATH . '/template/' . \env('cleandeck.template', 'core'));
-\defined('CLEANDECK_TEMPLATE_URI') || \define('CLEANDECK_TEMPLATE_URI',
-     '/template/' . \env('cleandeck.template', 'core'));
+defined('CLEANDECK_TEMPLATE_PATH') || define('CLEANDECK_TEMPLATE_PATH',
+    CLEANDECK_PUBLIC_PATH . '/template/' . env('cleandeck.template', 'core'));
+defined('CLEANDECK_TEMPLATE_URI') || define('CLEANDECK_TEMPLATE_URI',
+     '/template/' . env('cleandeck.template', 'core'));

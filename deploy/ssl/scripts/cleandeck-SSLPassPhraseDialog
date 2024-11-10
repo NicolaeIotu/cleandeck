@@ -18,13 +18,13 @@ function showError(string $err_msg) {
     syslog(LOG_ERR, $err_msg);
 }
 if($argc < 2) {
-    showError(\basename($argv[0]) . ' called with invalid arguments.');
+    showError(basename($argv[0]) . ' called with invalid arguments.');
     exit(1);
 }
 
 // Test expected $argv[1] format i.e. 'domain:443'
 //  (some versions format described as 'domain:443:RSA')
-$clue1 = \explode(':', $argv[1]);
+$clue1 = explode(':', $argv[1]);
 if(count($clue1) < 2) {
     showError('Invalid argument: ' . $argv[1]);
     exit(1);
@@ -36,19 +36,19 @@ if(count($clue1) < 2) {
 
 // Read the password from file 'ssl-settings.ini'
 $ssl_settings_ini_basename = 'ssl-settings.ini';
-$ssl_settings_ini_path = \realpath('../' . $ssl_settings_ini_basename);
+$ssl_settings_ini_path = realpath('../' . $ssl_settings_ini_basename);
 if ($ssl_settings_ini_path === false ||
-    !\file_exists($ssl_settings_ini_path)) {
+    !file_exists($ssl_settings_ini_path)) {
     showError('Missing file ' . $ssl_settings_ini_basename);
     exit(1);
 }
-$ssl_settings_ini = \parse_ini_file($ssl_settings_ini_path, true, INI_SCANNER_TYPED);
-if (!\is_array($ssl_settings_ini)) {
+$ssl_settings_ini = parse_ini_file($ssl_settings_ini_path, true, INI_SCANNER_TYPED);
+if (!is_array($ssl_settings_ini)) {
     showError('Cannot parse file ' . $ssl_settings_ini_path);
     exit(1);
 }
 if (!isset($ssl_settings_ini['certificate-settings']) ||
-!\is_array($ssl_settings_ini['certificate-settings']) ||
+!is_array($ssl_settings_ini['certificate-settings']) ||
     !isset($ssl_settings_ini['certificate-settings']['password'])) {
     showError('Invalid or missing "password" value in file  ' . $ssl_settings_ini_path);
     exit(1);

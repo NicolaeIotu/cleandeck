@@ -87,10 +87,10 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->bootstrapFiles([
-        $root_dir . '/Framework/Config/Constants.php',
+        $root_dir . '/Framework/Config/constants.php',
         $root_dir . '/Framework/Libraries/Utils/DotEnv.php',
-        $root_dir . '/Framework/Libraries/Common.php',
-        $root_dir . '/Framework/Config/DynamicConstants.php',
+        $root_dir . '/Framework/Libraries/common.php',
+        $root_dir . '/Framework/Config/dynamic-constants.php',
     ]);
 
     $rectorConfig->importNames();

@@ -14,7 +14,7 @@
 use Framework\Support\Scripts\ActiveRoutes;
 use Framework\Support\Utils\CDMessageFormatter;
 
-require_once __DIR__ . '/../Framework/Config/Constants.php';
+require_once __DIR__ . '/../Framework/Config/constants.php';
 // mandatory autoload
 require __DIR__ . '/../vendor/autoload.php';
 

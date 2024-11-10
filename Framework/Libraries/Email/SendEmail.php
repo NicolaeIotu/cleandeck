@@ -12,7 +12,7 @@
 
 namespace Framework\Libraries\Email;
 
-require_once __DIR__ . '/../../Config/Constants.php';
+require_once __DIR__ . '/../../Config/constants.php';
 
 require_once __DIR__ . '/../AWS/AWSSES.php';
 require_once __DIR__ . '/../AWS/AWSSQSSendMessage.php';

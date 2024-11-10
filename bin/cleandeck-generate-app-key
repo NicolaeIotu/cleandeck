@@ -27,7 +27,7 @@ $cdmf = new CDMessageFormatter(
 
 try {
     ComposerScripts::keygen();
-} catch (\Exception $exception) {
+} catch (Exception $exception) {
     $cdmf->error($exception->getMessage());
     $cdmf->fail();
     exit(1);

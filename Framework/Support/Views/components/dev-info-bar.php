@@ -30,7 +30,7 @@ $show_hide_class = $dev_info_bar_visible ? '' : 'd-none ';
 
 $dev_info_bar_cookie_details = [
     'full_name' => $devInfoBarStatusCookieName,
-    'path' => \env('cleandeck.cookie.path', '/'),
+    'path' => env('cleandeck.cookie.path', '/'),
     // Important! Lax
     'samesite' => 'Lax',
     'domain' => $_ENV['cleandeck']['cookie']['domain'],

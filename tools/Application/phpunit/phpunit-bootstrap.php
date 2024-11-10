@@ -17,15 +17,15 @@ ini_set('display_startup_errors', '1');
 use Framework\Libraries\Utils\DotEnv;
 
 // Load the Constants
-require_once __DIR__ . '/../../../Framework/Config/Constants.php';
+require_once __DIR__ . '/../../../Framework/Config/constants.php';
 // Composer autoload
 require_once CLEANDECK_VENDOR_PATH . '/autoload.php';
 // Set environment
 DotEnv::setEnvironment(CLEANDECK_ROOT_PATH . '/env.ini');
 // Add common global functions
-require_once CLEANDECK_FRAMEWORK_PATH . '/Libraries/Common.php';
+require_once CLEANDECK_FRAMEWORK_PATH . '/Libraries/common.php';
 // Constants which depend on user settings
-require_once CLEANDECK_FRAMEWORK_PATH . '/Config/DynamicConstants.php';
+require_once CLEANDECK_FRAMEWORK_PATH . '/Config/dynamic-constants.php';
 
 // additional constants for tests
 defined('CLEANDECK_TESTS_PATH') || define('CLEANDECK_TESTS_PATH', CLEANDECK_ROOT_PATH . '/tests');

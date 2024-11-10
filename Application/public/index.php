@@ -22,20 +22,20 @@ use Framework\Libraries\Utils\DotEnv;
 
 // Adjust current working directory if required
 if (getcwd() !== __DIR__) {
-    \chdir(__DIR__);
+    chdir(__DIR__);
 }
 
 
 // Load the Constants
-require_once __DIR__ . '/../../Framework/Config/Constants.php';
+require_once __DIR__ . '/../../Framework/Config/constants.php';
 // Composer autoload
 require_once CLEANDECK_VENDOR_PATH . '/autoload.php';
 // Handle .env.ini
 DotEnv::setEnvironment(CLEANDECK_ROOT_PATH . '/.env.ini');
 // Add common global functions
-require_once CLEANDECK_FRAMEWORK_PATH . '/Libraries/Common.php';
+require_once CLEANDECK_FRAMEWORK_PATH . '/Libraries/common.php';
 // Constants which depend on user settings
-require_once CLEANDECK_FRAMEWORK_PATH . '/Config/DynamicConstants.php';
+require_once CLEANDECK_FRAMEWORK_PATH . '/Config/dynamic-constants.php';
 
 
 // Launch the application

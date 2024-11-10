@@ -12,7 +12,7 @@
 
 namespace Framework\Libraries\AWS;
 
-require_once __DIR__ . '/../../Config/Constants.php';
+require_once __DIR__ . '/../../Config/constants.php';
 require_once CLEANDECK_VENDOR_PATH . '/autoload.php';
 
 use Aws\Result;
