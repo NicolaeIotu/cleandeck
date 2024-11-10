@@ -1,5 +1,18 @@
 # Changelog 2024-11
 
+## 2024-11-10 Changelog v0.9.17
+* Syntax improvements by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/26
+* Handle all cache exceptions by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/27
+* Improve verify accounts success/issue handling by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/28
+
+**Full Changelog**: https://github.com/NicolaeIotu/cleandeck/compare/v0.9.14...v0.9.17
+
+## 2024-11-09 Changelog v0.9.14
+* Enforce text only seo_description by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/20
+* New Administration Panel by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/21
+
+**Full Changelog**: https://github.com/NicolaeIotu/cleandeck/compare/v0.9.11...v0.9.14
+
 ## 2024-11-04 Changelog v0.9.11
 * Enforce text only seo_description by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/20
 * New Administration Panel by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/21
