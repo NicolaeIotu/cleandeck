@@ -2,9 +2,7 @@
 
 1. **On the Development Machine**
     * ```composer create-project "cleandeck/cleandeck" ./```
-    * ```composer update```
-    * ```composer dump-autoload```
-    * Update file **.env.ini**
+    * Update file **.env.ini** (`baseURL`, `cookie[domain]` a.o.)
     * Update file **Application/public/robots.txt**
     * ```sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy php apache2```, or  ```sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy php nginx```
     * Start webserver

@@ -68,7 +68,7 @@ $cdmf->remark('Use OS tools such as *unzip* in order to extract the full content
 
 echo PHP_EOL;
 
-$cdmf->content('To do:');
+$cdmf->content('To Do:');
 $cdmf->code('composer update');
 $cdmf->code('composer dump-autoload');
 

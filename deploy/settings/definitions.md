@@ -1,6 +1,6 @@
 # Deploy Settings
 
-These settings are used by utility **cleandeck-deploy**:
+The settings in file **definitions.json** are used by utility **cleandeck-deploy**:
 > sudo env COMPOSER_ALLOW_SUPERUSER=1 composer exec cleandeck-deploy ...
 
 When **cleandeck-deploy** runs, it will copy settings files from directory **deploy/settings** to destinations

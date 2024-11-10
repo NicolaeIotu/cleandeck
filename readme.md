@@ -6,9 +6,7 @@ using awesome PHP and CMD-Auth of [https://link133.com](https://link133.com).
 ## Quick Start
 
 * ```composer create-project "cleandeck/cleandeck" ./```
-* ```composer update```
-* ```composer dump-autoload```
-* update file **.env.ini**
+* update file **.env.ini** (`baseURL`, `cookie[domain]` a.o.)
 * update file **Application/public/robots.txt**
 * if required adjust contents in directory **deploy/settings** (default settings are for Fedora and others alike)
 * setup PHP and webserver (choose a version from the list below):
