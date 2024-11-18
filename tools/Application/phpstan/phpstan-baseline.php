@@ -10,19 +10,22 @@
  * the LICENSE file that was distributed with this source code.
  */
 
-$ignoreErrors = [];
-
 defined('CLEANDECK_APP_PATH') || define('CLEANDECK_APP_PATH', dirname(__DIR__, 3) . '/Application');
 
-// Ignored errors which are related with user's libraries can be declared in up to 3 files:
-//  - phpstan-ignored-errors-1.php
-//  - phpstan-ignored-errors-2.php
-//  - phpstan-ignored-errors-3.php
+// Ignored errors, excluded paths and other PHPStan parameters can be declared in up to 3 files:
+//  - phpstan-parameters-1.php
+//  - phpstan-parameters-2.php
+//  - phpstan-parameters-3.php
 
 $i = 0;
-while (++$i <= 3 && file_exists(__DIR__ . '/phpstan-ignored-errors-' . $i . '.php')) {
+while (++$i <= 3 && file_exists(__DIR__ . '/phpstan-parameters-' . $i . '.php')) {
     // IMPORTANT! Don't use here include_once or require_once.
-    include __DIR__ . '/phpstan-ignored-errors-' . $i . '.php';
+    include __DIR__ . '/phpstan-parameters-' . $i . '.php';
 }
 
-return ['parameters' => ['ignoreErrors' => $ignoreErrors]];
+return [
+    'parameters' => [
+        'ignoreErrors' => $ignoreErrors ?? null,
+        'excludePaths' => $excludePaths ?? null,
+    ]
+];
