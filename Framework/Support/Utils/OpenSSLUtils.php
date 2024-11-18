@@ -130,7 +130,5 @@ class OpenSSLUtils
             self::showSSLErrors();
             throw new \Exception('Cannot save the self-signed certificate');
         }
-
-        self::showSSLErrors('SSL Errors found after running generateSelfSignedCertificate: ', true);
     }
 }
