@@ -91,6 +91,8 @@ final class ArticleLifecycleController
                 unset($adjusted_POST['remove_attachments']);
             }
         }
+        // set HTML format
+        $adjusted_POST['format'] = \base64_encode(\mb_convert_encoding('html', 'UTF-16LE'));
 
 
         // CRITICAL!

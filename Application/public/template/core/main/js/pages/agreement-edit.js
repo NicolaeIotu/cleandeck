@@ -14,6 +14,7 @@
 
 import { atobPlus, btoaPlus } from '../base64-utils.js'
 import { idbRead, idbWrite, idbDelete } from '../idb-utils.js'
+import TextEditor from '../TextEditor.js'
 
 const elements = {}
 const elementsIds = [
@@ -27,16 +28,22 @@ elementsIds.forEach((id) => {
   elements[id] = document.getElementById(id)
 })
 
+const textEditors = document.getElementsByClassName('cleandeck-text-editor')
+const agreementEditor = new TextEditor(textEditors.item(0))
+
 const agreementId = elements.main_form.getAttribute('data-agreement-id')
+
+const isModifyAction = elements.main_form.getAttribute('data-modify') === 'true'
 
 elements.main_form.onkeydown = function (event) {
   if (typeof event.key === 'string' && event.key.toLowerCase() === 'enter') {
-    // this is the only multiline form element at the moment
-    if (!(event.target instanceof HTMLTextAreaElement)) {
-      event.preventDefault()
-      controlledSubmit()
+    if (event.target instanceof HTMLTextAreaElement ||
+      event.target.hasAttribute('contenteditable')) {
+      return
     }
-    event.stopPropagation()
+
+    event.preventDefault()
+    controlledSubmit()
   }
 }
 
@@ -138,7 +145,7 @@ idbRead('agreement', ['agreement_id', 'agreement_content'])
   })
   .finally(() => {
     if (!Object.prototype.hasOwnProperty.call(backbone, 'agreement_content')) {
-      const agreementContentOriginalContent = elements.agreement_content_original.textContent.trim()
+      const agreementContentOriginalContent = elements.agreement_content_original.innerHTML.trim()
       backbone.agreement_content = {
         content: agreementContentOriginalContent
           .replace(/<\/script>/i, '[[end_script]]'),
@@ -178,10 +185,13 @@ idbRead('agreement', ['agreement_id', 'agreement_content'])
             vertContent = vertContent.replace(endScriptRegexp, closeScriptTag)
           }
 
-          if (vert.convert) {
-            vert.element_front.value = decodeURI(atobPlus(vertContent))
-          } else {
-            vert.element_front.value = vertContent
+          const actualContent = vert.convert ? decodeURI(atobPlus(vertContent)) : vertContent
+          switch (id) {
+            case 'agreement_content':
+              agreementEditor.text = actualContent
+              break
+            default:
+              vert.element_front.value = actualContent
           }
         }
       }
@@ -189,22 +199,26 @@ idbRead('agreement', ['agreement_id', 'agreement_content'])
     // End REBUILD
   })
 
+function getPreparedElementFrontValue (vert) {
+  if (vert.is_checkbox) {
+    return encodeURI(vert.element_front.checked ? vert.element_front.value : '0')
+  }
+  if (vert.is_select) {
+    return vert.element_front.selectedOptions.length > 0 ? encodeURI(vert.element_front.selectedOptions[0].value) : ''
+  }
+  if (vert.element.id === 'agreement_content') {
+    return agreementEditor.getProductionText()
+  }
+  return encodeURI(vert.element_front.value)
+}
+
 function preSubmitEncode () {
   // Use base64 to encode complex data before submitting.
   // function 'btoaPlus' can handle also Unicode text
   for (const id in backbone) {
     if (Object.prototype.hasOwnProperty.call(backbone, id)) {
       const vert = backbone[id]
-      let preparedElementFrontValue
-
-      if (vert.is_checkbox) {
-        preparedElementFrontValue = encodeURI(vert.element_front.checked ? vert.element_front.value : '0')
-      } else if (vert.is_select) {
-        preparedElementFrontValue =
-          vert.element_front.selectedOptions.length > 0 ? encodeURI(vert.element_front.selectedOptions[0].value) : ''
-      } else {
-        preparedElementFrontValue = encodeURI(vert.element_front.value)
-      }
+      const preparedElementFrontValue = getPreparedElementFrontValue(vert)
       vert.element.value = btoaPlus(preparedElementFrontValue)
     }
   }
@@ -219,7 +233,7 @@ function controlledSubmit () {
     // safely from the local IndexedDB.
     idbWrite('agreement', {
       agreement_id: agreementId,
-      agreement_content: btoaPlus(elements.agreement_content_front.value)
+      agreement_content: btoaPlus(agreementEditor.getProductionText())
     })
       .catch((reason) => console.error(reason.toString()))
       .finally(() => {

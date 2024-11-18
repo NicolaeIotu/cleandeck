@@ -69,7 +69,6 @@ final class AgreementLifecycleController
         }
 
         if ($edit_agreement_response->hasError()) {
-            syslog(LOG_INFO, $edit_agreement_response->getBody());
             CookieMessengerWriter::setMessage(
                 $edit_agreement_response->getStatusCode(),
                 true,

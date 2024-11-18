@@ -15,6 +15,7 @@
 import { atobPlus, btoaPlus } from '../base64-utils.js'
 import { showFiles } from '../files-utils.js'
 import { idbRead, idbWrite, idbDelete } from '../idb-utils.js'
+import TextEditor from '../TextEditor.js'
 
 const elements = {}
 const elementsIds = [
@@ -25,8 +26,7 @@ const elementsIds = [
   'cancel_delete_article_btn', 'controlled_submit',
   'article_summary_front', 'article_summary_original',
   'article_content_front', 'article_content_original',
-  'lang_code_front', 'article_title_front',
-  'article_summary_front', 'author_name_front', 'format_front',
+  'lang_code_front', 'article_title_front', 'author_name_front',
   'tags_front', 'publish_front', 'show_in_sitemap_front',
   'sitemap_changefreq_front', 'sitemap_priority_front', 'show_in_rss_front',
   'disable_front'
@@ -35,17 +35,25 @@ elementsIds.forEach((id) => {
   elements[id] = document.getElementById(id)
 })
 
+// multiple text editors
+const textEditors = document.getElementsByClassName('cleandeck-text-editor')
+const summaryEditor = new TextEditor(textEditors.item(0))
+const articleEditor = new TextEditor(textEditors.item(1))
+
 const articleId = elements.main_form.getAttribute('data-article-id')
 
 let filesErrors = false
 const isModifyAction = elements.main_form.getAttribute('data-modify') === 'true'
+
 elements.main_form.onkeydown = function (event) {
   if (typeof event.key === 'string' && event.key.toLowerCase() === 'enter') {
-    // this is the only multiline form element at the moment
-    if (!(event.target instanceof HTMLTextAreaElement)) {
-      controlledSubmit()
+    if (event.target instanceof HTMLTextAreaElement ||
+      event.target.hasAttribute('contenteditable')) {
+      return
     }
-    event.stopPropagation()
+
+    event.preventDefault()
+    controlledSubmit()
   }
 }
 
@@ -83,6 +91,9 @@ if (uploadMaxFilesizeBytes > 10485760) {
 
 elements.article_attachments.onchange = function filesOnChange (event) {
   const files = event.target.files
+  summaryEditor.attachments = files
+  articleEditor.attachments = files
+
   filesErrors = showFiles(
     elements['show-files'],
     files,
@@ -162,12 +173,6 @@ const backbone = {
       content: elements.author_name_front.getAttribute('data-content'),
       convert: elements.author_name_front.getAttribute('data-convert') === 'true'
     },
-  format:
-    {
-      content: elements.format_front.getAttribute('data-content'),
-      convert: elements.format_front.getAttribute('data-convert') === 'true',
-      is_select: true
-    },
   tags:
     {
       content: elements.tags_front.getAttribute('data-content'),
@@ -222,7 +227,7 @@ idbRead('article', ['article_id', 'article_summary', 'article_content'])
     try {
       // ID verification is critical!
       if (articleData.article_id === articleId) {
-        if(typeof articleData.article_content === 'string') {
+        if (typeof articleData.article_content === 'string') {
           backbone.article_content = {
             // decode content first
             content: atobPlus(articleData.article_content),
@@ -230,7 +235,7 @@ idbRead('article', ['article_id', 'article_summary', 'article_content'])
             is_main_content: true
           }
         }
-        if(typeof articleData.article_summary === 'string') {
+        if (typeof articleData.article_summary === 'string') {
           backbone.article_summary = {
             // decode content first
             content: atobPlus(articleData.article_summary),
@@ -248,7 +253,7 @@ idbRead('article', ['article_id', 'article_summary', 'article_content'])
   })
   .finally(() => {
     if (!Object.prototype.hasOwnProperty.call(backbone, 'article_content')) {
-      const articleContentOriginalContent = elements.article_content_original.textContent.trim()
+      const articleContentOriginalContent = elements.article_content_original.innerHTML.trim()
       backbone.article_content = {
         content: articleContentOriginalContent
           .replace(/<\/script>/i, '[[end_script]]'),
@@ -293,16 +298,22 @@ idbRead('article', ['article_id', 'article_summary', 'article_content'])
           let vertContent = vert.content
           // one additional step for the main content
           if (vert.is_main_content) {
-            if(Object.prototype.hasOwnProperty.call(backbone, 'article_content') ||
+            if (Object.prototype.hasOwnProperty.call(backbone, 'article_content') ||
               Object.prototype.hasOwnProperty.call(backbone, 'article_summary')) {
               vertContent = vertContent.replace(endScriptRegexp, closeScriptTag)
             }
           }
 
-          if (vert.convert) {
-            vert.element_front.value = decodeURI(atobPlus(vertContent))
-          } else {
-            vert.element_front.value = vertContent
+          const actualContent = vert.convert ? decodeURI(atobPlus(vertContent)) : vertContent
+          switch (id) {
+            case 'article_content':
+              articleEditor.text = actualContent
+              break
+            case 'article_summary':
+              summaryEditor.text = actualContent
+              break
+            default:
+              vert.element_front.value = actualContent
           }
         }
       }
@@ -310,22 +321,29 @@ idbRead('article', ['article_id', 'article_summary', 'article_content'])
     // End REBUILD
   })
 
+function getPreparedElementFrontValue (vert) {
+  if (vert.is_checkbox) {
+    return encodeURI(vert.element_front.checked ? vert.element_front.value : '0')
+  }
+  if (vert.is_select) {
+    return vert.element_front.selectedOptions.length > 0 ? encodeURI(vert.element_front.selectedOptions[0].value) : ''
+  }
+  if (vert.element.id === 'article_content') {
+    return articleEditor.getProductionText()
+  }
+  if (vert.element.id === 'article_summary') {
+    return summaryEditor.getProductionText()
+  }
+  return encodeURI(vert.element_front.value)
+}
+
 function preSubmitEncode () {
   // Use base64 to encode complex data before submitting.
   // function 'btoaPlus' can handle also Unicode text
   for (const id in backbone) {
     if (Object.prototype.hasOwnProperty.call(backbone, id)) {
       const vert = backbone[id]
-      let preparedElementFrontValue
-
-      if (vert.is_checkbox) {
-        preparedElementFrontValue = encodeURI(vert.element_front.checked ? vert.element_front.value : '0')
-      } else if (vert.is_select) {
-        preparedElementFrontValue =
-          vert.element_front.selectedOptions.length > 0 ? encodeURI(vert.element_front.selectedOptions[0].value) : ''
-      } else {
-        preparedElementFrontValue = encodeURI(vert.element_front.value)
-      }
+      const preparedElementFrontValue = getPreparedElementFrontValue(vert)
       vert.element.value = btoaPlus(preparedElementFrontValue)
     }
   }
@@ -345,8 +363,8 @@ function controlledSubmit () {
     // safely from the local IndexedDB.
     idbWrite('article', {
       article_id: articleId,
-      article_summary: btoaPlus(elements.article_summary_front.value),
-      article_content: btoaPlus(elements.article_content_front.value)
+      article_summary: btoaPlus(summaryEditor.getProductionText()),
+      article_content: btoaPlus(articleEditor.getProductionText())
     })
       .catch((reason) => console.error(reason.toString()))
       .finally(() => {
