@@ -110,27 +110,6 @@ if ($article_content === '') {
     $article_content_convert = 'true';
 }
 
-// handle format
-$format = CookieMessengerReader::getPreviousFormData($cmsg_form_data, 'format');
-$formats_array = [
-    'html',
-    'markdown',
-    'xml',
-    'text',
-    'other',
-];
-if ($format === '') {
-    $format_convert = 'false';
-    if (isset($article_details, $article_details['format'])) {
-        $format = $article_details['format'];
-    } else {
-        // assign a default
-        $format = 'html';
-    }
-} else {
-    $format_convert = 'true';
-}
-
 // handle tags
 $tags = CookieMessengerReader::getPreviousFormData($cmsg_form_data, 'tags');
 if ($tags === '') {
@@ -239,7 +218,6 @@ if (isset($article_details['article_attachments']) && is_string($article_details
     $article_attachments = explode(',', $article_details['article_attachments']);
 }
 
-
 ?>
 <?php if (isset($is_admin) && $is_admin === true) : ?>
     <div class="container w-100 w-sm-75 p-2 safe-min-width">
@@ -286,72 +264,22 @@ if (isset($article_details['article_attachments']) && is_string($article_details
                        data-convert="<?= $author_name_convert ?>" data-content="<?= $author_name; ?>"
                        minlength="2" maxlength="200">
             </div>
-            <div class="form-group">
-                <label for="article_summary_front" class="fw-bolder">Summary</label>
+            <div class="form-group mt-3">
+                <span class="fw-bolder fs-5">SUMMARY</span>
                 <input type="hidden" form="main_form" id="article_summary" name="article_summary">
-                <textarea id="article_summary_original" class="d-none"><?= $article_summary; ?></textarea>
-                <textarea class="form-control" form="front_form mb-1"
-                          id="article_summary_front" name="article_summary_front"
-                          minlength="10" maxlength="250000" rows="6" required aria-required="true"
-                          data-convert="<?= $article_summary_convert ?>"
-                          autocomplete="off"></textarea>
-                <p class="small">
-                    The summary has the same format as the main content of the article (below).<br>
+                <div id="article_summary_original" class="d-none"><?= $article_summary; ?></div>
+                <div id="article_summary_front"
+                     class="cleandeck-text-editor m-0 mb-1 p-0"></div>
+                <p class="text-smaller">
                     In order to improve appearance in RSS readers it is recommended to have a consistent and
-                    stylish summary.
+                    stylish HTML summary.
                 </p>
             </div>
-            <div class="form-group border border-success rounded p-2">
-                <label for="article_content_front" class="fw-bolder">ARTICLE MAIN CONTENT</label>
+            <div class="form-group mt-4">
+                <span class="fw-bolder fs-5">MAIN ARTICLE CONTENT</span>
                 <input type="hidden" form="main_form" id="article_content" name="article_content">
-                <textarea id="article_content_original" class="d-none"><?= $article_content; ?></textarea>
-                <textarea class="form-control" form="front_form mb-1"
-                          id="article_content_front" name="article_content_front"
-                          minlength="10" maxlength="250000" rows="16" required aria-required="true"
-                          data-convert="<?= $article_content_convert ?>"
-                          autocomplete="off"></textarea>
-                <p class="small">
-                    For this implementation the main HTML content should be enclosed by tag &lt;article&gt;.<br>
-                    At presentation, by default, the tags &lt;img&gt;, &lt;script&gt;, &lt;a&gt; and
-                    &lt;link&gt;
-                    will have their <strong>src</strong> or <strong>href</strong> attributes adjusted
-                    in order to
-                    match
-                    the base url of the application.<br>
-                    <code>&lt;a href="contact" ...</code><br>
-                    If <strong>src</strong> or <strong>href</strong> attribute contains the file name
-                    of an
-                    attachment
-                    then the attribute will be adjusted to match the real path of that static file
-                    which is attached using the <strong>Attachments</strong> section.<br>
-                    <code>&lt;img src="attachment-name.png" ...</code>
-                </p>
-                <p class="small">
-                    <strong>IMPORTANT!</strong>
-                    If a custom attribute <strong>data-preserve-source</strong> is found on tags &lt;img&gt;, &lt;script&gt;,
-                    &lt;a&gt; and &lt;link&gt;,
-                    then the corresponding <strong>src</strong> or <strong>href</strong> attributes are
-                    preserved.<br>
-                    The custom attribute <strong>data-preserve-source</strong> <em>must</em> be used for anchors and
-                    external links.<br>
-                    <code>&lt;a data-preserve-source href="#custom-anchor" ...</code>
-                </p>
-                <p class="small">
-                    <strong>Content-Security-Policy - no inline scripts and styles!</strong><br>
-                    It is strongly recommended to keep scripts and styles in external files. This approach also
-                    satisfies the default Content-Security-Policy of the application.
-                </p>
-            </div>
-            <div class="form-group">
-                <label for="format_front" class="fw-bolder">Content Format</label>
-                <input type="hidden" form="main_form" id="format" name="format">
-                <select form="front_form" id="format_front" name="format_front"
-                        data-convert="<?= $format_convert ?>" data-content="<?= $format; ?>"
-                        class="form-select w-auto min-w-25" required>
-                    <?php foreach ($formats_array as $format_array) : ?>
-                        <option value="<?= $format_array; ?>"><?= $format_array; ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <div id="article_content_original" class="d-none"><?= $article_content; ?></div>
+                <div id="article_content_front" class="cleandeck-text-editor m-0 mb-1 p-0"></div>
             </div>
             <?php if (isset($article_attachments)) : ?>
                 <div class="form-group border rounded p-2" id="existing-attachments">
@@ -373,17 +301,18 @@ if (isset($article_details['article_attachments']) && is_string($article_details
                     </div>
                 </div>
             <?php endif; ?>
-            <div class="form-group border rounded p-2">
-                <label for="article_attachments" class="fw-bolder">Attachments</label>
+            <div class="form-group border rounded p-2 pb-1">
+                <label for="article_attachments" class="fw-bolder fs-5">ATTACHMENTS</label>
                 <input type="hidden" form="main_form" id="toggle_remove_attachments"
                        name="remove_attachments" value="false">
                 <!-- Filter allowed attachments type as required by your application -->
+                <hr class="m-0 mb-2">
                 <input type="file" form="main_form" id="article_attachments" name="article_attachments[]"
                        multiple class="form-control-file" accept="audio/*,video/*,image/*,.pdf,.zip"
                        data-umf="<?= $upload_max_filesize ?? '2M'; ?>" data-mfu="<?= $max_file_uploads ?? 20; ?>"
                        data-umfb="<?= $upload_max_filesize_bytes ?? 2097152; ?>">
                 <div class="col-12" id="show-files"></div>
-                <p class="small">Select the attachments (including pictures) used within the main content of
+                <p class="small m-0">Select the attachments (including pictures) used within the main content of
                                  this article.<br>
                                  By default only the tags &lt;img&gt;, &lt;script&gt;, &lt;a&gt; and &lt;link&gt;
                                  will have their

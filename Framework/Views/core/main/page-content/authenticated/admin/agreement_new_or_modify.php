@@ -80,7 +80,6 @@ if ($agreement_content === '') {
     $agreement_content_convert = 'true';
 }
 
-
 ?>
 <?php if (isset($is_admin) && $is_admin === true) : ?>
     <div class="container w-100 w-sm-75 p-2 safe-min-width">
@@ -148,39 +147,11 @@ if ($agreement_content === '') {
                     If specified, this field should hold a single valid email of the employee targeted by this
                     agreement.</p>
             </div>
-            <div class="form-group">
-                <label for="agreement_content_front" class="fw-bolder">Agreement content</label>
+            <div class="form-group mt-4">
+                <span class="fw-bolder fs-5">AGREEMENT CONTENT</span>
                 <input type="hidden" form="main_form" id="agreement_content" name="agreement_content">
-                <textarea id="agreement_content_original" class="d-none"><?= $agreement_content; ?></textarea>
-                <textarea class="form-control" form="front_form mb-1"
-                          id="agreement_content_front" name="agreement_content_front"
-                          minlength="10" maxlength="250000" rows="8" required aria-required="true"
-                          data-convert="<?= $agreement_content_convert ?>"
-                          autocomplete="off"></textarea>
-                <p class="small">
-                    For this implementation the main HTML content should be enclosed by tag &lt;article&gt;.<br>
-                    At presentation, by default, the tags &lt;img&gt;, &lt;script&gt;, &lt;a&gt; and
-                    &lt;link&gt;
-                    will have their <strong>src</strong> or <strong>href</strong> attributes adjusted
-                    in order to match the base url of the application.<br>
-                    <code>&lt;a href="contact" ...</code><br>
-                    Attachments are not supported at the moment for agreements.
-                </p>
-                <p class="small">
-                    <strong>IMPORTANT!</strong>
-                    If a custom attribute <strong>data-preserve-source</strong> is found on tags &lt;img&gt;, &lt;script&gt;,
-                    &lt;a&gt; and &lt;link&gt;,
-                    then the corresponding <strong>src</strong> or <strong>href</strong> attributes are
-                    preserved.<br>
-                    The custom attribute <strong>data-preserve-source</strong> <em>must</em> be used for anchors and
-                    external links.<br>
-                    <code>&lt;a data-preserve-source href="#custom-anchor" ...</code>
-                </p>
-                <p class="small">
-                    <strong>Content-Security-Policy - no inline scripts and styles!</strong><br>
-                    It is strongly recommended to keep scripts and styles in external files. This approach also
-                    satisfies the default Content-Security-Policy of the application.
-                </p>
+                <div id="agreement_content_original" class="d-none"><?= $agreement_content; ?></div>
+                <div id="agreement_content_front" class="cleandeck-text-editor m-0 mb-1 p-0"></div>
             </div>
             <?php echo view_main('components/captcha'); ?>
         </form>

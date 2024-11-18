@@ -15,6 +15,7 @@
 import { atobPlus, btoaPlus } from '../base64-utils.js'
 import { showFiles } from '../files-utils.js'
 import { idbRead, idbWrite, idbDelete } from '../idb-utils.js'
+import TextEditor from '../TextEditor.js'
 
 const elements = {}
 const elementsIds = [
@@ -26,7 +27,7 @@ const elementsIds = [
   'answer_summary_front', 'answer_summary_original',
   'answer_front', 'answer_original',
   'lang_code_front', 'question_front',
-  'author_name_front', 'format_front', 'tags_front',
+  'author_name_front', 'tags_front',
   'show_in_sitemap_front', 'sitemap_changefreq_front', 'sitemap_priority_front',
   'show_in_rss_front', 'disable_front'
 ]
@@ -34,17 +35,25 @@ elementsIds.forEach((id) => {
   elements[id] = document.getElementById(id)
 })
 
+// multiple text editors
+const textEditors = document.getElementsByClassName('cleandeck-text-editor')
+const summaryEditor = new TextEditor(textEditors.item(0))
+const faqEditor = new TextEditor(textEditors.item(1))
+
 const faqId = elements.main_form.getAttribute('data-faq-id')
 
 let filesErrors = false
 const isModifyAction = elements.main_form.getAttribute('data-modify') === 'true'
+
 elements.main_form.onkeydown = function (event) {
   if (typeof event.key === 'string' && event.key.toLowerCase() === 'enter') {
-    // this is the only multiline form element at the moment
-    if (!(event.target instanceof HTMLTextAreaElement)) {
-      controlledSubmit()
+    if (event.target instanceof HTMLTextAreaElement ||
+      event.target.hasAttribute('contenteditable')) {
+      return
     }
-    event.stopPropagation()
+
+    event.preventDefault()
+    controlledSubmit()
   }
 }
 
@@ -82,6 +91,9 @@ if (uploadMaxFilesizeBytes > 10485760) {
 
 elements.faq_attachments.onchange = function filesOnChange (event) {
   const files = event.target.files
+  summaryEditor.attachments = files
+  faqEditor.attachments = files
+
   filesErrors = showFiles(
     elements['show-files'],
     files,
@@ -161,12 +173,6 @@ const backbone = {
       content: elements.author_name_front.getAttribute('data-content'),
       convert: elements.author_name_front.getAttribute('data-convert') === 'true'
     },
-  format:
-    {
-      content: elements.format_front.getAttribute('data-content'),
-      convert: elements.format_front.getAttribute('data-convert') === 'true',
-      is_select: true
-    },
   tags:
     {
       content: elements.tags_front.getAttribute('data-content'),
@@ -216,7 +222,7 @@ idbRead('faq', ['faq_id', 'answer', 'answer_summary'])
     try {
       // ID verification is critical!
       if (faqData.faq_id === faqId) {
-        if(typeof faqData.answer === 'string') {
+        if (typeof faqData.answer === 'string') {
           backbone.answer = {
             // decode content first
             content: atobPlus(faqData.answer),
@@ -224,7 +230,7 @@ idbRead('faq', ['faq_id', 'answer', 'answer_summary'])
             is_main_content: true
           }
         }
-        if(typeof faqData.answer_summary === 'string') {
+        if (typeof faqData.answer_summary === 'string') {
           backbone.answer_summary = {
             // decode content first
             content: atobPlus(faqData.answer_summary),
@@ -242,7 +248,7 @@ idbRead('faq', ['faq_id', 'answer', 'answer_summary'])
   })
   .finally(() => {
     if (!Object.prototype.hasOwnProperty.call(backbone, 'answer')) {
-      const answerOriginalContent = elements.answer_original.textContent.trim()
+      const answerOriginalContent = elements.answer_original.innerHTML.trim()
       backbone.answer = {
         content: answerOriginalContent
           .replace(/<\/script>/i, '[[end_script]]'),
@@ -287,16 +293,22 @@ idbRead('faq', ['faq_id', 'answer', 'answer_summary'])
           let vertContent = vert.content
           // one additional step for the main content
           if (vert.is_main_content) {
-            if(Object.prototype.hasOwnProperty.call(backbone, 'answer') ||
+            if (Object.prototype.hasOwnProperty.call(backbone, 'answer') ||
               Object.prototype.hasOwnProperty.call(backbone, 'answer_summary')) {
               vertContent = vertContent.replace(endScriptRegexp, closeScriptTag)
             }
           }
 
-          if (vert.convert) {
-            vert.element_front.value = decodeURI(atobPlus(vertContent))
-          } else {
-            vert.element_front.value = vertContent
+          const actualContent = vert.convert ? decodeURI(atobPlus(vertContent)) : vertContent
+          switch (id) {
+            case 'answer':
+              faqEditor.text = actualContent
+              break
+            case 'answer_summary':
+              summaryEditor.text = actualContent
+              break
+            default:
+              vert.element_front.value = actualContent
           }
         }
       }
@@ -304,22 +316,29 @@ idbRead('faq', ['faq_id', 'answer', 'answer_summary'])
     // End REBUILD
   })
 
+function getPreparedElementFrontValue (vert) {
+  if (vert.is_checkbox) {
+    return encodeURI(vert.element_front.checked ? vert.element_front.value : '0')
+  }
+  if (vert.is_select) {
+    return vert.element_front.selectedOptions.length > 0 ? encodeURI(vert.element_front.selectedOptions[0].value) : ''
+  }
+  if (vert.element.id === 'answer') {
+    return faqEditor.getProductionText()
+  }
+  if (vert.element.id === 'answer_summary') {
+    return summaryEditor.getProductionText()
+  }
+  return encodeURI(vert.element_front.value)
+}
+
 function preSubmitEncode () {
   // Use base64 to encode complex data before submitting.
   // function 'btoaPlus' can handle also Unicode text
   for (const id in backbone) {
     if (Object.prototype.hasOwnProperty.call(backbone, id)) {
       const vert = backbone[id]
-      let preparedElementFrontValue
-
-      if (vert.is_checkbox) {
-        preparedElementFrontValue = encodeURI(vert.element_front.checked ? vert.element_front.value : '0')
-      } else if (vert.is_select) {
-        preparedElementFrontValue =
-          vert.element_front.selectedOptions.length > 0 ? encodeURI(vert.element_front.selectedOptions[0].value) : ''
-      } else {
-        preparedElementFrontValue = encodeURI(vert.element_front.value)
-      }
+      const preparedElementFrontValue = getPreparedElementFrontValue(vert)
       vert.element.value = btoaPlus(preparedElementFrontValue)
     }
   }
@@ -339,8 +358,8 @@ function controlledSubmit () {
     // safely from the local IndexedDB.
     idbWrite('faq', {
       faq_id: faqId,
-      answer: btoaPlus(elements.answer_front.value),
-      answer_summary: btoaPlus(elements.answer_summary_front.value)
+      answer_summary: btoaPlus(summaryEditor.getProductionText()),
+      answer: btoaPlus(faqEditor.getProductionText())
     })
       .catch((reason) => console.error(reason.toString()))
       .finally(() => {

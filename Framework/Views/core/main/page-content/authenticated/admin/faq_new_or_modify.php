@@ -110,27 +110,6 @@ if ($answer === '') {
     $answer_convert = 'true';
 }
 
-// handle format
-$format = CookieMessengerReader::getPreviousFormData($cmsg_form_data, 'format');
-$formats_array = [
-    'html',
-    'markdown',
-    'xml',
-    'text',
-    'other',
-];
-if ($format === '') {
-    $format_convert = 'false';
-    if (isset($faq_details, $faq_details['format'])) {
-        $format = $faq_details['format'];
-    } else {
-        // assign a default
-        $format = 'html';
-    }
-} else {
-    $format_convert = 'true';
-}
-
 // handle tags
 $tags = CookieMessengerReader::getPreviousFormData($cmsg_form_data, 'tags');
 if ($tags === '') {
@@ -192,7 +171,6 @@ if ($sitemap_changefreq === '') {
     $sitemap_changefreq_convert = 'true';
 }
 
-
 // handle sitemap_priority
 $sitemap_priority =
     CookieMessengerReader::getPreviousFormData($cmsg_form_data, 'sitemap_priority');
@@ -221,14 +199,13 @@ if ($show_in_rss === '') {
     $show_in_rss_convert = 'true';
 }
 
-
 if (isset($faq_details['faq_attachments']) && is_string($faq_details['faq_attachments'])) {
     $faq_attachments = explode(',', $faq_details['faq_attachments']);
 }
 
 ?>
 <?php if (isset($is_admin) && $is_admin === true) : ?>
-    <div class="container w-100 w-lg-50 p-2 safe-min-width">
+    <div class="container w-100 w-sm-75 p-2 safe-min-width">
         <h1 class="text-end">
             <?php if ($is_modify_action) : ?>
                 Edit FAQ
@@ -272,70 +249,22 @@ if (isset($faq_details['faq_attachments']) && is_string($faq_details['faq_attach
                        data-convert="<?= $author_name_convert ?>" data-content="<?= $author_name; ?>"
                        minlength="2" maxlength="200">
             </div>
-            <div class="form-group">
-                <label for="answer_summary_front" class="fw-bolder">Summary</label>
+            <div class="form-group mt-3">
+                <span class="fw-bolder fs-5">SUMMARY</span>
                 <input type="hidden" form="main_form" id="answer_summary" name="answer_summary">
                 <textarea id="answer_summary_original" class="d-none"><?= $answer_summary; ?></textarea>
-                <textarea class="form-control" form="front_form mb-1"
-                          id="answer_summary_front" name="answer_summary_front"
-                          minlength="10" maxlength="250000" rows="6" required aria-required="true"
-                          data-convert="<?= $answer_summary_convert ?>"
-                          autocomplete="off"></textarea>
-                <p class="small">
-                    The summary of the answer has the same format as the main answer of the FAQ (below).<br>
+                <div id="answer_summary_front"
+                     class="cleandeck-text-editor m-0 mb-1 p-0"></div>
+                <p class="text-smaller">
                     In order to improve appearance in RSS readers it is recommended to have a consistent and
-                    stylish summary.
+                    stylish HTML summary.
                 </p>
             </div>
-            <div class="form-group border border-success rounded p-2">
-                <label for="answer_front" class="fw-bolder">Answer</label>
+            <div class="form-group mt-4">
+                <span class="fw-bolder fs-5">ANSWER</span>
                 <input type="hidden" form="main_form" id="answer" name="answer">
-                <textarea id="answer_original" class="d-none"><?= $answer; ?></textarea>
-                <textarea form="front_form" class="form-control"
-                          id="answer_front" name="answer_front"
-                          minlength="10" maxlength="50000" rows="8" required aria-required="true"
-                          data-convert="<?= $answer_convert ?>"
-                          autocomplete="off"></textarea>
-                <p class="small">
-                    For this implementation the HTML answer should be enclosed by tag &lt;article&gt;.<br>
-                    At presentation, by default, the tags &lt;img&gt;, &lt;script&gt;, &lt;a&gt; and &lt;link&gt;
-                    will have their <strong>src</strong> or <strong>href</strong> attributes adjusted in order to
-                    match
-                    the base url of the application.<br>
-                    <code>&lt;a href="contact" ...</code><br>
-                    If <strong>src</strong> or <strong>href</strong> attribute contains the file name
-                    of an
-                    attachment
-                    then the attribute will be adjusted to match the real path of that static file
-                    which is attached using the <strong>Attachments</strong> section.<br>
-                    <code>&lt;img src="attachment-name.png" ...</code>
-                </p>
-                <p class="small">
-                    <strong>IMPORTANT!</strong>
-                    If a custom attribute <strong>data-preserve-source</strong> is found on tags &lt;img&gt;, &lt;script&gt;,
-                    &lt;a&gt; and &lt;link&gt;,
-                    then the corresponding <strong>src</strong> or <strong>href</strong> attributes are
-                    preserved.<br>
-                    The custom attribute <strong>data-preserve-source</strong> <em>must</em> be used for anchors and
-                    external links.<br>
-                    <code>&lt;a data-preserve-source href="#custom-anchor" ...</code>
-                </p>
-                <p class="small">
-                    <strong>Content-Security-Policy - no inline scripts and styles!</strong><br>
-                    It is strongly recommended to keep scripts and styles in external files. This approach also
-                    satisfies the default Content-Security-Policy of the application.
-                </p>
-            </div>
-            <div class="form-group">
-                <label for="format_front" class="fw-bolder">Answer Format</label>
-                <input type="hidden" form="main_form" id="format" name="format">
-                <select form="front_form" id="format_front" name="format_front"
-                        data-convert="<?= $format_convert ?>" data-content="<?= $format; ?>"
-                        class="form-select w-auto min-w-25" required>
-                    <?php foreach ($formats_array as $format_array) : ?>
-                        <option value="<?= $format_array; ?>"><?= $format_array; ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <div id="answer_original" class="d-none"><?= $answer; ?></div>
+                <div id="article_content_front" class="cleandeck-text-editor m-0 mb-1 p-0"></div>
             </div>
             <?php if (isset($faq_attachments)) : ?>
                 <div class="form-group border rounded p-2" id="existing-attachments">
@@ -357,17 +286,18 @@ if (isset($faq_details['faq_attachments']) && is_string($faq_details['faq_attach
                     </div>
                 </div>
             <?php endif; ?>
-            <div class="form-group border rounded p-2">
-                <label for="faq_attachments" class="fw-bolder">Attachments</label>
+            <div class="form-group border rounded p-2 pb-1">
+                <label for="faq_attachments" class="fw-bolder">ATTACHMENTS</label>
                 <input type="hidden" form="main_form" id="toggle_remove_attachments"
                        name="remove_attachments" value="false">
                 <!-- Filter allowed attachments type as required by your application -->
+                <hr class="m-0 mb-2">
                 <input type="file" form="main_form" id="faq_attachments" name="faq_attachments[]"
                        multiple class="form-control-file" accept="audio/*,video/*,image/*,.pdf,.zip"
                        data-umf="<?= $upload_max_filesize ?? '2M'; ?>" data-mfu="<?= $max_file_uploads ?? 20; ?>"
                        data-umfb="<?= $upload_max_filesize_bytes ?? 2097152; ?>">
                 <div class="col-12" id="show-files"></div>
-                <p class="small">Select the attachments (including pictures) used within the content of the answer
+                <p class="small m-0">Select the attachments (including pictures) used within the content of the answer
                                  of
                                  this Frequently Asked Question.<br>
                                  By default only the tags &lt;img&gt;, &lt;script&gt;, &lt;a&gt; and &lt;link&gt;
