@@ -51,7 +51,7 @@ if (isset($employees) && is_array($employees) &&
         <div class="container w-100 m-0 mb-4 p-2">
             <div class="form-group clearfix m-0 mb-2">
                 <label class="mb-1" for="email-s">Search users (employees or not yet employees) by email or part of email</label>
-                <input type="text" class="form-control" id="email-s" name="email"
+                <input type="text" class="form-control" id="email-s" name="email" autocomplete="on"
                        title="Search users by email" placeholder="User email">
             </div>
             <div class="form-group clearfix m-0 p-0">

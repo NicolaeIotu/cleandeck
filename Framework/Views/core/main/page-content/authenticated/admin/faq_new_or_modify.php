@@ -237,7 +237,7 @@ if (isset($faq_details['faq_attachments']) && is_string($faq_details['faq_attach
                 <label for="question_front" class="fw-bolder">Question</label>
                 <input type="hidden" form="main_form" id="question" name="question">
                 <input type="text" class="form-control" form="front_form" id="question_front"
-                       name="question_front" autocomplete="off"
+                       name="question_front" autocomplete="on"
                        data-convert="<?= $question_convert ?>" data-content="<?= $question; ?>"
                        required minlength="8" maxlength="3000">
             </div>
@@ -313,7 +313,7 @@ if (isset($faq_details['faq_attachments']) && is_string($faq_details['faq_attach
                 <input type="hidden" form="main_form" id="tags" name="tags">
                 <input type="text" class="form-control" form="front_form" id="tags_front" name="tags_front"
                        data-convert="<?= $tags_convert; ?>" data-content="<?= $tags; ?>"
-                       maxlength="200" autocomplete="off">
+                       maxlength="200" autocomplete="on">
                 <span><small>(comma separated list of tags)</small></span>
             </div>
             <?php if ($is_modify_action) : ?>

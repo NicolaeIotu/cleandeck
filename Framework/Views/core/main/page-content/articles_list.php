@@ -80,7 +80,7 @@ if (isset($articles) && is_array($articles) &&
         <div class="container w-100 w-md-75 border rounded m-0 mb-4 p-2 me-auto ms-auto">
             <div class="form-group clearfix m-0 mb-2">
                 <input type="text" class="form-control" name="content"
-                       title="Search articles" placeholder="Search articles">
+                       title="Search articles" placeholder="Search articles" autocomplete="on">
                 <select class="form-select w-auto m-0 mt-1 ms-2 p-0 pe-2 ps-2 float-end"
                         name="sortorder" title="Sort order">
                     <option value="DESC"<?= $default_sort_order === 'DESC' ? ' selected' : ''; ?>>
