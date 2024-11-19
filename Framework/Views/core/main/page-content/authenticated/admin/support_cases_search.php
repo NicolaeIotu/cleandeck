@@ -39,7 +39,7 @@ $ranked = CookieMessengerReader::getPreviousFormData($cmsg_form_data, 'ranked');
             <label for="user_id">User ID</label>
             <input type="text" class="form-control" id="user_id" name="user_id"
                    value="<?= CookieMessengerReader::getPreviousFormData($cmsg_form_data, 'user_id'); ?>"
-                   autocomplete="on">
+                   autocomplete="off">
         </div>
         <div class="form-group">
             <label for="content">Text Content</label>

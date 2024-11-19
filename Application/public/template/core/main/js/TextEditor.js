@@ -103,13 +103,13 @@ export default class TextEditor {
     '<div class="row m-0 p-2">\n' +
     '<label class="float-start">\n' +
     'URL \n' +
-    '<input type="text" class="form-input float-end w-75"/>\n' +
+    '<input type="text" class="form-input float-end w-75" autocomplete="on"/>\n' +
     '</label>\n' +
     '</div>\n' +
     '<div class="row m-0 p-2">\n' +
     '<label class="float-start">\n' +
     'Content \n' +
-    '<input type="text" class="form-input float-end w-75"/>\n' +
+    '<input type="text" class="form-input float-end w-75" autocomplete="on"/>\n' +
     '</label>\n' +
     '</div>\n' +
     '<div class="row m-0 p-2">\n' +
@@ -150,13 +150,13 @@ export default class TextEditor {
     '<div class="row m-0 p-2 border-bottom">\n' +
     '<label class="float-start">\n' +
     'Source\n' +
-    '<input type="text" class="form-input float-end w-75"/>\n' +
+    '<input type="text" class="form-input float-end w-75" autocomplete="on"/>\n' +
     '</label>\n' +
     '</div>\n' +
     '<div class="row m-0 p-2 border-bottom">\n' +
     '<label class="float-start">\n' +
     'Alt\n' +
-    '<input type="text" class="form-input float-end w-75"/>\n' +
+    '<input type="text" class="form-input float-end w-75" autocomplete="on"/>\n' +
     '</label>\n' +
     '</div>\n' +
     '<div class="row m-0 p-2">\n' +

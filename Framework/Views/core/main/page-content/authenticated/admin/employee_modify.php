@@ -66,7 +66,7 @@ $employment_end_date =
                                 class="badge text-bg-secondary"><?= $employee_details['employee_type'] ?? 'none'; ?></span>
                         </label>
                     </p>
-                    <input type="text" class="form-control" minlength="2" maxlength="254"
+                    <input type="text" class="form-control" minlength="2" maxlength="254" autocomplete="on"
                            id="employee_type" name="employee_type" value="<?= $employee_type; ?>">
                     <p class="small">Applicable agreements are identified using field
                         <span class="fw-bolder">Employee Category</span>.<br>
@@ -108,7 +108,7 @@ $employment_end_date =
                             </span>
                         </label>
                     </p>
-                    <input type="text" class="form-control" maxlength="254"
+                    <input type="text" class="form-control" maxlength="254" autocomplete="on"
                            id="employment_official_classification" name="employment_official_classification"
                            value="<?= $employment_official_classification; ?>">
                     <p class="small">i.e. COR2131</p>
@@ -122,7 +122,7 @@ $employment_end_date =
                             </span>
                         </label>
                     </p>
-                    <input type="text" class="form-control" maxlength="2000"
+                    <input type="text" class="form-control" maxlength="2000" autocomplete="on"
                            id="employment_official_title" name="employment_official_title"
                            value="<?= $employment_official_title; ?>">
                     <p class="small">i.e. Biologist, botanist, zoologist and others alike</p>
@@ -136,7 +136,7 @@ $employment_end_date =
                             </span>
                         </label>
                     </p>
-                    <input type="text" class="form-control" maxlength="2000"
+                    <input type="text" class="form-control" maxlength="2000" autocomplete="on"
                            id="other_employment_details" name="other_employment_details"
                            value="<?= $employment_official_title; ?>">
                 </div>

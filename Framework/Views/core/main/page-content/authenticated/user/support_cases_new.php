@@ -49,7 +49,7 @@ sort($topics);
             <label for="case_title">Case Title</label>
             <input type="text" class="form-control" id="case_title" name="case_title" required minlength="8"
                    maxlength="500"<?= isset($case_title) ? ' value="' . $case_title . '"' : ''; ?>
-                   autocomplete="off">
+                   autocomplete="on">
         </div>
         <div class="form-group">
             <label for="case_topic">Case Topic</label>

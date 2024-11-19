@@ -101,7 +101,7 @@ if ($agreement_content === '') {
                 <label for="agreement_title_front" class="fw-bolder">Agreement Title</label>
                 <input type="hidden" form="main_form" id="agreement_title" name="agreement_title">
                 <input type="text" class="form-control" form="front_form" id="agreement_title_front"
-                       name="agreement_title_front" autocomplete="off" aria-required="true"
+                       name="agreement_title_front" autocomplete="on" aria-required="true"
                        data-convert="<?= $agreement_title_convert ?>" data-content="<?= $agreement_title; ?>"
                        required minlength="2" maxlength="1000">
             </div>
@@ -109,7 +109,7 @@ if ($agreement_content === '') {
                 <label for="agreement_type_front" class="fw-bolder">Agreement Type</label>
                 <input type="hidden" form="main_form" id="agreement_type" name="agreement_type">
                 <input type="text" class="form-control" form="front_form" id="agreement_type_front"
-                       name="agreement_type_front" autocomplete="off" aria-required="true"
+                       name="agreement_type_front" autocomplete="on" aria-required="true"
                        data-convert="<?= $agreement_type_convert ?>" data-content="<?= $agreement_type; ?>"
                        required minlength="2" maxlength="200">
                 <p class="small">
@@ -121,7 +121,7 @@ if ($agreement_content === '') {
                 <input type="hidden" form="main_form" id="for_employee_types"
                        name="for_employee_types">
                 <input type="text" class="form-control" form="front_form" id="for_employee_types_front"
-                       name="for_employee_types_front" autocomplete="off"
+                       name="for_employee_types_front" autocomplete="on"
                        data-convert="<?= $for_employee_types_convert ?>"
                        data-content="<?= $for_employee_types; ?>"
                        maxlength="3000">

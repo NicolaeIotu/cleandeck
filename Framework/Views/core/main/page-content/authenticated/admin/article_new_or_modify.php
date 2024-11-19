@@ -252,7 +252,7 @@ if (isset($article_details['article_attachments']) && is_string($article_details
                 <label for="article_title_front" class="fw-bolder">Title</label>
                 <input type="hidden" form="main_form" id="article_title" name="article_title">
                 <input type="text" class="form-control" form="front_form" id="article_title_front"
-                       name="article_title_front" autocomplete="off"
+                       name="article_title_front" autocomplete="on"
                        data-convert="<?= $article_title_convert ?>" data-content="<?= $article_title; ?>"
                        required minlength="8" maxlength="3000">
             </div>
@@ -327,7 +327,7 @@ if (isset($article_details['article_attachments']) && is_string($article_details
                 <input type="hidden" form="main_form" id="tags" name="tags">
                 <input type="text" class="form-control" form="front_form" id="tags_front" name="tags_front"
                        data-convert="<?= $tags_convert; ?>" data-content="<?= $tags; ?>"
-                       maxlength="200" autocomplete="off">
+                       maxlength="200" autocomplete="on">
                 <span><small>(comma separated list of tags)</small></span>
             </div>
             <?php if ($is_modify_action) : ?>
