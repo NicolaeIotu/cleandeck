@@ -1,5 +1,11 @@
 # Changelog 2024-11
 
+## 2024-11-20 Changelog v0.11.0
+* Adjusted autocomplete instructions for text fields by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/35
+* Improved view/template system by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/36
+
+**Full Changelog**: https://github.com/NicolaeIotu/cleandeck/compare/v0.10.0...v0.11.0
+
 ## 2024-11-18 Changelog v0.10.0
 * Improved documentation related with new projects by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/30
 * New Feature: Text Editor by @NicolaeIotu in https://github.com/NicolaeIotu/cleandeck/pull/31
