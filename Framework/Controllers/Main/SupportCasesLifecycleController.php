@@ -40,7 +40,7 @@ class SupportCasesLifecycleController
 
         $data['custom_page_name'] = 'New Support Case';
 
-        echo new HtmlView('main/page-content/authenticated/user/support_cases_new', true, $data);
+        echo new HtmlView('authenticated/user/support_cases_new', $data);
     }
 
 

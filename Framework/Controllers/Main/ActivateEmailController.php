@@ -64,7 +64,7 @@ final class ActivateEmailController
         }
 
         // invalid or missing GET vars; proceed to manually activate email
-        echo new HtmlView('main/page-content/authenticated/user/account_activate_email');
+        echo new HtmlView('authenticated/user/account_activate_email');
     }
 
     public function remote_request(): void

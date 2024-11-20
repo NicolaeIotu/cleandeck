@@ -24,7 +24,7 @@ final class OtherOptionsController
 {
     public function index(): void
     {
-        echo new HtmlView('main/page-content/authenticated/user/account_other_options');
+        echo new HtmlView('authenticated/user/account_other_options');
     }
 
     public function remote_request_account_hibernate(): void
@@ -52,7 +52,7 @@ final class OtherOptionsController
 
     public function account_delete_confirm(): void
     {
-        echo new HtmlView('main/page-content/authenticated/user/delete_account_confirmation');
+        echo new HtmlView('authenticated/user/delete_account_confirmation');
     }
 
     public function remote_request_account_delete_final(): void

@@ -62,7 +62,7 @@ class ErrorController
                 'standard_error_page' => true,
             ];
 
-            echo new HtmlView('main/components/error404', true, $data);
+            echo new HtmlView('error404', $data);
         }
     }
 }

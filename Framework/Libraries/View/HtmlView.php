@@ -12,45 +12,66 @@
 
 namespace Framework\Libraries\View;
 
-class HtmlView
+use Framework\Interfaces\HtmlViewInterface;
+
+require_once CLEANDECK_FRAMEWORK_PATH . '/Libraries/common.php';
+
+/**
+ * This class can construct complex views with components and page-content
+ *  which belong exclusively to one of the categories: Framework, Application or Addon.
+ * HtmlView will use the template selected in file .env.ini.
+ *
+ * In order to construct complex views with mixed components and page-content
+ *  you have to create your own HtmlView preferably in directory Application/Instance/Libraries/View.
+ * When creating a custom HtmlView, start by copying this class and adjust it as required.
+ */
+class HtmlView implements HtmlViewInterface
 {
     protected string $html_view;
 
+    public const VIEWTYPE_FRAMEWORK = 1;
+    public const VIEWTYPE_APPLICATION = 2;
+
+
     /**
-     * Usage: <code>echo new HtmlView('page-content/home', true, $data);</code>
-     * @param string $content_file_relative_path Do not include the template name.
-     *  Do not include file extension '.php'.<br>
-     *  If <strong>$is_framework_file</strong> is <em>true</em>, then the path is relative to
-     *   <em>"Framework/Views/env('cleandeck.template')"</em>.<br>
-     *  If <strong>$is_framework_file</strong> is <em>false</em>, then the path is relative to
-     *   <em>"Application/Instance/Views/env('cleandeck.template')"</em>.
-     * @param bool $is_framework_file
+     * Usage: <code>echo new HtmlView('home', $data);</code>
+     * @param string $main_content_file Do not include file extension '.php'.
      * @param array<string, mixed> $data
+     * @param int|string $view_type One of HtmlView::VIEWTYPE_FRAMEWORK (for Framework components),
+     *  HtmlView::VIEWTYPE_APPLICATION (for custom components in Application),
+     *  or a custom string designating the selected Framework addon (no addons at the moment).
      * @throws \Exception
      */
-    public function __construct(string $content_file_relative_path,
-                                bool   $is_framework_file = true,
-                                array  $data = [])
+    public function __construct(string     $main_content_file,
+                                array      $data = [],
+                                int|string $view_type = self::VIEWTYPE_FRAMEWORK)
     {
-        $html_view_structure = \env('cleandeck.html_view_structure');
-        if (!\is_array($html_view_structure) ||
-            !isset($html_view_structure['header'], $html_view_structure['footer'])) {
-            throw new \Exception('Invalid html_view_structure (see .env.ini).');
-        }
+        $source_directory = match ($view_type) {
+            self::VIEWTYPE_FRAMEWORK => CLEANDECK_ROOT_PATH . '/Framework/Views/' .
+                env('cleandeck.template', 'core') . '/main',
+            self::VIEWTYPE_APPLICATION => CLEANDECK_ROOT_PATH . '/Application/Instance/Views/' .
+                env('cleandeck.template', 'core'),
+            default => CLEANDECK_ROOT_PATH . '/Framework/Views/' .
+                env('cleandeck.template', 'core') . '/addon/' . $view_type,
+        };
 
-        $view_files[] = CLEANDECK_ROOT_PATH . '/' . \ltrim((string)$html_view_structure['header'], '/');
-        if ($is_framework_file) {
-            $view_files[] = CLEANDECK_FRAMEWORK_VIEWS_PATH . '/' .
-                \env('cleandeck.template', 'core') . '/' .
-                \ltrim($content_file_relative_path, '/') . '.php';
-        } else {
-            $view_files[] = CLEANDECK_USER_VIEWS_PATH . '/' .
-                \env('cleandeck.template', 'core') . '/' .
-                \ltrim($content_file_relative_path, '/') . '.php';
-        }
-        $view_files[] = CLEANDECK_ROOT_PATH . '/' . \ltrim((string)$html_view_structure['footer'], '/');
-
-        $this->html_view = \view($view_files, $data);
+        $this->html_view = \view(
+            [
+                $source_directory . '/components/head',
+                '<body>',
+                $source_directory . '/components/navigation',
+                '<main class="container-xxl mt-6 p-2" role="main">',
+                $source_directory . '/components/alerts',
+                $source_directory . '/components/seo-inspect',
+                $source_directory . '/page-content/' . $main_content_file,
+                '</main>',
+                $source_directory . '/components/noscript',
+                $source_directory . '/components/footer',
+                $source_directory . '/components/global-cookies',
+                '</body>',
+                '</html>',
+            ],
+            $data);
     }
 
     public function __toString(): string

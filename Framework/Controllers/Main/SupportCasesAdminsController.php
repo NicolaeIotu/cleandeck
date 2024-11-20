@@ -51,7 +51,7 @@ final class SupportCasesAdminsController
             'cases_overview' => $cases_overview_response_array,
         ];
 
-        echo new HtmlView('main/page-content/authenticated/admin/support_cases_overview', true, $data);
+        echo new HtmlView('authenticated/admin/support_cases_overview', $data);
     }
 
 
@@ -59,7 +59,7 @@ final class SupportCasesAdminsController
     {
         $data["custom_page_name"] = 'Search Support Cases';
 
-        echo new HtmlView('main/page-content/authenticated/admin/support_cases_search', true, $data);
+        echo new HtmlView('authenticated/admin/support_cases_search', $data);
     }
 
     public function remote_request_cases_search(): void
@@ -148,6 +148,6 @@ final class SupportCasesAdminsController
         // store the query in order to describe on the next presentation page what was searched
         $data["search_details"] = $search_array;
 
-        echo new HtmlView('main/page-content/authenticated/admin/support_cases_search_results', true, $data);
+        echo new HtmlView('authenticated/admin/support_cases_search_results', $data);
     }
 }

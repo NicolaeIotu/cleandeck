@@ -50,6 +50,6 @@ final class UserController
             'custom_page_name' => 'Account Home',
         ];
 
-        echo new HtmlView('main/page-content/authenticated/user/account_home', true, $data);
+        echo new HtmlView('authenticated/user/account_home', $data);
     }
 }

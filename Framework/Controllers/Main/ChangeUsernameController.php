@@ -23,7 +23,7 @@ final class ChangeUsernameController
 {
     public function index(): void
     {
-        echo new HtmlView('main/page-content/authenticated/user/account_change_username');
+        echo new HtmlView('authenticated/user/account_change_username');
     }
 
 

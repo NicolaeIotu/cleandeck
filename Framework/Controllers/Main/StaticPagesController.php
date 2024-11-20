@@ -18,16 +18,16 @@ final class StaticPagesController
 {
     public function privacy_and_cookies(): void
     {
-        echo new HtmlView('main/page-content/privacy-and-cookies');
+        echo new HtmlView('privacy-and-cookies');
     }
 
     public function terms_and_conditions(): void
     {
-        echo new HtmlView('main/page-content/terms-and-conditions');
+        echo new HtmlView('terms-and-conditions');
     }
 
     public function administration(): void
     {
-        echo new HtmlView('main/page-content/authenticated/admin/administration');
+        echo new HtmlView('authenticated/admin/administration');
     }
 }

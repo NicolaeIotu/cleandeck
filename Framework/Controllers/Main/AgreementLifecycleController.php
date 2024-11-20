@@ -26,7 +26,7 @@ final class AgreementLifecycleController
             'is_admin' => true,
         ];
 
-        echo new HtmlView('main/page-content/authenticated/admin/agreement_new_or_modify', true, $data);
+        echo new HtmlView('authenticated/admin/agreement_new_or_modify', $data);
     }
 
     /**
@@ -141,7 +141,7 @@ final class AgreementLifecycleController
             'is_admin' => true,
         ];
 
-        echo new HtmlView('main/page-content/authenticated/admin/agreement_new_or_modify', true, $data);
+        echo new HtmlView('authenticated/admin/agreement_new_or_modify', $data);
     }
 
     public function remote_request_admin_agreement_modify(string $agreement_id): void

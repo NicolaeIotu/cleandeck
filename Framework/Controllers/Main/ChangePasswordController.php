@@ -24,7 +24,7 @@ final class ChangePasswordController
 {
     public function index(): void
     {
-        echo new HtmlView('main/page-content/authenticated/user/account_change_password');
+        echo new HtmlView('authenticated/user/account_change_password');
     }
 
 

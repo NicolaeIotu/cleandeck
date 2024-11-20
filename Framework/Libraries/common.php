@@ -50,11 +50,11 @@ if (!function_exists('env')) {
 
 if (!function_exists('view')) {
     /**
-     * @param string[] $view_files Absolute paths
+     * @param string[] $view_entries Absolute paths
      * @param array<mixed> $data
      * @return string
      */
-    function view(array $view_files, array $data = []): string
+    function view(array $view_entries, array $data = []): string
     {
         // add data to views
         foreach ($data as $key => $value) {
@@ -66,11 +66,16 @@ if (!function_exists('view')) {
 
         ob_start();
         try {
-            // Important!
-            // Some files such as php components (i.e. csrf.php) can be required multiple times on the same page
-            //  so don't use 'require_once'.
-            foreach ($view_files as $view_file) {
-                require $view_file;
+            foreach ($view_entries as $view_entry) {
+                if (str_starts_with($view_entry, '<')) {
+                    // HTML tag
+                    echo $view_entry . PHP_EOL;
+                } else {
+                    // Important!
+                    // Some files such as php components (i.e. csrf.php) can be required multiple times on the same page
+                    //  so don't use 'require_once'.
+                    require $view_entry . '.php';
+                }
             }
         } catch (Error|Exception $e) {
             ob_end_clean();
@@ -83,20 +88,20 @@ if (!function_exists('view')) {
     }
 }
 
-if (!function_exists('view_user')) {
+if (!function_exists('view_app')) {
     /**
      * @param string $view_file Path relative to Application/Instance/Views/env('cleandeck.template').
      *  Do not include the template name. Do not include file(s) extension '.php'.
      * @param array<string, mixed> $data
      * @return string
      */
-    function view_user(string $view_file, array $data = []): string
+    function view_app(string $view_file, array $data = []): string
     {
         return view(
             [CLEANDECK_USER_VIEWS_PATH . '/' .
                 env('cleandeck.template', 'core') .
                 '/' .
-                ltrim($view_file, '/') . '.php'],
+                ltrim($view_file, '/')],
             $data);
     }
 }
@@ -114,7 +119,7 @@ if (!function_exists('view_main')) {
             [CLEANDECK_FRAMEWORK_VIEWS_PATH . '/' .
                 env('cleandeck.template', 'core') .
                 '/main/' .
-                ltrim($view_file, '/') . '.php'],
+                ltrim($view_file, '/')],
             $data);
     }
 }
@@ -133,7 +138,7 @@ if (!function_exists('view_addon')) {
             [CLEANDECK_FRAMEWORK_VIEWS_PATH . '/' .
                 env('cleandeck.template', 'core') .
                 '/addon/' . $addon . '/' .
-                ltrim($view_file, '/') . '.php'],
+                ltrim($view_file, '/')],
             $data);
     }
 }

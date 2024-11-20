@@ -38,7 +38,7 @@ final class ArticleLifecycleController
             'upload_max_filesize_bytes' => ConvertUtils::getByteSize(\ini_get('upload_max_filesize')),
         ];
 
-        echo new HtmlView('main/page-content/authenticated/admin/article_new_or_modify', true, $data);
+        echo new HtmlView('authenticated/admin/article_new_or_modify', $data);
     }
 
     /**
@@ -320,7 +320,7 @@ final class ArticleLifecycleController
             'upload_max_filesize_bytes' => ConvertUtils::getByteSize(\ini_get('upload_max_filesize')),
         ];
 
-        echo new HtmlView('main/page-content/authenticated/admin/article_new_or_modify', true, $data);
+        echo new HtmlView('authenticated/admin/article_new_or_modify', $data);
     }
 
     public function remote_request_admin_article_modify(string $article_id): void

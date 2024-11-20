@@ -58,8 +58,8 @@ final class AgreementsController
             'is_admin' => $is_admin,
         ];
 
-        echo new HtmlView('main/page-content/authenticated/employee/agreement',
-            true, \array_merge($data, $agreement_response_body_array));
+        echo new HtmlView('authenticated/employee/agreement',
+             \array_merge($data, $agreement_response_body_array));
     }
 
     public function admin_view_agreement(string $agreement_id): void
@@ -144,7 +144,7 @@ final class AgreementsController
             'is_admin' => $is_admin,
         ];
 
-        echo new HtmlView('main/page-content/authenticated/employee/agreements', true, $data);
+        echo new HtmlView('authenticated/employee/agreements', $data);
     }
 
     public function admin_list_agreements(): void
