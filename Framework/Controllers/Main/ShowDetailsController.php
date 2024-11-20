@@ -76,11 +76,11 @@ final class ShowDetailsController
         }
 
         $main_content_file = match ($details_type) {
-            'active_sessions_details' => 'main/page-content/authenticated/user/account_show_sessions_details',
-            'user_failed_logins' => 'main/page-content/authenticated/user/account_show_failed_logins',
-            default => 'main/page-content/authenticated/user/account_show_full_details',
+            'active_sessions_details' => 'authenticated/user/account_show_sessions_details',
+            'user_failed_logins' => 'authenticated/user/account_show_failed_logins',
+            default => 'authenticated/user/account_show_full_details',
         };
-        echo new HtmlView($main_content_file, true, $data);
+        echo new HtmlView($main_content_file, $data);
     }
 
     public function user_details(): void

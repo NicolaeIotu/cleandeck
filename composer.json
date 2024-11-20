@@ -47,6 +47,7 @@
             "/Application/public/misc/*",
             "/Application/public/template/core/custom/*",
             "/Application/writable/*",
+            "!/Application/Instance/Libraries/View/.gitkeep",
             "!/Application/Instance/Routes/GETRoutes.php",
             "!/Application/Instance/Routes/POSTRoutes.php",
             "!/Application/writable/.htaccess",

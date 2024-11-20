@@ -38,7 +38,7 @@ final class FaqLifecycleController
             'upload_max_filesize_bytes' => ConvertUtils::getByteSize(\ini_get('upload_max_filesize')),
         ];
 
-        echo new HtmlView('main/page-content/authenticated/admin/faq_new_or_modify', true, $data);
+        echo new HtmlView('authenticated/admin/faq_new_or_modify', $data);
     }
 
 
@@ -315,7 +315,7 @@ final class FaqLifecycleController
             'upload_max_filesize_bytes' => ConvertUtils::getByteSize(\ini_get('upload_max_filesize')),
         ];
 
-        echo new HtmlView('main/page-content/authenticated/admin/faq_new_or_modify', true, $data);
+        echo new HtmlView('authenticated/admin/faq_new_or_modify', $data);
     }
 
     public function remote_request_admin_faq_modify(string $faq_id): void

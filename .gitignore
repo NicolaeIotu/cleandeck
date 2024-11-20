@@ -32,6 +32,8 @@
 !/Application/Instance/Config/**
 !/Application/Instance/Controllers/.gitkeep
 !/Application/Instance/Libraries/.gitkeep
+!/Application/Instance/Libraries/View
+!/Application/Instance/Libraries/View/.gitkeep
 !/Application/Instance/Middleware/.gitkeep
 !/Application/Instance/Routes/.gitkeep
 !/Application/Instance/Routes/GETRoutes.php

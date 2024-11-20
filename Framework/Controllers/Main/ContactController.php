@@ -28,7 +28,7 @@ final class ContactController
             'seo_description' => 'Contact',
         ];
 
-        echo new HtmlView('main/page-content/contact', true, $data);
+        echo new HtmlView('contact', $data);
     }
 
 

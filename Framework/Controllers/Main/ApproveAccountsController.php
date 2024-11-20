@@ -55,7 +55,7 @@ final class ApproveAccountsController
             'is_admin' => true,
         ];
 
-        echo new HtmlView('main/page-content/authenticated/admin/approve_accounts', true, $data);
+        echo new HtmlView('authenticated/admin/approve_accounts', $data);
     }
 
     /**

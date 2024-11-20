@@ -49,7 +49,7 @@ final class ChangeMfaController
 
         $data['mfa_option'] = $user_details_array['mfa_option'];
 
-        echo new HtmlView('main/page-content/authenticated/user/account_change_mfa', true, $data);
+        echo new HtmlView('authenticated/user/account_change_mfa', $data);
     }
 
 

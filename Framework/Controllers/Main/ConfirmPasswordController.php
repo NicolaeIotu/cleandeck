@@ -24,7 +24,7 @@ final class ConfirmPasswordController
 {
     public function index(): void
     {
-        echo new HtmlView('main/page-content/authenticated/user/account_confirm_password');
+        echo new HtmlView('authenticated/user/account_confirm_password');
     }
 
 

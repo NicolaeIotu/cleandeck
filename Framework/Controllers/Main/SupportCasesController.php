@@ -74,7 +74,7 @@ final class SupportCasesController
             'support_cases' => $support_cases_array,
         ];
 
-        echo new HtmlView('main/page-content/authenticated/user/support_cases_list', true, $data);
+        echo new HtmlView('authenticated/user/support_cases_list', $data);
     }
 
     public function case_details(string $case_id = null): void
@@ -115,6 +115,6 @@ final class SupportCasesController
             'custom_page_name' => "Support Case - " . \ucwords($case_details_response_array['stats']['case_title'] ?? ''),
         ];
 
-        echo new HtmlView('main/page-content/authenticated/user/support_cases_case_details', true, $data);
+        echo new HtmlView('authenticated/user/support_cases_case_details', $data);
     }
 }

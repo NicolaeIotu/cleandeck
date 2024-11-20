@@ -111,7 +111,7 @@ final class ChangeUserDetailsController
 
         HttpResponse::noCache();
 
-        echo new HtmlView('main/page-content/authenticated/user/account_change_user_details');
+        echo new HtmlView('authenticated/user/account_change_user_details');
     }
 
     /**

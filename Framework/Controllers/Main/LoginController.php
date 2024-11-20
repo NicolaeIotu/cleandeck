@@ -33,7 +33,7 @@ final class LoginController
             'seo_description' => 'Login',
         ];
 
-        echo new HtmlView('main/page-content/login', true, $data);
+        echo new HtmlView('login', $data);
     }
 
     // handles login requests
@@ -132,7 +132,7 @@ final class LoginController
             return;
         }
 
-        echo new HtmlView('main/page-content/authenticated/user/mfa_step_2');
+        echo new HtmlView('authenticated/user/mfa_step_2');
     }
 
 

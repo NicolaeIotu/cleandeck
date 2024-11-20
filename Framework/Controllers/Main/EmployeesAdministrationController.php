@@ -72,7 +72,7 @@ final class EmployeesAdministrationController
             'custom_page_name' => 'Employees',
         ];
 
-        echo new HtmlView('main/page-content/authenticated/admin/employees_list', true, $data);
+        echo new HtmlView('authenticated/admin/employees_list', $data);
     }
 
 
@@ -108,7 +108,7 @@ final class EmployeesAdministrationController
             'custom_page_name' => 'Employee Details - ' . $employee_details_array['email'],
         ];
 
-        echo new HtmlView('main/page-content/authenticated/admin/employee_modify', true, $data);
+        echo new HtmlView('authenticated/admin/employee_modify', $data);
     }
 
     public function remote_request_employee_modify(): void

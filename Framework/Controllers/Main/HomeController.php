@@ -25,6 +25,6 @@ final class HomeController
             'seo_description' => 'Home',
         ];
 
-        echo new HtmlView('main/page-content/home', true, $data);
+        echo new HtmlView('home', $data);
     }
 }

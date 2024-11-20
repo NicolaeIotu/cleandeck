@@ -64,12 +64,12 @@ final class AccountHistoryController
             'is_admin' => true,
         ];
 
-        echo new HtmlView('main/page-content/authenticated/admin/account_history', true, $data);
+        echo new HtmlView('authenticated/admin/account_history', $data);
     }
 
     public function account_history_search(): void
     {
         $data["custom_page_name"] = 'Search Account History';
-        echo new HtmlView('main/page-content/authenticated/admin/account_history_search', true, $data);
+        echo new HtmlView('authenticated/admin/account_history_search', $data);
     }
 }

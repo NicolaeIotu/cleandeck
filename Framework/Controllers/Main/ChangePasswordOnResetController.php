@@ -46,7 +46,7 @@ final class ChangePasswordOnResetController
             ],
         ];
 
-        echo new HtmlView('main/page-content/change-password-on-reset', true, $data);
+        echo new HtmlView('change-password-on-reset', $data);
     }
 
 

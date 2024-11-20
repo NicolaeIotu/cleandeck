@@ -30,7 +30,7 @@ final class SignupController
             'seo_description' => 'Signup',
         ];
 
-        echo new HtmlView('main/page-content/signup', true, $data);
+        echo new HtmlView('signup', $data);
     }
 
 

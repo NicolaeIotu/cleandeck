@@ -108,7 +108,7 @@ final class ArticleShowController
             'custom_page_name' => 'Articles',
         ];
 
-        echo new HtmlView('main/page-content/articles_list', true, $data);
+        echo new HtmlView('articles_list', $data);
     }
 
 
@@ -246,7 +246,7 @@ final class ArticleShowController
             $data['seo_description'] = $article_details_array['article_summary'];
         }
 
-        echo new HtmlView('main/page-content/article_details', true, $data);
+        echo new HtmlView('article_details', $data);
     }
 
     public function article_details_by_title(): void

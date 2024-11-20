@@ -59,7 +59,7 @@ final class VerifyAccountsController
             'is_admin' => true,
         ];
 
-        echo new HtmlView('main/page-content/authenticated/admin/verify_accounts', true, $data);
+        echo new HtmlView('authenticated/admin/verify_accounts', $data);
     }
 
 

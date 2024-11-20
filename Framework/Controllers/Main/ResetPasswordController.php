@@ -26,7 +26,7 @@ final class ResetPasswordController
     // shows start reset-password page
     public function index(): void
     {
-        echo new HtmlView('main/page-content/reset-password');
+        echo new HtmlView('reset-password');
     }
 
 

@@ -97,7 +97,7 @@ final class FaqShowController
             'custom_page_name' => 'FAQs',
         ];
 
-        echo new HtmlView('main/page-content/faqs_list', true, $data);
+        echo new HtmlView('faqs_list', $data);
     }
 
 
@@ -234,7 +234,7 @@ final class FaqShowController
         ];
         $data['seo_description'] = $faq_details_array['answer_summary'] ?? $faq_details_array['question'] ?? null;
 
-        echo new HtmlView('main/page-content/faq_details', true, $data);
+        echo new HtmlView('faq_details', $data);
     }
 
     public function faq_details_by_question(): void
