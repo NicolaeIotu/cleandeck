@@ -203,7 +203,21 @@
         "js-standard-dev-fix": [
             "npx standard Application/public/template/*/main --fix",
             "npx standard Application/public/template/*/addon --fix"
-        ]
+        ],
+        "cs-tests": [
+            "Composer\\Config::disableProcessTimeout",
+            "php-cs-fixer fix --ansi --verbose --dry-run --diff --config=tools/tests/php-cs-fixer/.php-cs-fixer-parallel.dist.php"
+        ],
+        "cs-tests-fix": [
+            "Composer\\Config::disableProcessTimeout",
+            "php-cs-fixer fix --ansi --verbose --diff --config=tools/tests/php-cs-fixer/.php-cs-fixer-no-parallel.dist.php"
+        ],
+        "analyze-tests": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpstan analyse --configuration=tools/tests/phpstan/phpstan.neon.dist",
+            "rector process --dry-run --config tools/tests/rector/rector.php"
+        ],
+        "rector-tests-fix": "rector process --config tools/tests/rector/rector.php"
     },
     "scripts-descriptions": {
         "analyze": "Run static analysis for your application (Application directory)",
@@ -219,6 +233,10 @@
         "cs-dev-fix": "Fix Framework coding style (Framework directory)",
         "test-dev": "Run Framework unit tests (Framework directory)",
         "js-standard-dev": "Run Javascript Standard style for Framework (Application/public/template/*/main and Application/public/template/*/addon)",
-        "js-standard-dev-fix": "Fix Javascript Standard style for Framework (Application/public/template/*/main and Application/public/template/*/addon)"
+        "js-standard-dev-fix": "Fix Javascript Standard style for Framework (Application/public/template/*/main and Application/public/template/*/addon)",
+        "cs-tests": "Check tests coding style (tests/Application and tests/Framework directory)",
+        "cs-tests-fix": "Fix tests coding style (tests/Application and tests/Framework directory)",
+        "analyze-tests": "Tests static analysis (tests/Application and tests/Framework directory)",
+        "rector-tests-fix": "Fix tests static analysis errors (tests/Application and tests/Framework directory)"
     }
 }

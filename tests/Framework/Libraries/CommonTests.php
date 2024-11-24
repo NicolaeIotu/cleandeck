@@ -21,7 +21,8 @@ final class CommonTests extends TestCase
     /**
      * @coversDefaultClass
      */
-    public function test_env() {
+    public function test_env(): void
+    {
         $this->assertTrue(function_exists('env'));
         $abc = env('abc', 123);
         $this->assertEquals($abc, 123);

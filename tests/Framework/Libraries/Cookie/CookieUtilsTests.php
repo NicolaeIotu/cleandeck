@@ -19,7 +19,52 @@ final class CookieUtilsTests extends TestCase
     /**
      * @coversDefaultClass
      */
-    public function test() {
-        $this->markTestIncomplete('TODO');
+    public function testSetCookie(): void
+    {
+        $this->assertTrue(CookieUtils::setCookie('name', 'value'));
+        $this->assertTrue(CookieUtils::setCookie('__Host-name', 'value'));
+    }
+
+    /**
+     * @coversDefaultClass
+     */
+    public function testHasCookie(): void
+    {
+        $_COOKIE['name'] = 'value';
+        $this->assertTrue(CookieUtils::hasCookie('name'));
+    }
+
+    /**
+     * @coversDefaultClass
+     */
+    public function testDeleteCookie(): void
+    {
+        $this->assertTrue(CookieUtils::deleteCookie('name'));
+    }
+
+    /**
+     * @coversDefaultClass
+     */
+    public function testDeleteAllCookies(): void
+    {
+        $this->assertTrue(CookieUtils::deleteAllCookies());
+        $_COOKIE = [];
+        $this->assertTrue(CookieUtils::deleteAllCookies());
+    }
+
+    /**
+     * @coversDefaultClass
+     */
+    public function testDeleteAllCookiesExcept(): void
+    {
+        $_COOKIE = [
+            'name' => 'value',
+            '__Host-name' => 'value',
+        ];
+        $this->assertTrue(CookieUtils::deleteAllCookiesExcept('name'));
+        $this->assertTrue(CookieUtils::deleteAllCookiesExcept());
+
+        $_COOKIE = [];
+        $this->assertTrue(CookieUtils::deleteAllCookiesExcept('name'));
     }
 }
