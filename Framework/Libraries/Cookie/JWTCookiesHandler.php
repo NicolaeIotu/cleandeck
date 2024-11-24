@@ -41,15 +41,14 @@ final class JWTCookiesHandler
     private static function extractJWTString(string $cookie_name = null, string $cookie_value = null): ?string
     {
         $exam_value = $cookie_value ?? $_COOKIE[$cookie_name] ?? null;
-        if (!\is_null($exam_value)) {
-            // remove signature
-            $jwt_dot_arr = \explode('.', (string) $exam_value);
-            \array_pop($jwt_dot_arr);
-            return \implode('.', $jwt_dot_arr);
+        if (\is_null($exam_value)) {
+            return null;
         }
 
-        // catch-all
-        return null;
+        // remove signature
+        $jwt_dot_arr = \explode('.', (string)$exam_value);
+        \array_pop($jwt_dot_arr);
+        return \implode('.', $jwt_dot_arr);
     }
 
     /**
@@ -81,7 +80,7 @@ final class JWTCookiesHandler
      * @return array<string, mixed>|null
      * @throws \Exception
      */
-    public static function describeValue(string $value): ?array
+    public static function describeValue(?string $value): ?array
     {
         $jwt_string = self::extractJWTString(null, $value);
         if (!isset($jwt_string)) {

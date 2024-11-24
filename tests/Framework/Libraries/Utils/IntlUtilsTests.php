@@ -19,9 +19,9 @@ final class IntlUtilsTests extends TestCase
     /**
      * @coversDefaultClass
      */
-    public function testInitIncompleteParameter()
+    public function testInitIncompleteParameter(): void
     {
-        $nfd = IntlUtils::numberFormatterDecimal();
-        $this->assertEquals($nfd->format(12345.6789), '12,345.679');
+        $numberFormatter = IntlUtils::numberFormatterDecimal();
+        $this->assertEquals($numberFormatter->format(12345.6789), '12,345.679');
     }
 }

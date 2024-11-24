@@ -19,7 +19,8 @@ class AccountHistoryControllerTests extends TestCase
     /**
      * @coversDefaultClass
      */
-    public function test() {
+    public function test(): void
+    {
         $this->markTestIncomplete('TODO');
     }
 }

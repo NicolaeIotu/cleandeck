@@ -19,7 +19,69 @@ final class AppCookiesTests extends TestCase
     /**
      * @coversDefaultClass
      */
-    public function test() {
-        $this->markTestIncomplete('TODO');
+    public function testSTATUS_COOKIE_NAME(): void
+    {
+        $original_env = [
+            'cleandeck.cookie.prefix' => \env('cleandeck.cookie.prefix'),
+            'cleandeck.cookie.status_cookie_name' =>
+                \env('cleandeck.cookie.status_cookie_name'),
+        ];
+        unset($_ENV['cleandeck']['cookie']['prefix']);
+        unset($_ENV['cleandeck']['cookie']['status_cookie_name']);
+        $this->assertEquals(AppCookies::STATUS_COOKIE_NAME(),
+            AppCookies::DEFAULT_COOKIES_PREFIX . AppCookies::DEFAULT_STATUS_COOKIE_NAME);
+
+        $_ENV['cleandeck']['cookie']['prefix'] = $original_env['cleandeck.cookie.prefix'];
+        $_ENV['cleandeck']['cookie']['status_cookie_name'] =
+            $original_env['cleandeck.cookie.status_cookie_name'];
+        $this->assertEquals(AppCookies::STATUS_COOKIE_NAME(),
+            \env('cleandeck.cookie.prefix') .
+            \env('cleandeck.cookie.status_cookie_name'));
+    }
+
+    /**
+     * @coversDefaultClass
+     */
+    public function testUSER_DETAILS_COOKIE_NAME(): void
+    {
+        $original_env = [
+            'cleandeck.cookie.prefix' => \env('cleandeck.cookie.prefix'),
+            'cleandeck.cookie.user_details_cookie_name' =>
+                \env('cleandeck.cookie.user_details_cookie_name'),
+        ];
+        unset($_ENV['cleandeck']['cookie']['prefix']);
+        unset($_ENV['cleandeck']['cookie']['user_details_cookie_name']);
+        $this->assertEquals(AppCookies::USER_DETAILS_COOKIE_NAME(),
+            AppCookies::DEFAULT_COOKIES_PREFIX . AppCookies::DEFAULT_USER_DETAILS_COOKIE_NAME);
+
+        $_ENV['cleandeck']['cookie']['prefix'] = $original_env['cleandeck.cookie.prefix'];
+        $_ENV['cleandeck']['cookie']['user_details_cookie_name'] =
+            $original_env['cleandeck.cookie.user_details_cookie_name'];
+        $this->assertEquals(AppCookies::USER_DETAILS_COOKIE_NAME(),
+            \env('cleandeck.cookie.prefix') .
+            \env('cleandeck.cookie.user_details_cookie_name'));
+    }
+
+    /**
+     * @coversDefaultClass
+     */
+    public function testPRIVATE_CACHE_COOKIE_NAME(): void
+    {
+        $original_env = [
+            'cleandeck.cookie.prefix' => \env('cleandeck.cookie.prefix'),
+            'cleandeck.cookie.private_cache_cookie_name' =>
+                \env('cleandeck.cookie.private_cache_cookie_name'),
+        ];
+        unset($_ENV['cleandeck']['cookie']['prefix']);
+        unset($_ENV['cleandeck']['cookie']['private_cache_cookie_name']);
+        $this->assertEquals(AppCookies::PRIVATE_CACHE_COOKIE_NAME(),
+            AppCookies::DEFAULT_COOKIES_PREFIX . AppCookies::DEFAULT_PRIVATE_CACHE_COOKIE_NAME);
+
+        $_ENV['cleandeck']['cookie']['prefix'] = $original_env['cleandeck.cookie.prefix'];
+        $_ENV['cleandeck']['cookie']['private_cache_cookie_name'] =
+            $original_env['cleandeck.cookie.private_cache_cookie_name'];
+        $this->assertEquals(AppCookies::PRIVATE_CACHE_COOKIE_NAME(),
+            \env('cleandeck.cookie.prefix') .
+            \env('cleandeck.cookie.private_cache_cookie_name'));
     }
 }

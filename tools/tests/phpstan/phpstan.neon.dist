@@ -1,0 +1,15 @@
+includes:
+	- phpstan-baseline.php
+
+parameters:
+	phpVersion: 80100
+	tmpDir: ../../../build/tests/phpstan
+	level: 6
+	bootstrapFiles:
+		- phpstan-bootstrap.php
+	treatPhpDocTypesAsCertain: false
+	paths:
+		- ../../../tests/Application
+		- ../../../tests/Framework
+	scanFiles:
+	scanDirectories:

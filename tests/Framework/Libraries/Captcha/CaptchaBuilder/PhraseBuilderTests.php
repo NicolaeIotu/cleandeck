@@ -14,13 +14,13 @@ namespace Framework\Libraries\Captcha\CaptchaBuilder;
 
 use PHPUnit\Framework\TestCase;
 
-
 class PhraseBuilderTests extends TestCase
 {
     /**
      * @coversDefaultClass
      */
-    public function test() {
+    public function test(): void
+    {
         $this->markTestIncomplete('TODO');
     }
 }
