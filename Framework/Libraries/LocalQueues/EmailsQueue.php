@@ -26,7 +26,7 @@ class EmailsQueue extends SQLite3
      * At the moment this queue is only local.
      * You may automatically switch to a remote queue by updating the settings for AWS_SQS in file .env.ini.
      */
-    protected const LOCAL_QUEUE = true;
+    public const LOCAL_QUEUE = true;
 
     private const PHRASES_CREATE_TABLE =
         'CREATE TABLE IF NOT EXISTS emails_queue ' .

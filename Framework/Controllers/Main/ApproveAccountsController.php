@@ -168,7 +168,7 @@ final class ApproveAccountsController
             return;
         }
         foreach ($_POST as $base64_email => $option) {
-            $email = \base64_decode($base64_email);
+            $email = \base64_decode($base64_email, true);
 
             if ($option === '1') {
                 $emails_to_approve[] = $email;

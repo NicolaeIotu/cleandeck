@@ -26,7 +26,7 @@ class FileOpsQueue extends SQLite3
      * For example if a local upload is missing, we can remove the operation only if the queue is local.
      * At the moment the queue is only local.
      */
-    protected const LOCAL_QUEUE = true;
+    public const LOCAL_QUEUE = true;
 
     /**
      * Instead of using extra calls in order to determine remote ContentType (i.e. AWS.S3.headObject),

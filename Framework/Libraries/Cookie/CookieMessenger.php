@@ -14,7 +14,7 @@ namespace Framework\Libraries\Cookie;
 
 class CookieMessenger extends CookieBase
 {
-    protected const INTERNAL_SEPARATOR = '~';
+    public const INTERNAL_SEPARATOR = '~';
 
-    protected const MAX_DURATION_SECONDS = 30;
+    public const MAX_DURATION_SECONDS = 30;
 }
