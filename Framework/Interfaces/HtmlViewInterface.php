@@ -22,4 +22,3 @@ interface HtmlViewInterface
                                 array      $data);
     public function __toString(): string;
 }
-
