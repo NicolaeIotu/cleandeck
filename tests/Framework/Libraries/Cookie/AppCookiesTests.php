@@ -12,14 +12,13 @@
 
 namespace Framework\Libraries\Cookie;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(AppCookies::class)]
 final class AppCookiesTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
-    public function testSTATUS_COOKIE_NAME(): void
+    public function testSTATUS_COOKIE_NAME()
     {
         $original_env = [
             'cleandeck.cookie.prefix' => \env('cleandeck.cookie.prefix'),
@@ -39,10 +38,7 @@ final class AppCookiesTests extends TestCase
             \env('cleandeck.cookie.status_cookie_name'));
     }
 
-    /**
-     * @coversDefaultClass
-     */
-    public function testUSER_DETAILS_COOKIE_NAME(): void
+    public function testUSER_DETAILS_COOKIE_NAME()
     {
         $original_env = [
             'cleandeck.cookie.prefix' => \env('cleandeck.cookie.prefix'),
@@ -62,10 +58,7 @@ final class AppCookiesTests extends TestCase
             \env('cleandeck.cookie.user_details_cookie_name'));
     }
 
-    /**
-     * @coversDefaultClass
-     */
-    public function testPRIVATE_CACHE_COOKIE_NAME(): void
+    public function testPRIVATE_CACHE_COOKIE_NAME()
     {
         $original_env = [
             'cleandeck.cookie.prefix' => \env('cleandeck.cookie.prefix'),

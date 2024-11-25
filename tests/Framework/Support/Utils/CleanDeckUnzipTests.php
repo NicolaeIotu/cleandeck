@@ -12,13 +12,12 @@
 
 namespace Framework\Support\Utils;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(CleanDeckUnzip::class)]
 final class CleanDeckUnzipTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

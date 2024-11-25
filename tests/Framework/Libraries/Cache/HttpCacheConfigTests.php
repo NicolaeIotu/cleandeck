@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\Cache;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(HttpCacheConfig::class)]
 final class HttpCacheConfigTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

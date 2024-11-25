@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\Utils;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(IntlUtils::class)]
 final class IntlUtilsTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function testInitIncompleteParameter(): void
     {
         $numberFormatter = IntlUtils::numberFormatterDecimal();

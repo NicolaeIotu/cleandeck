@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\Tasks;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(DynamicDirectoryCleanup::class)]
 final class DynamicDirectoryCleanupTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

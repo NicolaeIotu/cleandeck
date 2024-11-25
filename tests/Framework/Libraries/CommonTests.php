@@ -14,18 +14,22 @@ namespace Framework\Libraries;
 
 require_once CLEANDECK_FRAMEWORK_PATH . '/Libraries/common.php';
 
+use PHPUnit\Framework\Attributes\CoversFunction;
 use PHPUnit\Framework\TestCase;
 
+#[CoversFunction('env')]
+#[CoversFunction('view')]
+#[CoversFunction('view_app')]
+#[CoversFunction('view_main')]
+#[CoversFunction('view_addon')]
 final class CommonTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test_env(): void
     {
         $this->assertTrue(function_exists('env'));
         $abc = env('abc', 123);
         $this->assertEquals($abc, 123);
         $this->assertArrayNotHasKey('abc', $_ENV);
+        $this->assertNull(env('abc'));
     }
 }

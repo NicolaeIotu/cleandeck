@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\Validator;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ValidatorCore::class)]
 final class ValidatorCoreTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

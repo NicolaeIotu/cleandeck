@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\LocalQueues;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(FileOpsQueue::class)]
 final class FileOpsQueueTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

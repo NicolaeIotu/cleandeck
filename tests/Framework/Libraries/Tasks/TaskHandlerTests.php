@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\Tasks;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(TaskHandler::class)]
 final class TaskHandlerTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

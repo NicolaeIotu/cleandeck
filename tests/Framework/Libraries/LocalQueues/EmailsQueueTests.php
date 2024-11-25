@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\LocalQueues;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(EmailsQueue::class)]
 final class EmailsQueueTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

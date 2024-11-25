@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\Cookie;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(JWTCookiesHandler::class)]
 final class JWTCookiesHandlerTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function testDescribeCookie(): void
     {
         $this->assertTrue(is_null(JWTCookiesHandler::describeCookie('missing-cookie-name')));
@@ -37,9 +36,6 @@ final class JWTCookiesHandlerTests extends TestCase
         unset($_COOKIE['mocked-valid-cookie']);
     }
 
-    /**
-     * @coversDefaultClass
-     */
     public function testDescribeCookieException1(): void
     {
         $_COOKIE['mocked-cookie-name'] = 'mocked.segment-1.segment-2.segment-3';
@@ -48,9 +44,6 @@ final class JWTCookiesHandlerTests extends TestCase
         unset($_COOKIE['mocked-cookie-name']);
     }
 
-    /**
-     * @coversDefaultClass
-     */
     public function testDescribeCookieException2(): void
     {
         $_COOKIE['mocked-cookie-name'] = 'mocked-value';
@@ -59,9 +52,6 @@ final class JWTCookiesHandlerTests extends TestCase
         unset($_COOKIE['mocked-cookie-name']);
     }
 
-    /**
-     * @coversDefaultClass
-     */
     public function testDescribeValue(): void
     {
         $validCookieValue = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImFjY291' .

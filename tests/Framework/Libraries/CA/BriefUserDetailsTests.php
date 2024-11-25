@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\CA;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BriefUserDetails::class)]
 final class BriefUserDetailsTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

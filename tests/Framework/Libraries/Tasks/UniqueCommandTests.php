@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\Tasks;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(UniqueCommand::class)]
 final class UniqueCommandTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');
