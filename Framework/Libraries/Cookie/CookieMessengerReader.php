@@ -31,7 +31,7 @@ final class CookieMessengerReader extends CookieMessenger
             return null;
         }
 
-        $cmsg_cookie = \base64_decode((string) $_COOKIE[MESSAGING_COOKIE_NAME]);
+        $cmsg_cookie = \base64_decode((string) $_COOKIE[MESSAGING_COOKIE_NAME], true);
         if ($cmsg_cookie === false) {
             return null;
         }

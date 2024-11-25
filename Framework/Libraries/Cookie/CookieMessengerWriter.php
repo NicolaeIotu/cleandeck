@@ -28,8 +28,8 @@ final class CookieMessengerWriter extends CookieMessenger
 {
     // Sensitive limits. Adjust to match the settings of your server if required.
     // The strings are base64 encoded so the real size of the messaging cookie will be higher.
-    private const MAXIMUM_FORM_BYTE_SIZE = 2048;
-    private const MAXIMUM_FORM_ENTRY_BYTE_SIZE = 512;
+    public const MAXIMUM_FORM_BYTE_SIZE = 2048;
+    public const MAXIMUM_FORM_ENTRY_BYTE_SIZE = 512;
 
     private static int $actual_form_byte_size = 0;
 
@@ -96,10 +96,6 @@ final class CookieMessengerWriter extends CookieMessenger
 
     private static function sign_string(string $content): bool|string
     {
-        if (\strlen($content) < 1) {
-            return false;
-        }
-
         $app_key = \env('cleandeck.app_key');
         if (is_null($app_key)) {
             return false;

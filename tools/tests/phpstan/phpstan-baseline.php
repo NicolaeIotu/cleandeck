@@ -12,15 +12,15 @@
 
 $ignoreErrors = [];
 
-defined('CLEANDECK_FRAMEWORK_PATH') || define('CLEANDECK_FRAMEWORK_PATH', dirname(__DIR__, 3) . '/Framework');
+defined('CLEANDECK_TESTS_PATH') || define('CLEANDECK_TESTS_PATH', dirname(__DIR__, 3) . '/tests');
 
 /*
  * Add ignored errors below.
  */
-//$ignoreErrors[] = [
-//    'message' => '#^Variable \\$fileOpsQueue in isset\\(\\) is never defined\\.$#',
-//    'count' => 1,
-//    'path' => CLEANDECK_FRAMEWORK_PATH . '/Controllers/Main/ArticleShowController.php',
-//];
+$ignoreErrors[] = [
+    'message' => '#^Call to function is_array\\(\\) with null will always evaluate to false\\.$#',
+    'count' => 1,
+    'path' => CLEANDECK_TESTS_PATH . '/Framework/Libraries/Cookie/CookieMessengerReaderTests.php',
+];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

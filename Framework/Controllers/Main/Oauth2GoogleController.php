@@ -269,7 +269,7 @@ final class Oauth2GoogleController
             return;
         }
 
-        $payload = \base64_decode($encoded_jwt_array[1]);
+        $payload = \base64_decode($encoded_jwt_array[1], true);
         if (!\is_string($payload)) {
             CookieMessengerWriter::setMessage(403, true, 'Invalid token (3). Please try again.');
             HttpResponse::redirectTo($redirect_on_error_url);

@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(AppCookies::class)]
 final class AppCookiesTests extends TestCase
 {
-    public function testSTATUS_COOKIE_NAME()
+    public function testSTATUS_COOKIE_NAME(): void
     {
         $original_env = [
             'cleandeck.cookie.prefix' => \env('cleandeck.cookie.prefix'),
@@ -38,7 +38,7 @@ final class AppCookiesTests extends TestCase
             \env('cleandeck.cookie.status_cookie_name'));
     }
 
-    public function testUSER_DETAILS_COOKIE_NAME()
+    public function testUSER_DETAILS_COOKIE_NAME(): void
     {
         $original_env = [
             'cleandeck.cookie.prefix' => \env('cleandeck.cookie.prefix'),
@@ -58,7 +58,7 @@ final class AppCookiesTests extends TestCase
             \env('cleandeck.cookie.user_details_cookie_name'));
     }
 
-    public function testPRIVATE_CACHE_COOKIE_NAME()
+    public function testPRIVATE_CACHE_COOKIE_NAME(): void
     {
         $original_env = [
             'cleandeck.cookie.prefix' => \env('cleandeck.cookie.prefix'),

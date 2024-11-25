@@ -12,13 +12,9 @@
 
 namespace Framework\Libraries\Cookie;
 
-// Adjust the name if required.
-\defined('MESSAGING_COOKIE_NAME') || \define('MESSAGING_COOKIE_NAME',
-    \env('cleandeck.cookie.prefix', '') . 'cmsg');
-
 class CookieBase
 {
-    protected const LAX_COOKIES = [
+    public const LAX_COOKIES = [
         MESSAGING_COOKIE_NAME,
     ];
 }

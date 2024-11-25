@@ -10,12 +10,9 @@
  * the LICENSE file that was distributed with this source code.
  */
 
-/////////////////
-// DIRECTORIES //
-/////////////////
-
-
 defined('CLEANDECK_TEMPLATE_PATH') || define('CLEANDECK_TEMPLATE_PATH',
     CLEANDECK_PUBLIC_PATH . '/template/' . env('cleandeck.template', 'core'));
 defined('CLEANDECK_TEMPLATE_URI') || define('CLEANDECK_TEMPLATE_URI',
      '/template/' . env('cleandeck.template', 'core'));
+defined('MESSAGING_COOKIE_NAME') || define('MESSAGING_COOKIE_NAME',
+    \env('cleandeck.cookie.prefix', '') . 'cmsg');
