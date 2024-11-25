@@ -1,13 +1,9 @@
-name: PHP Composer Validation
+name: CI
 
 on:
-  push:
-    branches: [ "main", "development" ]
+  push: null
   pull_request:
-    branches: [ "main", "development" ]
-    types: [opened, reopened]
-  release:
-    types: [published]
+    branches: [ "main" ]
   workflow_dispatch:
 
 permissions:
@@ -46,8 +42,14 @@ jobs:
     - name: Code Style (PHP Framework)
       run: composer run-script cs-dev
 
+    - name: Tests Code Style
+      run: composer run-script cs-tests
+
     - name: Static Analysis (PHP Framework)
       run: composer run-script analyze-dev
+
+    - name: Tests Static Analysis 
+      run: composer run-script analyze-tests
       
     - name: Tests (PHP Framework)
       run: env XDEBUG_MODE=coverage composer run-script test-dev
