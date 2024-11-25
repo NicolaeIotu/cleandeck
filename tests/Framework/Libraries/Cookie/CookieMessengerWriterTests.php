@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\Cookie;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(CookieMessengerWriter::class)]
 final class CookieMessengerWriterTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

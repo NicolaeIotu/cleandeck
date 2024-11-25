@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\Utils;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ErrorUtils::class)]
 final class ErrorUtilsTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

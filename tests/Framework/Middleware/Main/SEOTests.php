@@ -12,13 +12,12 @@
 
 namespace Framework\Middleware\Main;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(SEO::class)]
 class SEOTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

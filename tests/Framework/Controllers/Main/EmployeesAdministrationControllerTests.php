@@ -12,13 +12,12 @@
 
 namespace Framework\Controllers\Main;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(EmployeesAdministrationController::class)]
 class EmployeesAdministrationControllerTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

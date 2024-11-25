@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\Captcha\CaptchaBuilder;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(CaptchaBuilder::class)]
 class CaptchaBuilderTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

@@ -12,39 +12,29 @@
 
 namespace Framework\Libraries\Cookie;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(CookieUtils::class)]
 final class CookieUtilsTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function testSetCookie(): void
     {
         $this->assertTrue(CookieUtils::setCookie('name', 'value'));
         $this->assertTrue(CookieUtils::setCookie('__Host-name', 'value'));
     }
 
-    /**
-     * @coversDefaultClass
-     */
     public function testHasCookie(): void
     {
         $_COOKIE['name'] = 'value';
         $this->assertTrue(CookieUtils::hasCookie('name'));
     }
 
-    /**
-     * @coversDefaultClass
-     */
     public function testDeleteCookie(): void
     {
         $this->assertTrue(CookieUtils::deleteCookie('name'));
     }
 
-    /**
-     * @coversDefaultClass
-     */
     public function testDeleteAllCookies(): void
     {
         $this->assertTrue(CookieUtils::deleteAllCookies());
@@ -52,9 +42,6 @@ final class CookieUtilsTests extends TestCase
         $this->assertTrue(CookieUtils::deleteAllCookies());
     }
 
-    /**
-     * @coversDefaultClass
-     */
     public function testDeleteAllCookiesExcept(): void
     {
         $_COOKIE = [

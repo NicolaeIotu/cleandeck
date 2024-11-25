@@ -12,13 +12,12 @@
 
 namespace Framework\Controllers\Main;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(FaqShowController::class)]
 class FaqShowControllerTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

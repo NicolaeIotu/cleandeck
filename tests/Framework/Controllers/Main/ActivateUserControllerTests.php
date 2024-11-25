@@ -12,13 +12,12 @@
 
 namespace Framework\Controllers\Main;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ActivateUserController::class)]
 class ActivateUserControllerTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

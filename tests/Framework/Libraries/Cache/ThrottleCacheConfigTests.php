@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\Cache;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ThrottleCacheConfig::class)]
 final class ThrottleCacheConfigTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

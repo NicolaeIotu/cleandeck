@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\CSRF;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(CSRFConstants::class)]
 final class CSRFConstantsTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

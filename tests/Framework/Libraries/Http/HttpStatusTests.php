@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\Http;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(HttpStatus::class)]
 final class HttpStatusTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

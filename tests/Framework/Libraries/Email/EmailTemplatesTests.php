@@ -12,13 +12,12 @@
 
 namespace Framework\Libraries\Email;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(EmailTemplates::class)]
 final class EmailTemplatesTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');

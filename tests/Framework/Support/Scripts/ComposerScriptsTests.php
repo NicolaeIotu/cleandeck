@@ -12,13 +12,12 @@
 
 namespace Framework\Support\Scripts;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ComposerScripts::class)]
 final class ComposerScriptsTests extends TestCase
 {
-    /**
-     * @coversDefaultClass
-     */
     public function test(): void
     {
         $this->markTestIncomplete('TODO');
