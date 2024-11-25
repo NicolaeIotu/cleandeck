@@ -33,8 +33,6 @@ const agreementEditor = new TextEditor(textEditors.item(0))
 
 const agreementId = elements.main_form.getAttribute('data-agreement-id')
 
-const isModifyAction = elements.main_form.getAttribute('data-modify') === 'true'
-
 elements.main_form.onkeydown = function (event) {
   if (typeof event.key === 'string' && event.key.toLowerCase() === 'enter') {
     if (event.target instanceof HTMLTextAreaElement ||
