@@ -24,12 +24,61 @@ use PHPUnit\Framework\TestCase;
 #[CoversFunction('view_addon')]
 final class CommonTests extends TestCase
 {
-    public function test_env(): void
+    public function testEnv(): void
     {
-        $this->assertTrue(function_exists('env'));
-        $abc = env('abc', 123);
+        $this->assertTrue(\function_exists('env'));
+        $abc = \env('abc', 123);
         $this->assertEquals($abc, 123);
         $this->assertArrayNotHasKey('abc', $_ENV);
-        $this->assertNull(env('abc'));
+        $this->assertNull(\env('abc'));
+
+        $_ENV['test']['arr'] = 'value';
+        $test_arr = \env('test.arr');
+        $this->assertEquals($test_arr, 'value');
+
+        $test_arr = \env('test.arr2', 'default');
+        $this->assertEquals($test_arr, 'default');
+        unset($_ENV['test']);
+    }
+
+    public function testView(): void
+    {
+        $view_data = \view(
+            ['<body>', '</body>'],
+            ['key' => 'value']
+        );
+        $this->assertEquals($view_data, '<body>' . PHP_EOL . '</body>' . PHP_EOL);
+
+        $err_rep = \error_reporting();
+        \error_reporting($err_rep ^ (E_COMPILE_WARNING | E_CORE_WARNING));
+        $view_data = \view(
+            ['missing-file'],
+        );
+        \error_reporting($err_rep);
+        $this->assertTrue(\strlen($view_data) > 0);
+    }
+
+    public function testView_app(): void
+    {
+        $err_rep = \error_reporting();
+        \error_reporting($err_rep ^ (E_COMPILE_WARNING | E_CORE_WARNING));
+        $view_app_data = \view_app('missing-file');
+        \error_reporting($err_rep);
+        $this->assertTrue(\strlen($view_app_data) > 0);
+    }
+
+    public function testView_main(): void
+    {
+        $view_main_data = \view_main('page-content/contact');
+        $this->assertTrue(\strlen($view_main_data) > 0);
+    }
+
+    public function testView_addon(): void
+    {
+        $err_rep = \error_reporting();
+        \error_reporting($err_rep ^ (E_COMPILE_WARNING | E_CORE_WARNING));
+        $view_addon_data = \view_addon('missing-file', 'addon-name');
+        \error_reporting($err_rep);
+        $this->assertTrue(\strlen($view_addon_data) > 0);
     }
 }
