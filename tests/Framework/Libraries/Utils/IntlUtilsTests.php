@@ -18,9 +18,16 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(IntlUtils::class)]
 final class IntlUtilsTests extends TestCase
 {
-    public function testInitIncompleteParameter(): void
+    public function testNumberFormatterDecimal(): void
     {
         $numberFormatter = IntlUtils::numberFormatterDecimal();
         $this->assertEquals($numberFormatter->format(12345.6789), '12,345.679');
+    }
+
+    public function testNumberFormatterSpellOut(): void
+    {
+        $numberFormatter = IntlUtils::numberFormatterSpellOut();
+        $this->assertEquals($numberFormatter->format(12345),
+            'twelve thousand three hundred forty-five');
     }
 }

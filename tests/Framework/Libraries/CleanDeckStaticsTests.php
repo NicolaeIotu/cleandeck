@@ -18,8 +18,58 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(CleanDeckStatics::class)]
 final class CleanDeckStaticsTests extends TestCase
 {
-    public function test(): void
+    public function testGetSetAccountRank(): void
     {
-        $this->markTestIncomplete('TODO');
+        CleanDeckStatics::setAccountRank(20);
+        $this->assertEquals(CleanDeckStatics::getAccountRank(), 20);
+    }
+
+    public function testGetSetIsAuthenticated(): void
+    {
+        CleanDeckStatics::setAuthenticated(true);
+        $this->assertTrue(CleanDeckStatics::isAuthenticated());
+    }
+
+    public function testGetSetUserDetails(): void
+    {
+        CleanDeckStatics::setUserDetails(['name' => 'John']);
+        $userDetails = CleanDeckStatics::getUserDetails();
+        $this->assertIsArray($userDetails);
+        $this->assertArrayHasKey('name', $userDetails);
+    }
+
+    public function testGetSetCaptcha(): void
+    {
+        CleanDeckStatics::setCaptchaImageData(['data' => 'image-data']);
+        $captchaImageData = CleanDeckStatics::getCaptchaImageData();
+        $this->assertIsArray($captchaImageData);
+        $this->assertArrayHasKey('data', $captchaImageData);
+        $this->assertTrue(CleanDeckStatics::isCaptcha());
+    }
+
+    public function testGetSetCookieMessage(): void
+    {
+        CleanDeckStatics::setCookieMessage(['data' => 'cookie-data']);
+        $cookieMessage = CleanDeckStatics::getCookieMessage();
+        $this->assertIsArray($cookieMessage);
+        $this->assertArrayHasKey('data', $cookieMessage);
+    }
+
+    public function testGetSetIsSeoPage(): void
+    {
+        CleanDeckStatics::setSeoPage(true);
+        $this->assertTrue(CleanDeckStatics::isSeoPage());
+    }
+
+    public function testGetSetSkipCache(): void
+    {
+        CleanDeckStatics::setSkipCache(true);
+        $this->assertTrue(CleanDeckStatics::skipCache());
+    }
+
+    public function testGetSetIsEmployee(): void
+    {
+        CleanDeckStatics::setEmployee(true);
+        $this->assertTrue(CleanDeckStatics::isEmployee());
     }
 }
