@@ -25,9 +25,13 @@
         </include>
         <exclude>
             <directory>../../../Framework/Config</directory>
+            <directory>../../../Framework/Controllers</directory>
+            <directory>../../../Framework/Interfaces</directory>
             <directory>../../../Framework/Libraries/AWS</directory>
+            <directory>../../../Framework/Middleware</directory>
             <directory>../../../Framework/Routes</directory>
             <directory>../../../Framework/Views</directory>
+            <directory>../../../Framework/Support/Controllers</directory>
             <directory>../../../Framework/Support/Scripts</directory>
             <directory>../../../Framework/Support/Views</directory>
         </exclude>
