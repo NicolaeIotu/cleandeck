@@ -12,14 +12,33 @@
 
 namespace Framework\Support\Utils;
 
+use Framework\Libraries\Utils\UrlUtils;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(AppCURL::class)]
 final class AppCURLTests extends TestCase
 {
-    public function test(): void
+    public function testConstructor(): void
     {
-        $this->markTestIncomplete('TODO');
+        $dot_env_dot_ini_path = CLEANDECK_ROOT_PATH . '/.env.ini';
+        if(file_exists($dot_env_dot_ini_path)) {
+            $settings = \parse_ini_file($dot_env_dot_ini_path, true, INI_SCANNER_TYPED);
+
+            $home_url = $settings['cleandeck']['baseURL'];
+            try {
+                new AppCURL($home_url, 'desc');
+            } catch (\Exception $exception) {
+                // The webserver is inactive,
+                // or is not handling cleandeck.baseURL.
+            }
+
+            $this->expectException(\Exception::class);
+            new AppCURL($home_url . '/missing-url', 'desc');
+        }
+
+        $home_url = UrlUtils::baseUrl();
+        $this->expectException(\Exception::class);
+        new AppCURL($home_url, 'desc');
     }
 }

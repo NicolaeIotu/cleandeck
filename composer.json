@@ -234,9 +234,9 @@
         "test-dev": "Run Framework unit tests (Framework directory)",
         "js-standard-dev": "Run Javascript Standard style for Framework (Application/public/template/*/main and Application/public/template/*/addon)",
         "js-standard-dev-fix": "Fix Javascript Standard style for Framework (Application/public/template/*/main and Application/public/template/*/addon)",
-        "cs-tests": "Check tests coding style (tests/Application and tests/Framework directory)",
-        "cs-tests-fix": "Fix tests coding style (tests/Application and tests/Framework directory)",
-        "analyze-tests": "Tests static analysis (tests/Application and tests/Framework directory)",
-        "rector-tests-fix": "Fix tests static analysis errors (tests/Application and tests/Framework directory)"
+        "cs-tests": "Check tests' coding style (tests/Application and tests/Framework directory)",
+        "cs-tests-fix": "Fix tests' coding style (tests/Application and tests/Framework directory)",
+        "analyze-tests": "Tests' static analysis (tests/Application and tests/Framework directory)",
+        "rector-tests-fix": "Fix tests' static analysis errors (tests/Application and tests/Framework directory)"
     }
 }
