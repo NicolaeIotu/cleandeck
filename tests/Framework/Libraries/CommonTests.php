@@ -49,21 +49,21 @@ final class CommonTests extends TestCase
         );
         $this->assertEquals($view_data, '<body>' . PHP_EOL . '</body>' . PHP_EOL);
 
-        $err_rep = \error_reporting();
-        \error_reporting($err_rep ^ (E_COMPILE_WARNING | E_CORE_WARNING));
+        $error_reporting = \error_reporting();
+        \error_reporting($error_reporting ^ (E_COMPILE_WARNING | E_CORE_WARNING));
         $view_data = \view(
             ['missing-file'],
         );
-        \error_reporting($err_rep);
+        \error_reporting($error_reporting);
         $this->assertTrue(\strlen($view_data) > 0);
     }
 
     public function testView_app(): void
     {
-        $err_rep = \error_reporting();
-        \error_reporting($err_rep ^ (E_COMPILE_WARNING | E_CORE_WARNING));
+        $error_reporting = \error_reporting();
+        \error_reporting($error_reporting ^ (E_COMPILE_WARNING | E_CORE_WARNING));
         $view_app_data = \view_app('missing-file');
-        \error_reporting($err_rep);
+        \error_reporting($error_reporting);
         $this->assertTrue(\strlen($view_app_data) > 0);
     }
 
@@ -75,10 +75,10 @@ final class CommonTests extends TestCase
 
     public function testView_addon(): void
     {
-        $err_rep = \error_reporting();
-        \error_reporting($err_rep ^ (E_COMPILE_WARNING | E_CORE_WARNING));
+        $error_reporting = \error_reporting();
+        \error_reporting($error_reporting ^ (E_COMPILE_WARNING | E_CORE_WARNING));
         $view_addon_data = \view_addon('missing-file', 'addon-name');
-        \error_reporting($err_rep);
+        \error_reporting($error_reporting);
         $this->assertTrue(\strlen($view_addon_data) > 0);
     }
 }

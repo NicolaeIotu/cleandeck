@@ -143,7 +143,7 @@ final class UrlUtils
             return '<span class="p-2 text-bg-danger">Invalid ' . $tag . ': ' . $uri . '</span>';
         }
         $resource_relative_path = \explode($base_url, $uri)[1];
-        $resource_path = CLEANDECK_PUBLIC_PATH . '/' . $resource_relative_path;
+        $resource_path = CLEANDECK_PUBLIC_PATH . '/' . ltrim($resource_relative_path, '/');
         if (!\file_exists($resource_path)) {
             return '<span class="p-2 text-bg-danger">No such ' . $tag . ': ' . $uri . '</span>';
         }
@@ -154,7 +154,7 @@ final class UrlUtils
             if ($resource_hash) {
                 $attributes_string = ' integrity="sha384-' . \base64_encode($resource_hash) . '"';
             } else {
-                \error_log('Failed to calculate the hash of ' . $tag . ' ' . $resource_path);
+                \syslog(LOG_ERR, 'Failed to calculate the hash of ' . $tag . ' ' . $resource_path);
             }
         }
 
@@ -199,6 +199,7 @@ final class UrlUtils
 
     public static function current_path(): string
     {
-        return $_SERVER['PATH_INFO'] ?? self::url_trim_query($_SERVER['REQUEST_URI']) ?? '/';
+        return $_SERVER['PATH_INFO'] ??
+            isset($_SERVER['REQUEST_URI']) ? self::url_trim_query($_SERVER['REQUEST_URI']) : '/';
     }
 }

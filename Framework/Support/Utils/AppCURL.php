@@ -22,7 +22,9 @@ final class AppCURL
     public function __construct(string $url, string $description)
     {
         if (!HttpRequest::isCLI()) {
+            // @codeCoverageIgnoreStart
             throw new \Exception('[AppCURL error - ' . $description . '] This is a CLI operation only!');
+            // @codeCoverageIgnoreEnd
         }
 
         $curl_options = [
@@ -50,12 +52,16 @@ final class AppCURL
 
         // When CURLOPT_RETURNTRANSFER is set to 'true', \curl_exec() will return bool(true) for empty responses
         if ($curl_response === false || $curl_response === '' || $curl_response === '0') {
+            // @codeCoverageIgnoreStart
             $curl_error_description = \curl_strerror(\curl_errno($ch));
+            // @codeCoverageIgnoreEnd
         }
         \curl_close($ch);
 
         if (isset($curl_error_description)) {
+            // @codeCoverageIgnoreStart
             throw new \Exception('[AppCURL error - ' . $description . '] ' . $curl_error_description);
+            // @codeCoverageIgnoreEnd
         }
 
         $curl_info = \curl_getinfo($ch);
