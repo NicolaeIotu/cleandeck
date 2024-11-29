@@ -90,7 +90,7 @@
         "ext-openssl": "*",
         "ext-sqlite3": "*",
         "ext-zip": "*",
-        "aws/aws-sdk-php": "^3.322",
+        "aws/aws-sdk-php": "^3.330",
         "firebase/php-jwt": "^6.10",
         "phpfastcache/phpfastcache": "^9.2",
         "phpmailer/phpmailer": "^6.9"
@@ -116,12 +116,12 @@
         "phpfastcache/solr-extension": "^9.2"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.64",
+        "friendsofphp/php-cs-fixer": "^3.65",
         "phpstan/phpstan": "^1.12",
         "phpstan/phpstan-phpunit": "^1.4",
         "phpunit/php-code-coverage": "^11",
         "phpunit/phpcov": "^10",
-        "phpunit/phpunit": "^11.3",
+        "phpunit/phpunit": "^11.4",
         "rector/rector": "^1.2"
     },
     "autoload": {

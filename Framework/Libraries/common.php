@@ -15,17 +15,13 @@ use Framework\Libraries\Utils\ErrorUtils;
 
 if (!function_exists('env')) {
     /**
-     * @param string|array<string, mixed> $key
+     * @param string $key
      * @param mixed|null $default
      * @return mixed
      */
-    function env(string|array $key, mixed $default = null): mixed
+    function env(string $key, mixed $default = null): mixed
     {
-        if (is_string($key)) {
-            $path_components = explode('.', $key);
-        } else {
-            $path_components = $key;
-        }
+        $path_components = explode('.', $key);
         $result = null;
 
         foreach ($path_components as $path_component) {
@@ -65,6 +61,7 @@ if (!function_exists('view')) {
         }
 
         ob_start();
+        $ob_level = ob_get_level();
         try {
             foreach ($view_entries as $view_entry) {
                 if (str_starts_with($view_entry, '<')) {
@@ -78,11 +75,14 @@ if (!function_exists('view')) {
                 }
             }
         } catch (Error|Exception $e) {
-            ob_end_clean();
-            echo ErrorUtils::prettify($e);
+            $view = ErrorUtils::prettify($e);
         }
-        $view = ob_get_contents();
-        ob_end_clean();
+        if (!isset($view)) {
+            $view = ob_get_contents();
+        }
+        if (ob_get_level() === $ob_level) {
+            ob_end_clean();
+        }
 
         return $view;
     }
