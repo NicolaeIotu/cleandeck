@@ -21,9 +21,10 @@ final class CDMessageFormatterTests extends TestCase
     public function testHeader(): void
     {
         ob_start();
-        $cdmf = new CDMessageFormatter('Header', 'Success', 'Fail');
-        $cdmf->header('HEADER_2' . PHP_EOL . 'Multi-line');
-        $cdmf->success();
+        $cdMessageFormatter = new CDMessageFormatter('Header', 'Success', 'Fail');
+        $cdMessageFormatter->header('HEADER_2' . PHP_EOL . 'Multi-line');
+        $cdMessageFormatter->success();
+
         $content = ob_get_clean();
 
         $this->assertStringContainsString('HEADER_2', $content);
@@ -33,12 +34,13 @@ final class CDMessageFormatterTests extends TestCase
     public function testRoute_details(): void
     {
         ob_start();
-        $cdmf = new CDMessageFormatter('Header', 'Success', 'Fail');
-        $cdmf->route_details('GET', '/endpoint', [
+        $cdMessageFormatter = new CDMessageFormatter('Header', 'Success', 'Fail');
+        $cdMessageFormatter->route_details('GET', '/endpoint', [
             'controller' => '\\Path\\ControllerClass',
             'method' => 'index',
         ]);
-        $cdmf->fail();
+        $cdMessageFormatter->fail();
+
         $content = ob_get_clean();
 
         $this->assertStringContainsString('ControllerClass', $content);
@@ -48,18 +50,19 @@ final class CDMessageFormatterTests extends TestCase
     public function testMiniFunctions(): void
     {
         ob_start();
-        $cdmf = new CDMessageFormatter('Header', 'Success', 'Fail');
-        $cdmf->subsection('Subsection');
-        $cdmf->bold('Bold');
-        $cdmf->code('Code');
-        $cdmf->content('Content');
-        $cdmf->critical('Critical');
-        $cdmf->error('Error');
-        $cdmf->important('Important');
-        $cdmf->prompt('Prompt');
-        $cdmf->remark('Remark');
-        $cdmf->warn('Warn');
-        $cdmf->success();
+        $cdMessageFormatter = new CDMessageFormatter('Header', 'Success', 'Fail');
+        $cdMessageFormatter->subsection('Subsection');
+        $cdMessageFormatter->bold('Bold');
+        $cdMessageFormatter->code('Code');
+        $cdMessageFormatter->content('Content');
+        $cdMessageFormatter->critical('Critical');
+        $cdMessageFormatter->error('Error');
+        $cdMessageFormatter->important('Important');
+        $cdMessageFormatter->prompt('Prompt');
+        $cdMessageFormatter->remark('Remark');
+        $cdMessageFormatter->warn('Warn');
+        $cdMessageFormatter->success();
+
         $content = ob_get_clean();
 
         $this->assertStringContainsString('SUBSECTION', $content);

@@ -105,12 +105,8 @@
 !/tests/_support-Application/.gitkeep
 /tests/Application/**
 !/tests/Application/Instance
-!/tests/Application/Instance/Controllers
-!/tests/Application/Instance/Controllers/.gitkeep
 !/tests/Application/Instance/Libraries
 !/tests/Application/Instance/Libraries/.gitkeep
-!/tests/Application/Instance/Middleware
-!/tests/Application/Instance/Middleware/.gitkeep
 
 
 # tools

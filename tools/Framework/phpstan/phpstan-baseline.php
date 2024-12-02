@@ -94,11 +94,6 @@ $ignoreErrors[] = [
     'path' => CLEANDECK_FRAMEWORK_PATH . '/Libraries/Tasks/DynamicDirectoryCleanup.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Expression on left side of \\?\\? is not nullable\\.$#',
-    'count' => 1,
-    'path' => CLEANDECK_FRAMEWORK_PATH . '/Libraries/Utils/UrlUtils.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Static method Framework\\\Middleware\\\Main\\\HttpCaching::translateTags\\(\\) is unused\\.$#',
     'count' => 1,
     'path' => CLEANDECK_FRAMEWORK_PATH . '/Middleware/Main/HttpCaching.php',

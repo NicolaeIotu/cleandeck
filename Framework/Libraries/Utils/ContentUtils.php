@@ -132,9 +132,6 @@ final class ContentUtils
             $result = $content;
         }
 
-        $result = \mb_convert_encoding($result, 'HTML-ENTITIES', 'UTF-8');
-
-
         // Important! Make sure the content can fit gracefully in page
         // no matter the errors done by the administrator.
         $domDocument = new DOMDocument();
