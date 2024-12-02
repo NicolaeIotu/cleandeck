@@ -51,7 +51,9 @@ final class ConvertUtils
                                 $exponent = 5;
                                 break;
                             default:
+                                // @codeCoverageIgnoreStart
                                 return $source_size;
+                            // @codeCoverageIgnoreEnd
                         }
                         return $source_number * \pow(1024, $exponent);
                     }

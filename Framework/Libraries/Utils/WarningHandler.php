@@ -39,6 +39,7 @@ class WarningHandler
                 if ($errno !== 0) {
                     $err_msg = (isset($error_prefix) ? $error_prefix . '.' . PHP_EOL : '') . $errstr . '.';
                     if ($throw) {
+                        restore_error_handler();
                         throw new \Exception($err_msg, $error_code ?? $errno);
                     }
                     \error_log($err_msg);
@@ -48,7 +49,7 @@ class WarningHandler
 
         $result = $op(...$args);
 
-        set_error_handler(null);
+        restore_error_handler();
 
         return $result;
     }

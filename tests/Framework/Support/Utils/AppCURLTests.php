@@ -22,7 +22,7 @@ final class AppCURLTests extends TestCase
     public function testConstructor(): void
     {
         $dot_env_dot_ini_path = CLEANDECK_ROOT_PATH . '/.env.ini';
-        if(file_exists($dot_env_dot_ini_path)) {
+        if (file_exists($dot_env_dot_ini_path)) {
             $settings = \parse_ini_file($dot_env_dot_ini_path, true, INI_SCANNER_TYPED);
 
             $home_url = $settings['cleandeck']['baseURL'];
